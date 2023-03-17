@@ -17,6 +17,7 @@ spring:
 #springboot config
 server:
     port: 9010
+    secretEncryptionKey: myKey
 
 logging:
   level:
