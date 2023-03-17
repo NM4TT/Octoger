@@ -13,9 +13,3 @@ public interface ICredentialRepository {
     CredentialDTO save(CredentialDTO credential);
 
 }
-
-
-enum IdType {
-    USER,
-    CREDENTIAL
-}
