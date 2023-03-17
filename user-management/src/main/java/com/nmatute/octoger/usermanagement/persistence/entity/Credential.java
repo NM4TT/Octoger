@@ -21,8 +21,8 @@ public class Credential {
 
     @OneToOne
     @Column(name = "user_id")
-    @JoinColumn(name = "user_id")
-    private String userId;
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;
 
     private String username;
 

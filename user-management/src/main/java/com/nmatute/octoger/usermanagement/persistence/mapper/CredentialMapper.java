@@ -10,7 +10,7 @@ import com.nmatute.octoger.usermanagement.persistence.entity.Credential;
 
 
 @Component
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = UserMapper.class)
 public interface CredentialMapper {
     
     CredentialDTO toCredentialDTO(Credential credential);

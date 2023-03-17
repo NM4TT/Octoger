@@ -7,7 +7,7 @@ public class CredentialDTO {
  
     private int id;
 
-    private int userId;
+    private UserDTO user;
 
     private String username;
 
