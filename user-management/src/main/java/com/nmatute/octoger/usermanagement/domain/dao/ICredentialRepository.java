@@ -1,7 +1,5 @@
 package com.nmatute.octoger.usermanagement.domain.dao;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 import com.nmatute.octoger.usermanagement.persistence.entity.Credential;
@@ -9,6 +7,18 @@ import com.nmatute.octoger.usermanagement.persistence.entity.Credential;
 @Component
 public interface ICredentialRepository {
     
-    List<Credential> getAll();
+    Credential get(int id, IdType type);
 
+    String getUsername();
+
+    String getPassword();
+
+    Credential save(Credential credential);
+
+}
+
+
+enum IdType {
+    USER,
+    CREDENTIAL
 }

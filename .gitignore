@@ -46,3 +46,6 @@ buildNumber.properties
 
 # IDEs
 .vscode/
+
+#Other
+other/

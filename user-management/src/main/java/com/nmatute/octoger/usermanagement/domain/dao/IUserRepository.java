@@ -14,4 +14,10 @@ public interface IUserRepository {
 
     Optional<List<User>> getByType();
 
+    Optional<User> getById();
+    
+    User save(User user);
+    
+    User delete(int id);
+
 }
