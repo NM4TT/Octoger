@@ -3,21 +3,18 @@ package com.nmatute.octoger.usermanagement.domain.dao;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Component;
+import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
 
-import com.nmatute.octoger.usermanagement.persistence.entity.User;
-
-@Component
 public interface IUserRepository {
     
-    List<User> getAll();
+    List<UserDTO> getAll();
 
-    Optional<List<User>> getByType();
+    List<UserDTO> getByType(String type);
 
-    Optional<User> getById();
+    Optional<UserDTO> getById(int id);
     
-    User save(User user);
+    UserDTO save(UserDTO user);
     
-    User delete(int id);
+    void delete(int id);
 
 }

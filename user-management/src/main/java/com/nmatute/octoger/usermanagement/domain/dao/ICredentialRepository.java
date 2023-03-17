@@ -1,19 +1,16 @@
 package com.nmatute.octoger.usermanagement.domain.dao;
 
-import org.springframework.stereotype.Component;
+import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO;
 
-import com.nmatute.octoger.usermanagement.persistence.entity.Credential;
-
-@Component
 public interface ICredentialRepository {
     
-    Credential get(int id, IdType type);
+    CredentialDTO get(int userId);
 
-    String getUsername();
+    String getUsername(int userId);
 
-    String getPassword();
+    String getPassword(int userId);
 
-    Credential save(Credential credential);
+    CredentialDTO save(CredentialDTO credential);
 
 }
 
