@@ -38,4 +38,8 @@ public class CredentialRepository implements ICredentialRepository{
         return mapper.toCredentialDTO(c);
     }
     
+    public int findIdByUserId(int userId){
+        return crud.findIdByUserId(userId);
+    }
+
 }

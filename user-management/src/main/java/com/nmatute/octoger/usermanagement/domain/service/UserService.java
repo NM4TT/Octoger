@@ -41,4 +41,12 @@ public class UserService {
         repo.delete(id);
     }
 
+    public List<UserDTO> findByType(String type){
+        return repo.findByTypeWhereTypeLike(type);
+    }
+
+    public boolean findUser(int userId){
+        return repo.findUser(userId);
+    }
+
 }

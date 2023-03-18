@@ -46,4 +46,12 @@ public class UserRepository implements IUserRepository{
         crud.deleteById(id);
     }
 
+    public List<UserDTO> findByTypeWhereTypeLike(String type){
+        return mapper.toUserDTOs(crud.findByTypeWhereTypeLike(type));
+    }
+    
+    public boolean findUser(int userId){
+        return crud.findUser(userId) == 1;
+    }
+
 }

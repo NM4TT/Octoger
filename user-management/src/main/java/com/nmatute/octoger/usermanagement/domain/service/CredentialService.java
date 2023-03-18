@@ -32,4 +32,8 @@ public class CredentialService {
         return repo.save(credential);
     }
     
+    public int findIdByUserId(int userId){
+        return repo.findIdByUserId(userId);
+    }
+
 }
