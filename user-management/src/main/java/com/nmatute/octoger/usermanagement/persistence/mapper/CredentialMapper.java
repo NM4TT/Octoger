@@ -3,13 +3,10 @@ package com.nmatute.octoger.usermanagement.persistence.mapper;
 import java.util.List;
 
 import org.mapstruct.Mapper;
-import org.springframework.stereotype.Component;
 
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO;
 import com.nmatute.octoger.usermanagement.persistence.entity.Credential;
 
-
-@Component
 @Mapper(componentModel = "spring", uses = UserMapper.class)
 public interface CredentialMapper {
     

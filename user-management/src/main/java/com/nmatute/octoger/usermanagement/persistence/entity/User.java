@@ -10,12 +10,11 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table
+@Table(name = "user", schema = "public")
 @Data
 public class User {
     
     @Id
-    @OneToOne
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

@@ -8,13 +8,14 @@ import com.nmatute.octoger.usermanagement.persistence.crud.ICredentialCrudReposi
 import com.nmatute.octoger.usermanagement.persistence.entity.Credential;
 import com.nmatute.octoger.usermanagement.persistence.mapper.CredentialMapper;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Repository
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class CredentialRepository implements ICredentialRepository{
-    private ICredentialCrudRepository crud;
-    private CredentialMapper mapper;
+    
+    private final ICredentialCrudRepository crud;
+    private final CredentialMapper mapper;
 
     @Override
     public CredentialDTO get(int userId) {

@@ -11,10 +11,10 @@ import com.nmatute.octoger.usermanagement.persistence.crud.IUserCrudRepository;
 import com.nmatute.octoger.usermanagement.persistence.entity.User;
 import com.nmatute.octoger.usermanagement.persistence.mapper.UserMapper;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Repository
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserRepository implements IUserRepository{
     
     private IUserCrudRepository crud;
@@ -27,7 +27,7 @@ public class UserRepository implements IUserRepository{
 
     @Override
     public List<UserDTO> getByType(String type) {
-        return mapper.toUserDTOs(crud.findByTypeWhereTypeLike(type));
+        return mapper.toUserDTOs(crud.findByType(type));
     }
 
     @Override
@@ -46,8 +46,8 @@ public class UserRepository implements IUserRepository{
         crud.deleteById(id);
     }
 
-    public List<UserDTO> findByTypeWhereTypeLike(String type){
-        return mapper.toUserDTOs(crud.findByTypeWhereTypeLike(type));
+    public List<UserDTO> findByType(String type){
+        return mapper.toUserDTOs(crud.findByType(type));
     }
     
     public boolean findUser(int userId){
