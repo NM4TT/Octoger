@@ -1,8 +1,9 @@
-package com.nmatute.octoger.usermanagement.controller;
+package com.nmatute.octoger.usermanagement.web.controller;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,43 +15,46 @@ import com.nmatute.octoger.usermanagement.domain.dto.EntityDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.usermanagement.domain.service.EntityService;
 
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/platform/user")
-@NoArgsConstructor
+@RequestMapping("/user")
+@RequiredArgsConstructor
 public class Controller {
     
-    private EntityService entityService;
+    private final EntityService entityService;
 
     @PostMapping(value = {"/create", "/update"})
-    public EntityDTO saveUser(@RequestBody EntityDTO entity){
+    public ResponseEntity<EntityDTO> saveUser(@RequestBody EntityDTO entity){
         
         entityService.getUserService().save(entity.getUser());
         entityService.getCredentialService().save(entity.getCredential());
         
-        return entity;
+        return new ResponseEntity<>(entity, HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    public List<UserDTO> getAllUsers(){
-        return entityService.getUserService().getAll();
+    public ResponseEntity<List<UserDTO>> getAllUsers(){
+        return new ResponseEntity<>(entityService.getUserService().getAll(), HttpStatus.OK);
     }
     
     @GetMapping("/{userId}")
-    public Optional<UserDTO> getUser(@PathVariable("userId") int userId){
-        return entityService.getUserService().getById(userId);
+    public ResponseEntity<UserDTO> getUser(@PathVariable("userId") int userId){
+        return entityService.getUserService().getById(userId)
+
+        .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
+        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     
     @PostMapping("/delete/{userId}")
-    public boolean deleteUser(@PathVariable("userId") int userId){
+    public ResponseEntity deleteUser(@PathVariable("userId") int userId){
         
         if (entityService.getUserService().findUser(userId)) {
             entityService.getUserService().delete(userId);
-            return true;
+            return new ResponseEntity<>(HttpStatus.OK);
         } 
 
-        return false;
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

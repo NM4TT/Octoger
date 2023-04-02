@@ -7,6 +7,7 @@ import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO;
 import com.nmatute.octoger.usermanagement.persistence.crud.ICredentialCrudRepository;
 import com.nmatute.octoger.usermanagement.persistence.entity.Credential;
 import com.nmatute.octoger.usermanagement.persistence.mapper.CredentialMapper;
+import com.nmatute.octoger.usermanagement.persistence.mapper.UserMapper;
 
 import lombok.AllArgsConstructor;
 
@@ -41,6 +42,10 @@ public class CredentialRepository implements ICredentialRepository{
     
     public int findIdByUserId(int userId){
         return crud.findIdByUserId(userId);
+    }
+
+    public CredentialDTO findUserByUsername(String username){
+        return mapper.toCredentialDTO(crud.findByUsername(username));
     }
 
 }

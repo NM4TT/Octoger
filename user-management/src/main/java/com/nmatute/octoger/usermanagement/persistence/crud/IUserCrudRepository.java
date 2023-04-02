@@ -9,8 +9,8 @@ import org.springframework.data.repository.query.Param;
 import com.nmatute.octoger.usermanagement.persistence.entity.User;
 
 public interface IUserCrudRepository extends CrudRepository<User, Integer>{
-    List<User> findByTypeWhereTypeLike(String type); 
+    List<User> findByType(String type); 
     
-    @Query("SELECT count(*) FROM user u WHERE u.id = :userId")
+    @Query("SELECT count(*) FROM User WHERE id = :userId")
     int findUser(@Param("userId") int userId);
 }

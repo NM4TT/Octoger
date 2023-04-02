@@ -1,5 +1,0 @@
-{"properties": [{
-  "name": "server.secretEncryptionKey",
-  "type": "java.lang.String",
-  "description": "Secret key to encrypt and decrypt data"
-}]}

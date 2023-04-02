@@ -1,4 +1,4 @@
-package com.nmatute.octoger.usermanagement.config;
+package com.nmatute.octoger.usermanagement.web.security;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -10,19 +10,21 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 import com.nmatute.octoger.usermanagement.Common.Common;
 
-public class DES {
+@Component
+public class DES implements PasswordEncoder {
 
-    private static final Logger logger = LoggerFactory.getLogger(DES.class);
+    private final Logger logger = LoggerFactory.getLogger(DES.class);
     private final String INSTANCE = "DES/ECB/PKCS5Padding";
     private final Charset STANDARD = StandardCharsets.UTF_8;
-    
-    @Value("${server.secretEncryptionKey}")
-    private String myKey;
-    byte[] encodedKey = Base64.getEncoder().encode(myKey.getBytes(STANDARD));
+    private final String SECRETKEY = "4528482B4B6250655368566D597133743677397A24432646294A404E63516654";
+
+
+    byte[] encodedKey = Base64.getEncoder().encode(SECRETKEY.getBytes(STANDARD));
     SecretKey secretKey = new SecretKeySpec(encodedKey, 0, encodedKey.length, "DES");
 
     public String perform(String input, Action action){
@@ -54,8 +56,18 @@ public class DES {
         return null;
     }
 
-    enum Action{
+    public enum Action{
         ENCRYPT,
         DECRYPT
+    }
+
+    @Override
+    public String encode(CharSequence rawPassword) {
+        return perform(rawPassword.toString(), Action.ENCRYPT);
+    }
+
+    @Override
+    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+        return encodedPassword.equals(encode(rawPassword));
     }
 }

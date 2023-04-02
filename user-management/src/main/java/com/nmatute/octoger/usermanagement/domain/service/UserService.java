@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.usermanagement.persistence.repository.UserRepository;
 
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class UserService {
     
-    private UserRepository repo;
+    private final UserRepository repo;
 
     
     public List<UserDTO> getAll() {
@@ -42,7 +42,7 @@ public class UserService {
     }
 
     public List<UserDTO> findByType(String type){
-        return repo.findByTypeWhereTypeLike(type);
+        return repo.findByType(type);
     }
 
     public boolean findUser(int userId){
