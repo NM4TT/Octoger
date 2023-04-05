@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nmatute.octoger.usermanagement.domain.dto.EntityDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
+import com.nmatute.octoger.usermanagement.domain.service.AuthenticationService;
 import com.nmatute.octoger.usermanagement.domain.service.EntityService;
+import com.nmatute.octoger.usermanagement.web.security.auth.AuthenticationResponse;
+import com.nmatute.octoger.usermanagement.web.security.auth.RegisterRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,14 +26,22 @@ import lombok.RequiredArgsConstructor;
 public class Controller {
     
     private final EntityService entityService;
+    private final AuthenticationService authService;
 
     @PostMapping(value = {"/create", "/update"})
-    public ResponseEntity<EntityDTO> saveUser(@RequestBody EntityDTO entity){
+    public ResponseEntity<AuthenticationResponse> saveUser(@RequestBody EntityDTO entity){
         
-        entityService.getUserService().save(entity.getUser());
-        entityService.getCredentialService().save(entity.getCredential());
+        return ResponseEntity.ok(
+            authService.register(new RegisterRequest(
+                entity.getUser().getName(), 
+                entity.getUser().getLastname(),
+                entity.getUser().getPersonalIdentifier(), 
+                entity.getUser().getType(),
+                entity.getCredential().getUsername(), 
+                entity.getCredential().getPassword())
+                )
+        );
         
-        return new ResponseEntity<>(entity, HttpStatus.OK);
     }
 
     @GetMapping("/all")

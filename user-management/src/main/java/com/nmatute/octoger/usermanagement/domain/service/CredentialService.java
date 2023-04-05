@@ -21,14 +21,13 @@ public class CredentialService {
  
     public CredentialDTO get(int userId) {
         CredentialDTO credential = repo.get(userId);
-        credential.setUsername(DES.perform(credential.getUsername(), Action.DECRYPT));
         credential.setPassword(DES.perform(credential.getPassword(), Action.DECRYPT));
         return credential;
     }
 
     
     public String getUsername(int userId) {
-        return DES.perform(repo.getUsername(userId), Action.DECRYPT);
+        return repo.getUsername(userId);
     }
 
     
@@ -38,7 +37,6 @@ public class CredentialService {
 
     
     public CredentialDTO save(CredentialDTO credential) {
-        credential.setUsername(DES.perform(credential.getUsername(), Action.ENCRYPT));
         credential.setPassword(DES.perform(credential.getPassword(), Action.ENCRYPT));
         return repo.save(credential);
     }
