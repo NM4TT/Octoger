@@ -2,7 +2,6 @@ package com.nmatute.octoger.usermanagement.domain.service;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO;

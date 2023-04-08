@@ -1,6 +1,5 @@
 package com.nmatute.octoger.usermanagement.domain.dto;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import jakarta.persistence.Enumerated;
 import lombok.Data;
 
 @Data
-public class CredentialDTO implements UserDetails{
+public class CredentialDTO implements UserDetails {
  
     private int id;
 
@@ -29,21 +28,18 @@ public class CredentialDTO implements UserDetails{
     public enum Role {
         ADMIN,
         REGULAR;
+        public Role setRole(String type){
+            if (type.endsWith("00")) {
+                return Role.ADMIN;
+            } else {
+                return Role.REGULAR;
+            }
+        }
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        
-        if (user.getType().endsWith("00")) {
-            authorities.add(new SimpleGrantedAuthority(CredentialDTO.Role.ADMIN.name()));    
-        } 
-        
-        if(user.getType().endsWith("01")) {
-            authorities.add(new SimpleGrantedAuthority(CredentialDTO.Role.REGULAR.name())); 
-        }
-
-        return authorities;
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override

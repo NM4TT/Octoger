@@ -7,7 +7,6 @@ import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO;
 import com.nmatute.octoger.usermanagement.persistence.crud.ICredentialCrudRepository;
 import com.nmatute.octoger.usermanagement.persistence.entity.Credential;
 import com.nmatute.octoger.usermanagement.persistence.mapper.CredentialMapper;
-import com.nmatute.octoger.usermanagement.persistence.mapper.UserMapper;
 
 import lombok.AllArgsConstructor;
 
