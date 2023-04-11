@@ -1,5 +1,7 @@
 package com.nmatute.octoger.usermanagement.domain.service;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +16,7 @@ import com.nmatute.octoger.usermanagement.web.security.AES.Action;
 import com.nmatute.octoger.usermanagement.web.security.auth.AuthenticationRequest;
 import com.nmatute.octoger.usermanagement.web.security.auth.AuthenticationResponse;
 import com.nmatute.octoger.usermanagement.web.security.auth.RegisterRequest;
+import com.nmatute.octoger.usermanagement.web.security.auth.UpdateRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -50,10 +53,10 @@ public class AuthenticationService {
             log.debug("User saved.");
 
             credential.setUsername(request.getUsername());
-            credential.setUser(userService.findById(user.getId()));
+            credential.setUser(user);
             credential.setRole((user.getType().endsWith("00") ? Role.ADMIN : Role.REGULAR));
             credential.setPassword(request.getPassword());
-            log.debug(credential.toString());
+            
             log.debug("Credential data recolected for registration.");
             
             credentialService.save(credential);
@@ -69,11 +72,8 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        
-        
-        
+
         if (!request.isEmpty(request.getUsername()) || !request.isEmpty(request.getPassword())) {
-            log.debug("Authentication Request is not empty \nPassword: " + aes.perform(request.getPassword(), Action.ENCRYPT) + "\nUser: " + request.getUsername());
             authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                     request.getUsername(), 
@@ -81,14 +81,18 @@ public class AuthenticationService {
                 )
             );
 
-            CredentialDTO credential = credentialService
-            .findUserByUsername(request.getUsername())
-            .orElseThrow();
+            Optional<CredentialDTO> optionalCredential = credentialService.findByUsername(request.getUsername());
+
+            if (optionalCredential.isPresent()) {
+                CredentialDTO credential = optionalCredential.get();
+
+                String jwtToken = jwtService.generateToken(credential);
+                log.debug("JWT Token generated in authenticate.");
+        
+                return new AuthenticationResponse(jwtToken);
+            }
     
-            String jwtToken = jwtService.generateToken(credential);
-            log.debug("JWT Token generated in authenticate.");
-    
-            return new AuthenticationResponse(jwtToken);
+            return null;
         }
         log.debug(request.getUsername() + " " + request.getPassword());
         return null;

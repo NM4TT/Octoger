@@ -21,21 +21,11 @@ public class CredentialRepository implements ICredentialRepository{
     private final CredentialMapper mapper;
 
     @Override
-    public CredentialDTO get(int userId) {
+    public CredentialDTO get(String username) {
         CredentialDTO credential = mapper
-        .toCredentialDTO(crud.findById(crud.findIdByUserId(userId)).get());
-        credential.setRole((getUserType(userId).endsWith("00") ? Role.ADMIN : Role.REGULAR));
+        .toCredentialDTO(crud.findByUsername(username));
+        credential.setRole((credential.getUser().getType().endsWith("00") ? Role.ADMIN : Role.REGULAR));
         return credential;
-    }
-
-    @Override
-    public String getUsername(int userId) {
-        return crud.findById(crud.findIdByUserId(userId)).get().getUsername();
-    }
-
-    @Override
-    public String getPassword(int userId) {
-        return crud.findById(crud.findIdByUserId(userId)).get().getPassword();
     }
 
     @Override
@@ -44,11 +34,11 @@ public class CredentialRepository implements ICredentialRepository{
         return mapper.toCredentialDTO(c);
     }
     
-    public int findIdByUserId(int userId){
-        return crud.findIdByUserId(userId);
+    public int findIdByUsername(String username){
+        return crud.findByUsername(username).getId();
     }
 
-    public CredentialDTO findUserByUsername(String username){
+    public CredentialDTO findByUsername(String username){
         return mapper.toCredentialDTO(crud.findByUsername(username));
     }
 
