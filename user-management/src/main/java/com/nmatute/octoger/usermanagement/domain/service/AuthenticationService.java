@@ -1,5 +1,7 @@
 package com.nmatute.octoger.usermanagement.domain.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO.Role;
+import com.nmatute.octoger.usermanagement.web.security.AES;
+import com.nmatute.octoger.usermanagement.web.security.AES.Action;
 import com.nmatute.octoger.usermanagement.web.security.auth.AuthenticationRequest;
 import com.nmatute.octoger.usermanagement.web.security.auth.AuthenticationResponse;
 import com.nmatute.octoger.usermanagement.web.security.auth.RegisterRequest;
@@ -17,48 +21,77 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final EntityService entityService;
+    private final CredentialService credentialService;
+    private final UserService userService;
     private final JwtService jwtService;
     private final AuthenticationManager authManager;
+    private final AES aes = new AES();
+    private final Logger log = LoggerFactory.getLogger(AuthenticationService.class);
 
     public AuthenticationResponse register(RegisterRequest request) {
         UserDTO user = new UserDTO();
         CredentialDTO credential = new CredentialDTO();
 
-        user.setName(request.getFirstName());
-        user.setLastname(request.getLastname());
-        user.setPersonalIdentifier(request.getPersonalIdentifier());
-        user.setType(request.getType());
+        log.debug("Request structure: " + request.toString());
 
-        credential.setUsername(request.getUsername());
-        credential.setUser(user);
-        credential.setRole((user.getType().endsWith("00") ? Role.ADMIN : Role.REGULAR));
-        credential.setPassword(request.getPassword());
+        if(!request.isEmpty(request.getName()) &&
+            !request.isEmpty(request.getLastname()) &&
+            !request.isEmpty(request.getPersonalIdentifier()) &&
+            !request.isEmpty(request.getType()) && request.getType().startsWith("USR") &&
+            !request.isEmpty(request.getUsername()) &&
+            !request.isEmpty(request.getPassword())
+        ){
+            user.setName(request.getName());
+            user.setLastname(request.getLastname());
+            user.setPersonalIdentifier(request.getPersonalIdentifier());
+            user.setType(request.getType());
+            log.debug("User data recolected for registration.");
+            user = userService.save(user);
+            log.debug("User saved.");
 
-        entityService.getUserService().save(user);
-        entityService.getCredentialService().save(credential);
+            credential.setUsername(request.getUsername());
+            credential.setUser(userService.findById(user.getId()));
+            credential.setRole((user.getType().endsWith("00") ? Role.ADMIN : Role.REGULAR));
+            credential.setPassword(request.getPassword());
+            log.debug(credential.toString());
+            log.debug("Credential data recolected for registration.");
+            
+            credentialService.save(credential);
+            log.debug("Credential saved");
 
-        String jwtToken = jwtService.generateToken(credential);
+            String jwtToken = jwtService.generateToken(credential);
+            log.debug("JWT Token generated in registration.");
 
-        return new AuthenticationResponse(jwtToken);
+            return new AuthenticationResponse(jwtToken);
+        }
 
+        return null;
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                request.getUsername(), 
-                request.getPassword()
-            )
-        );
+        
+        
+        
+        if (!request.isEmpty(request.getUsername()) || !request.isEmpty(request.getPassword())) {
+            log.debug("Authentication Request is not empty \nPassword: " + aes.perform(request.getPassword(), Action.ENCRYPT) + "\nUser: " + request.getUsername());
+            authManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                    request.getUsername(), 
+                    request.getPassword()
+                )
+            );
 
-        CredentialDTO credential = entityService.getCredentialService()
-        .findUserByUsername(request.getUsername())
-        .orElseThrow();
-
-        String jwtToken = jwtService.generateToken(credential);
-
-        return new AuthenticationResponse(jwtToken);
+            CredentialDTO credential = credentialService
+            .findUserByUsername(request.getUsername())
+            .orElseThrow();
+    
+            String jwtToken = jwtService.generateToken(credential);
+            log.debug("JWT Token generated in authenticate.");
+    
+            return new AuthenticationResponse(jwtToken);
+        }
+        log.debug(request.getUsername() + " " + request.getPassword());
+        return null;
     }
     
 }

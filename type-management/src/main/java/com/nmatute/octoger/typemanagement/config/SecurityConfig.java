@@ -1,4 +1,4 @@
-package com.nmatute.octoger.typemanagement.controller;
+package com.nmatute.octoger.typemanagement.config;
 
 public class SecurityConfig {
     

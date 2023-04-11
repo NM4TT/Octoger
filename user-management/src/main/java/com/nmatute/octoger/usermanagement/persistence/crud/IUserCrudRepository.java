@@ -13,4 +13,7 @@ public interface IUserCrudRepository extends CrudRepository<User, Integer>{
     
     @Query("SELECT count(*) FROM User WHERE id = :userId")
     int findUser(@Param("userId") int userId);
+
+    @Query("SELECT type FROM User WHERE type = :userId")
+    String getUserType(@Param("userId") int userId);
 }

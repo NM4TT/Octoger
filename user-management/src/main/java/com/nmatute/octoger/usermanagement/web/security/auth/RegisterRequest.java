@@ -9,13 +9,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+public class RegisterRequest extends Request {
 
-    private String firstName;
-    private String lastname;
-    private String personalIdentifier;
-    private String type;
     private String username;
+
     private String password;
+
+    private String personalIdentifier;
+
+    private String name;
+
+    private String lastname;
+
+    private String type;
 
 }

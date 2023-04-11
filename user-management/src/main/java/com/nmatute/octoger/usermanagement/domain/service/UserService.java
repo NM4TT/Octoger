@@ -49,4 +49,8 @@ public class UserService {
         return repo.findUser(userId);
     }
 
+    public UserDTO findById(int id){
+        return repo.getById(id).orElse(null);
+    }
+
 }

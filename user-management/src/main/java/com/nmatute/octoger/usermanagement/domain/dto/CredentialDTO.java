@@ -28,28 +28,14 @@ public class CredentialDTO implements UserDetails {
     public enum Role {
         ADMIN,
         REGULAR;
-        public Role setRole(String type){
-            if (type.endsWith("00")) {
-                return Role.ADMIN;
-            } else {
-                return Role.REGULAR;
-            }
-        }
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+
+        this.role = (user.getType().endsWith("00") ? Role.ADMIN : Role.REGULAR);
+
         return List.of(new SimpleGrantedAuthority(role.name()));
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
     }
 
     @Override

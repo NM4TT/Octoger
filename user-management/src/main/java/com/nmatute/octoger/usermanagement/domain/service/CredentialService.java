@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO;
 import com.nmatute.octoger.usermanagement.persistence.repository.CredentialRepository;
-import com.nmatute.octoger.usermanagement.web.security.DES;
-import com.nmatute.octoger.usermanagement.web.security.DES.Action;
+import com.nmatute.octoger.usermanagement.web.security.AES;
+import com.nmatute.octoger.usermanagement.web.security.AES.Action;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,11 +17,11 @@ public class CredentialService {
 
     private final CredentialRepository repo;
 
-    private final DES DES = new DES();
+    private final AES AES = new AES();
  
     public CredentialDTO get(int userId) {
         CredentialDTO credential = repo.get(userId);
-        credential.setPassword(DES.perform(credential.getPassword(), Action.DECRYPT));
+        credential.setPassword(AES.perform(credential.getPassword(), Action.DECRYPT));
         return credential;
     }
 
@@ -32,12 +32,12 @@ public class CredentialService {
 
     
     public String getPassword(int userId) {
-        return DES.perform(repo.getPassword(userId), Action.DECRYPT);
+        return AES.perform(repo.getPassword(userId), Action.DECRYPT);
     }
 
     
     public CredentialDTO save(CredentialDTO credential) {
-        credential.setPassword(DES.perform(credential.getPassword(), Action.ENCRYPT));
+        credential.setPassword(AES.perform(credential.getPassword(), Action.ENCRYPT));
         return repo.save(credential);
     }
     

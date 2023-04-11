@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +16,20 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.NoArgsConstructor;
 
 @Service
+@NoArgsConstructor
 public class JwtService {
 
     private static final String SECRETKEY = "4528482B4B6250655368566D597133743677397A24432646294A404E63516654";
     private final int EXPIRATION_TIME = 1000 * 60 * 24; //24h + 1 seg
+    private final Logger log = LoggerFactory.getLogger(JwtService.class);
 
     public String extractUsername(String jwt) {
-        return extractClaim(jwt, Claims::getSubject);
+        String username = extractClaim(jwt, Claims::getSubject);
+        log.debug("Username extracted = ".concat(username));
+        return username;
     }
 
     public <T> T extractClaim(String jwt, Function<Claims, T> claimResolver){
@@ -58,11 +65,14 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails){
-
         return generateToken(new HashMap<>(), userDetails);
     }
 
     public boolean isTokenValid(String jwt, UserDetails userDetails){
+        boolean isValid = extractUsername(jwt).equals(userDetails.getUsername()) && !isTokenExpired(jwt);
+        log.debug(
+            (isValid) ? "Token received is valid." : "Token received is not valid."
+        );
         return extractUsername(jwt).equals(userDetails.getUsername()) && !isTokenExpired(jwt);
     }
 

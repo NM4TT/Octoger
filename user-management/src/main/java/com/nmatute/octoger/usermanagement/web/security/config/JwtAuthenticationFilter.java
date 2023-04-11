@@ -26,7 +26,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
-    private final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
+    private Logger log = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
     @Override
     /**
@@ -42,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
         //Checks JWT token existence
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            logger.debug("%s: %s", this.getClass().getSimpleName().toUpperCase(), "JWT Token not found.");
+            log.debug( "JWT Token not found.");
             filterChain.doFilter(request, response);
             return;
         }
@@ -53,6 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
         //Checks if sender (user) exists and is already checked
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            log.debug("User will be verified for first time.");
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             if(jwtService.isTokenValid(jwtToken, userDetails)){
@@ -67,12 +68,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
                 SecurityContextHolder.getContext().setAuthentication(authToken);
 
+                log.debug("User verified.");
             }
-
         }
-
+        log.debug("Response filtered.");
         filterChain.doFilter(request, response);
-
     }
     
 }

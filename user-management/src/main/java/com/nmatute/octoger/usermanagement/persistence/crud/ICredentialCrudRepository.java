@@ -11,5 +11,4 @@ public interface ICredentialCrudRepository extends CrudRepository<Credential,Int
     int findIdByUserId(@Param("userId") int userId);
 
     Credential findByUsername(String username);
-
 }
