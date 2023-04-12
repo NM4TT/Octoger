@@ -29,7 +29,10 @@ public class TypeService {
         return repo.getById(id);
     }
 
-    
+    public Optional<List<TypeDTO>> getByPrefix(String prefix){
+        return repo.getByPrefix(prefix);
+    }
+
     public TypeDTO save(TypeDTO user) {
         return repo.save(user);
     }

@@ -81,14 +81,34 @@ public class Controller {
         log.debug("Got type/all");
         return new ResponseEntity<>(typeService.getAll(), HttpStatus.OK);
     }
+
+    @GetMapping("/identifier/{prefix}")
+    public ResponseEntity<List<TypeDTO>> getByIdentifier(@PathVariable("prefix") String prefix){
+        log.debug("Got type/identifier/{prefix}");
+        
+        if (prefix != null && !prefix.equals("")) {
+            
+            return typeService.getByPrefix(prefix)
+            .map(types -> new ResponseEntity<>(types,HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
     
     @AdminEndpoint
     @GetMapping("/{typeId}")
     public ResponseEntity<TypeDTO> getType(@PathVariable("typeId") int typeId){
         log.debug("Got /user/" + typeId);
-        return typeService.getById(typeId)
-        .map(type -> new ResponseEntity<>(type, HttpStatus.OK))
-        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        
+        if (typeId >= 0) {
+            
+            return typeService.getById(typeId)
+            .map(type -> new ResponseEntity<>(type, HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
     
     @AdminEndpoint

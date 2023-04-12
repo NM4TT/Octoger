@@ -45,5 +45,9 @@ public class TypeRepository implements ITypeRepository {
     public Optional<TypeDTO> getById(int id) {
         return Optional.of(mapper.toTypeDTO(crud.findById(id).get()));
     }
+
+    public Optional<List<TypeDTO>> getByPrefix(String prefix){
+        return Optional.of(mapper.toTypeDTOs(crud.findByPrefix(prefix)));
+    }
     
 }
