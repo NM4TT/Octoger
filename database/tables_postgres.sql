@@ -47,13 +47,6 @@ CREATE TABLE product (
     isAvailable BOOLEAN NOT NULL
 );
 
-CREATE TABLE sell (
-    "id" SERIAL PRIMARY KEY,
-    "date" TIMESTAMP NOT NULL,
-    collection_id INTEGER NOT NULL REFERENCES product_collection("id") ON UPDATE CASCADE ON DELETE CASCADE,
-    responsible_id INTEGER NOT NULL REFERENCES "user"("id") ON UPDATE CASCADE ON DELETE CASCADE
-);
-
 CREATE TABLE "transaction" (
     "id" SERIAL PRIMARY KEY,
     "type" VARCHAR(5) NOT NULL REFERENCES "type"(identifier) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -69,4 +62,12 @@ CREATE TABLE product_operation (
     "date" TIMESTAMP NOT NULL,
     responsible_id INTEGER NOT NULL REFERENCES "user"("id") ON UPDATE CASCADE ON DELETE CASCADE,
     transaction_id INTEGER NOT NULL REFERENCES "transaction"("id") ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE sell (
+    "id" SERIAL PRIMARY KEY,
+    "date" TIMESTAMP NOT NULL,
+    collection_id INTEGER NOT NULL REFERENCES product_collection("id") ON UPDATE CASCADE ON DELETE CASCADE,
+    responsible_id INTEGER NOT NULL REFERENCES "user"("id") ON UPDATE CASCADE ON DELETE CASCADE,
+    product_operation_id INTEGER NOT NULL REFERENCES product_operation("id") ON UPDATE CASCADE ON DELETE CASCADE
 );
