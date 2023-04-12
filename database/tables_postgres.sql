@@ -6,7 +6,7 @@ CREATE TABLE "type" (
 
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
-    personal_identifier VARCHAR,
+    personal_identifier VARCHAR UNIQUE NOT NULL,
     "name" VARCHAR NOT NULL,
     lastname VARCHAR NOT NULL,
     "type" VARCHAR(5) NOT NULL REFERENCES "type"(identifier) ON UPDATE CASCADE ON DELETE CASCADE
@@ -26,7 +26,7 @@ CREATE TABLE crud_log (
 CREATE TABLE credential (
     "id" SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES "user"("id") ON UPDATE CASCADE ON DELETE CASCADE,
-    username VARCHAR(6) NOT NULL,
+    username VARCHAR(6) UNIQUE NOT NULL,
     "password" VARCHAR NOT NULL
 );
 
