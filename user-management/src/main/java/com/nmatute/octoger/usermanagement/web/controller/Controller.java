@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO.Role;
-import com.nmatute.octoger.usermanagement.domain.service.AdminEndpoint;
 import com.nmatute.octoger.usermanagement.domain.service.AuthenticationService;
 import com.nmatute.octoger.usermanagement.domain.service.CredentialService;
 import com.nmatute.octoger.usermanagement.domain.service.UserService;
@@ -26,6 +25,7 @@ import com.nmatute.octoger.usermanagement.web.security.auth.AuthenticationReques
 import com.nmatute.octoger.usermanagement.web.security.auth.AuthenticationResponse;
 import com.nmatute.octoger.usermanagement.web.security.auth.RegisterRequest;
 import com.nmatute.octoger.usermanagement.web.security.auth.UpdateRequest;
+import com.nmatute.octoger.usermanagement.web.security.config.AdminEndpoint;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,7 +41,7 @@ public class Controller {
 
     @AdminEndpoint
     @PostMapping("/create")
-    public ResponseEntity<AuthenticationResponse> saveUser(@RequestBody RegisterRequest entity){
+    public ResponseEntity<AuthenticationResponse> createUser(@RequestBody RegisterRequest entity){
         log.debug("Got user/create");
 
         AuthenticationResponse response = authService.register(entity);
@@ -51,7 +51,7 @@ public class Controller {
 
     @AdminEndpoint
     @PutMapping("/update")
-    public ResponseEntity<String> updateEntity(@RequestBody UpdateRequest request) {
+    public ResponseEntity<String> updateUser(@RequestBody UpdateRequest request) {
 
         log.debug("Got PUT /user/{userId}");
         

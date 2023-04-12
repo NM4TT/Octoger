@@ -3,22 +3,19 @@ package com.nmatute.octoger.typemanagement.persistence.mapper;
 import java.util.List;
 
 import org.mapstruct.Mapper;
-import org.springframework.stereotype.Component;
 
 import com.nmatute.octoger.typemanagement.domain.dto.TypeDTO;
 import com.nmatute.octoger.typemanagement.persistence.entity.Type;
 
-
-@Component
 @Mapper(componentModel = "spring")
 public interface TypeMapper {
     
-    TypeDTO toTypeDTO(Type Type);
+    TypeDTO toTypeDTO(Type type);
 
     Type toType(TypeDTO typeDTO);
 
-    List<TypeDTO> toTypeDTOs(List<Type> Types);
+    List<TypeDTO> toTypeDTOs(List<Type> types);
 
-    List<Type> toTypes(List<TypeDTO> TypeDTOs);
+    List<Type> toTypes(List<TypeDTO> typeDTOs);
 
 }

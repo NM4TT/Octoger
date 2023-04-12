@@ -17,8 +17,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TypeRepository implements ITypeRepository {
 
-    ITypeCrudRepository crud;
-    TypeMapper mapper;
+    private final ITypeCrudRepository crud;
+    private final TypeMapper mapper;
 
     @Override
     public List<TypeDTO> getAll() {
@@ -26,24 +26,24 @@ public class TypeRepository implements ITypeRepository {
     }
 
     @Override
-    public Optional<TypeDTO> getById(int id) {
-        return crud.findById(id).map(type -> mapper.toTypeDTO(type));
+    public Optional<TypeDTO> getByIdentifier(String identifier) {
+        return Optional.of(mapper.toTypeDTO(crud.findByIdentifier(identifier)));
     }
 
     @Override
-    public List<TypeDTO> getByIdentifier(String identifier) {
-        return mapper.toTypeDTOs(crud.findByIdentifierWhereIdentifierLike(identifier));
-    }
-
-    @Override
-    public TypeDTO save(TypeDTO type) {
-        Type t = crud.save(mapper.toType(type));
-        return mapper.toTypeDTO(t);
+    public TypeDTO save(TypeDTO user) {
+        Type type = mapper.toType(user);
+        return mapper.toTypeDTO(crud.save(type));
     }
 
     @Override
     public void delete(int id) {
         crud.deleteById(id);
+    }
+
+    @Override
+    public Optional<TypeDTO> getById(int id) {
+        return Optional.of(mapper.toTypeDTO(crud.findById(id).get()));
     }
     
 }

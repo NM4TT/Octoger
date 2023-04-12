@@ -1,4 +1,4 @@
-package com.nmatute.octoger.usermanagement.domain.service;
+package com.nmatute.octoger.usermanagement.web.security.config;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

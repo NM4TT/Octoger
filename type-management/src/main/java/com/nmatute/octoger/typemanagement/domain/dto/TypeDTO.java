@@ -10,5 +10,5 @@ public class TypeDTO {
     private String identifier;
 
     private String description;
-
+    
 }

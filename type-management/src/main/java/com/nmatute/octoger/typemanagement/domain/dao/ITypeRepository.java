@@ -6,13 +6,15 @@ import java.util.Optional;
 import com.nmatute.octoger.typemanagement.domain.dto.TypeDTO;
 
 public interface ITypeRepository {
- 
+    
     List<TypeDTO> getAll();
+
+    Optional<TypeDTO> getByIdentifier(String identifier);
+
     Optional<TypeDTO> getById(int id);
     
-    List<TypeDTO> getByIdentifier(String identifier);
+    TypeDTO save(TypeDTO user);
     
-    TypeDTO save(TypeDTO type);
-
     void delete(int id);
+
 }

@@ -1,5 +1,6 @@
 package com.nmatute.octoger.typemanagement.persistence.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,16 +9,21 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "type", schema = "public")
+@Table(name = "user", schema = "public")
 @Data
-public class Type {
+public class User {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String identifier;
+    @Column(name = "personal_identifier")
+    private String personalIdentifier;
 
-    private String description;
+    private String name;
+
+    private String lastname;
+
+    private String type;
 
 }
