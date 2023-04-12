@@ -11,12 +11,9 @@ import org.springframework.stereotype.Service;
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO.Role;
-import com.nmatute.octoger.usermanagement.web.security.AES;
-import com.nmatute.octoger.usermanagement.web.security.AES.Action;
 import com.nmatute.octoger.usermanagement.web.security.auth.AuthenticationRequest;
 import com.nmatute.octoger.usermanagement.web.security.auth.AuthenticationResponse;
 import com.nmatute.octoger.usermanagement.web.security.auth.RegisterRequest;
-import com.nmatute.octoger.usermanagement.web.security.auth.UpdateRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +25,6 @@ public class AuthenticationService {
     private final UserService userService;
     private final JwtService jwtService;
     private final AuthenticationManager authManager;
-    private final AES aes = new AES();
     private final Logger log = LoggerFactory.getLogger(AuthenticationService.class);
 
     public AuthenticationResponse register(RegisterRequest request) {
