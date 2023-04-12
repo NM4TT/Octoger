@@ -1,13 +1,13 @@
-package com.nmatute.octoger.productmanagement;
+package com.nmatute.octoger.accountingmanagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ProductmanagementApplication {
+public class AccountingManagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProductmanagementApplication.class, args);
+		SpringApplication.run(AccountingManagementApplication.class, args);
 	}
 
 }
