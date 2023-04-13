@@ -42,23 +42,21 @@ public class Controller {
     public ResponseEntity<String> createProduct(@RequestBody CreateProductRequest request){
         log.debug("Got /product/create");
         
-        if (!request.isEmpty(String.valueOf(request.getProductCollectionId())) &&
+        if (!request.isEmpty(String.valueOf(request.getCollectionId())) &&
             !request.isEmpty(String.valueOf(request.getPrice())) &&
-            !request.isEmpty(String.valueOf(request.getBenefit())) &&
-            !request.isEmpty(String.valueOf(request.isAvailable()))
+            !request.isEmpty(String.valueOf(request.getBenefit()))
         ) {
         
             ProductDTO product = new ProductDTO();
-            ProductCollectionDTO collection = collectionService.getById(request.getProductCollectionId());
+            ProductCollectionDTO collection = collectionService.getById(request.getCollectionId());
             product.setProductCollection(collection);
             product.setPrice(request.getPrice());
             product.setBenefit(request.getBenefit());
-            product.setAvailable(request.isAvailable());
-            
+            product.setAvailable(true);
             productService.save(product);
             log.debug("Product saved successfully.");
 
-            return new ResponseEntity<>("Product created successfully.", HttpStatus.OK);
+            return new ResponseEntity<>("Product created successfully.\n" + product.toString(), HttpStatus.OK);
         } 
         return new ResponseEntity<>("Product not created.", HttpStatus.BAD_REQUEST);
     }
@@ -99,14 +97,14 @@ public class Controller {
         log.debug("Got PUT /product/update");
         
         if (!request.isEmpty(String.valueOf(request.getId())) &&
-            !request.isEmpty(String.valueOf(request.getProductCollectionId())) &&
+            !request.isEmpty(String.valueOf(request.getCollectionId())) &&
             !request.isEmpty(String.valueOf(request.getPrice())) &&
             !request.isEmpty(String.valueOf(request.getBenefit())) &&
             !request.isEmpty(String.valueOf(request.isAvailable()))
         ) {
             
             ProductDTO product = productService.getById(request.getId());
-            ProductCollectionDTO collection = collectionService.getById(request.getId());
+            ProductCollectionDTO collection = collectionService.getById(request.getCollectionId());
             product.setProductCollection(collection);
             product.setPrice(request.getPrice());
             product.setBenefit(request.getBenefit());
@@ -203,7 +201,7 @@ public class Controller {
         Optional<ProductDTO> optionalProduct = Optional.of(productService.getById(productId));
 
         if (optionalProduct.isPresent()) {
-            collectionService.delete(productId);
+            productService.delete(productId);
             return new ResponseEntity<>("Product deleted successfully.", HttpStatus.OK);
         }
 

@@ -15,7 +15,7 @@ public class UpdateProductRequest extends Request {
     
     private int id;
 
-    private int productCollectionId;
+    private int collectionId;
 
     private BigDecimal price;
 

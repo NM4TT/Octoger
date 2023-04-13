@@ -13,12 +13,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateProductRequest extends Request {
 
-    private int productCollectionId;
+    private int collectionId;
 
     private BigDecimal price;
 
     private BigDecimal benefit;
-
-    private boolean isAvailable;
 
 }

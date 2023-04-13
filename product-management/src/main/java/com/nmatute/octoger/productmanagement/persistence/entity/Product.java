@@ -22,7 +22,7 @@ public class Product {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "collection_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "collection_id", referencedColumnName = "id")
     private ProductCollection productCollection;
 
     private BigDecimal price;
