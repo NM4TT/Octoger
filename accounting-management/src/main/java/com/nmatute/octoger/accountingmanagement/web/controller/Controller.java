@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nmatute.octoger.accountingmanagement.web.security.auth.CreateRequest;
-import com.nmatute.octoger.accountingmanagement.web.security.auth.UpdateRequest;
+import com.nmatute.octoger.accountingmanagement.web.json.CreateRequest;
+import com.nmatute.octoger.accountingmanagement.web.json.UpdateRequest;
 import com.nmatute.octoger.accountingmanagement.web.security.config.AdminEndpoint;
 
 import lombok.RequiredArgsConstructor;

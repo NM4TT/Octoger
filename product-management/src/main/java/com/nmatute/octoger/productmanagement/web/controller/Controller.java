@@ -21,10 +21,10 @@ import com.nmatute.octoger.productmanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.productmanagement.domain.service.ProductCollectionService;
 import com.nmatute.octoger.productmanagement.domain.service.ProductService;
 import com.nmatute.octoger.productmanagement.domain.service.UserService;
-import com.nmatute.octoger.productmanagement.web.security.auth.CreateProductCollectionRequest;
-import com.nmatute.octoger.productmanagement.web.security.auth.CreateProductRequest;
-import com.nmatute.octoger.productmanagement.web.security.auth.UpdateProductCollectionRequest;
-import com.nmatute.octoger.productmanagement.web.security.auth.UpdateProductRequest;
+import com.nmatute.octoger.productmanagement.web.json.CreateProductCollectionRequest;
+import com.nmatute.octoger.productmanagement.web.json.CreateProductRequest;
+import com.nmatute.octoger.productmanagement.web.json.UpdateProductCollectionRequest;
+import com.nmatute.octoger.productmanagement.web.json.UpdateProductRequest;
 import com.nmatute.octoger.productmanagement.web.security.config.AdminEndpoint;
 
 import lombok.RequiredArgsConstructor;

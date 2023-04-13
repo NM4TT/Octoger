@@ -1,4 +1,4 @@
-package com.nmatute.octoger.usermanagement.web.security.auth;
+package com.nmatute.octoger.usermanagement.web.json;
 
 public abstract class Request {
     public boolean isEmpty(String attribute){

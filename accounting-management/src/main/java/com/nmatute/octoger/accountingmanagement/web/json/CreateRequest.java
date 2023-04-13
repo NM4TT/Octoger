@@ -1,4 +1,4 @@
-package com.nmatute.octoger.usermanagement.web.security.auth;
+package com.nmatute.octoger.accountingmanagement.web.json;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
+public class CreateRequest extends Request {
 
-    private String token;
+    private String identifier;
+
+    private String description;
 
 }

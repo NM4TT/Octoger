@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nmatute.octoger.typemanagement.domain.dto.TypeDTO;
 import com.nmatute.octoger.typemanagement.domain.service.TypeService;
-import com.nmatute.octoger.typemanagement.web.security.auth.CreateRequest;
-import com.nmatute.octoger.typemanagement.web.security.auth.UpdateRequest;
+import com.nmatute.octoger.typemanagement.web.json.CreateRequest;
+import com.nmatute.octoger.typemanagement.web.json.UpdateRequest;
 import com.nmatute.octoger.typemanagement.web.security.config.AdminEndpoint;
 
 import lombok.RequiredArgsConstructor;
@@ -82,6 +82,7 @@ public class Controller {
         return new ResponseEntity<>(typeService.getAll(), HttpStatus.OK);
     }
 
+    @AdminEndpoint
     @GetMapping("/identifier/{prefix}")
     public ResponseEntity<List<TypeDTO>> getByIdentifier(@PathVariable("prefix") String prefix){
         log.debug("Got type/identifier/{prefix}");

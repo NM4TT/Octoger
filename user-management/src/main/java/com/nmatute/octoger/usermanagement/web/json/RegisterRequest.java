@@ -1,4 +1,4 @@
-package com.nmatute.octoger.usermanagement.web.security.auth;
+package com.nmatute.octoger.usermanagement.web.json;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateRequest extends Request {
-    
-    private int id;
+public class RegisterRequest extends Request {
+
+    private String username;
+
+    private String password;
 
     private String personalIdentifier;
 
@@ -21,7 +23,4 @@ public class UpdateRequest extends Request {
 
     private String type;
 
-    private String username;
-
-    private String password;
 }

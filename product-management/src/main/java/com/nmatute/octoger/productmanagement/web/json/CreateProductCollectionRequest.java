@@ -1,4 +1,4 @@
-package com.nmatute.octoger.productmanagement.web.security.auth;
+package com.nmatute.octoger.productmanagement.web.json;
 
 import java.math.BigDecimal;
 
@@ -9,9 +9,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class UpdateProductCollectionRequest extends Request {
-    
-    private int id;
+public class CreateProductCollectionRequest extends Request {
 
     private int userId;
 
@@ -22,5 +20,5 @@ public class UpdateProductCollectionRequest extends Request {
     private String description;
 
     private int productQuantity;
-    
+
 }

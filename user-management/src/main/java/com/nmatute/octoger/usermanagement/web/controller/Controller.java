@@ -21,10 +21,10 @@ import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO.Role;
 import com.nmatute.octoger.usermanagement.domain.service.AuthenticationService;
 import com.nmatute.octoger.usermanagement.domain.service.CredentialService;
 import com.nmatute.octoger.usermanagement.domain.service.UserService;
-import com.nmatute.octoger.usermanagement.web.security.auth.AuthenticationRequest;
-import com.nmatute.octoger.usermanagement.web.security.auth.AuthenticationResponse;
-import com.nmatute.octoger.usermanagement.web.security.auth.RegisterRequest;
-import com.nmatute.octoger.usermanagement.web.security.auth.UpdateRequest;
+import com.nmatute.octoger.usermanagement.web.json.AuthenticationRequest;
+import com.nmatute.octoger.usermanagement.web.json.AuthenticationResponse;
+import com.nmatute.octoger.usermanagement.web.json.RegisterRequest;
+import com.nmatute.octoger.usermanagement.web.json.UpdateRequest;
 import com.nmatute.octoger.usermanagement.web.security.config.AdminEndpoint;
 
 import lombok.RequiredArgsConstructor;

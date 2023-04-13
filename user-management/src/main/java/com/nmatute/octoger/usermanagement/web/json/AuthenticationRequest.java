@@ -1,4 +1,4 @@
-package com.nmatute.octoger.usermanagement.web.security.auth;
+package com.nmatute.octoger.usermanagement.web.json;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
