@@ -1,6 +1,7 @@
 package com.nmatute.octoger.productmanagement.web.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,85 +15,213 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nmatute.octoger.productmanagement.web.security.auth.CreateRequest;
-import com.nmatute.octoger.productmanagement.web.security.auth.UpdateRequest;
-import com.nmatute.octoger.productmanagement.web.security.config.AdminEndpoint;
+import com.nmatute.octoger.productmanagement.domain.dto.ProductCollectionDTO;
+import com.nmatute.octoger.productmanagement.domain.dto.ProductDTO;
+import com.nmatute.octoger.productmanagement.domain.dto.UserDTO;
+import com.nmatute.octoger.productmanagement.domain.service.ProductCollectionService;
+import com.nmatute.octoger.productmanagement.domain.service.ProductService;
+import com.nmatute.octoger.productmanagement.domain.service.UserService;
+import com.nmatute.octoger.productmanagement.web.security.auth.CreateProductCollectionRequest;
+import com.nmatute.octoger.productmanagement.web.security.auth.CreateProductRequest;
+import com.nmatute.octoger.productmanagement.web.security.auth.UpdateProductCollectionRequest;
+import com.nmatute.octoger.productmanagement.web.security.auth.UpdateProductRequest;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/type")
+@RequestMapping("/product")
 @RequiredArgsConstructor
 public class Controller {
     
     private final Logger log = LoggerFactory.getLogger(Controller.class);
-
-    @AdminEndpoint
+    private final ProductService productService;
+    private final ProductCollectionService collectionService;
+    private final UserService userService;
+    
     @PostMapping("/create")
-    public ResponseEntity<String> createType(@RequestBody CreateRequest request){
-        log.debug("Got /type/create");
+    public ResponseEntity<String> createProduct(@RequestBody CreateProductRequest request){
+        log.debug("Got /product/create");
         
-        if (!request.isEmpty(request.getIdentifier()) &&
-            !request.isEmpty(request.getDescription())
+        if (!request.isEmpty(String.valueOf(request.getProductCollectionId())) &&
+            !request.isEmpty(String.valueOf(request.getPrice())) &&
+            !request.isEmpty(String.valueOf(request.getBenefit())) &&
+            !request.isEmpty(String.valueOf(request.isAvailable()))
         ) {
         
-        String type = new String();
+            ProductDTO product = new ProductDTO();
+            ProductCollectionDTO collection = collectionService.getById(request.getProductCollectionId());
+            product.setProductCollection(collection);
+            product.setPrice(request.getPrice());
+            product.setBenefit(request.getBenefit());
+            product.setAvailable(request.isAvailable());
+            
+            productService.save(product);
+            log.debug("Product saved successfully.");
 
-        return new ResponseEntity<>("Type created successfully.", HttpStatus.OK); 
+            return new ResponseEntity<>("Product created successfully.", HttpStatus.OK);
+        } 
+        return new ResponseEntity<>("Product not created.", HttpStatus.BAD_REQUEST);
     }
+
+    @PostMapping("/collection/create")
+    public ResponseEntity<String> createProductCollection(@RequestBody CreateProductCollectionRequest request){
+        log.debug("Got /product/collection/create");
+        
+        if (!request.isEmpty(request.getDescription()) &&
+            !request.isEmpty(request.getProvider()) &&
+            !request.isEmpty(String.valueOf(request.getCost())) &&
+            !request.isEmpty(String.valueOf(request.getUserId())) &&
+            !request.isEmpty(String.valueOf(request.getProductQuantity()))
+        ) {
+        
+            ProductCollectionDTO collection = new ProductCollectionDTO();
+            UserDTO user = userService.getById(request.getUserId());
+
+            collection.setUser(user);
+            collection.setDescription(request.getDescription());
+            collection.setProvider(request.getProvider());
+            collection.setCost(request.getCost());
+            collection.setProductQuantity(request.getProductQuantity());
+
+            collectionService.save(collection);
+            log.debug("Product Collection saved successfully.");
+
+            return new ResponseEntity<>("ProductCollection created successfully.", HttpStatus.OK); 
+        }
     
-    return new ResponseEntity<>("Type not created.", HttpStatus.BAD_REQUEST);        
-}
+        return new ResponseEntity<>("ProductCollection not created.", HttpStatus.BAD_REQUEST);        
+    }
 
-    @AdminEndpoint
+    
     @PutMapping("/update")
-    public ResponseEntity<String> updateType(@RequestBody UpdateRequest request) {
+    public ResponseEntity<String> updateProduct(@RequestBody UpdateProductRequest request) {
 
-        log.debug("Got PUT /type/update");
+        log.debug("Got PUT /product/update");
         
         if (!request.isEmpty(String.valueOf(request.getId())) &&
-            !request.isEmpty(request.getIdentifier()) &&
-            !request.isEmpty(request.getDescription())
+            !request.isEmpty(String.valueOf(request.getProductCollectionId())) &&
+            !request.isEmpty(String.valueOf(request.getPrice())) &&
+            !request.isEmpty(String.valueOf(request.getBenefit())) &&
+            !request.isEmpty(String.valueOf(request.isAvailable()))
         ) {
             
+            ProductDTO product = productService.getById(request.getId());
+            ProductCollectionDTO collection = collectionService.getById(request.getId());
+            product.setProductCollection(collection);
+            product.setPrice(request.getPrice());
+            product.setBenefit(request.getBenefit());
+            product.setAvailable(request.isAvailable());
+
+            productService.save(product);
+            log.debug("Product updated successfully.");
             
-            return new ResponseEntity<>("Type updated successfully.", HttpStatus.OK); 
+            return new ResponseEntity<>("Product updated successfully.", HttpStatus.OK); 
         }
         
-        return new ResponseEntity<>("Type not updated.", HttpStatus.BAD_REQUEST);        
+        return new ResponseEntity<>("Product not updated.", HttpStatus.BAD_REQUEST);        
     }
 
-    @AdminEndpoint
+    @PutMapping("/collection/update")
+    public ResponseEntity<String> updateProductCollection(@RequestBody UpdateProductCollectionRequest request) {
+
+        log.debug("Got PUT /product/collection/update");
+        
+        if (!request.isEmpty(String.valueOf(request.getId())) &&
+            !request.isEmpty(request.getDescription()) &&
+            !request.isEmpty(request.getProvider()) &&
+            !request.isEmpty(String.valueOf(request.getCost())) &&
+            !request.isEmpty(String.valueOf(request.getUserId())) &&
+            !request.isEmpty(String.valueOf(request.getProductQuantity()))
+        ) {
+            
+            ProductCollectionDTO collection = collectionService.getById(request.getId());
+            UserDTO user = userService.getById(request.getUserId());
+
+            collection.setUser(user);
+            collection.setDescription(request.getDescription());
+            collection.setProvider(request.getProvider());
+            collection.setCost(request.getCost());
+            collection.setProductQuantity(request.getProductQuantity());
+
+            collectionService.save(collection);
+            log.debug("Product Collection updated successfully.");
+            
+            return new ResponseEntity<>("ProductCollection updated successfully.", HttpStatus.OK); 
+        }
+        
+        return new ResponseEntity<>("ProductCollection not updated.", HttpStatus.BAD_REQUEST);        
+    }
+
+    
     @GetMapping("/all")
-    public ResponseEntity<List<String>> getAllTypes(){
-        log.debug("Got type/all");
-        return new ResponseEntity<>(null, HttpStatus.OK);
+    public ResponseEntity<List<ProductDTO>> getAllProducts(){
+        log.debug("Got product/all");
+        return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/identifier/{prefix}")
-    public ResponseEntity<List<String>> getByIdentifier(@PathVariable("prefix") String prefix){
-        log.debug("Got type/identifier/{prefix}");
-        
-        
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    @GetMapping("/collection/all")
+    public ResponseEntity<List<ProductCollectionDTO>> getAllProductCollections(){
+        log.debug("Got product/collection/all");
+        return new ResponseEntity<>(collectionService.getAll(), HttpStatus.OK);
     }
-    
-    @AdminEndpoint
-    @GetMapping("/{typeId}")
-    public ResponseEntity<String> getType(@PathVariable("typeId") int typeId){
-        log.debug("Got /user/" + typeId);
-        
-       
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-    
-    @AdminEndpoint
-    @PostMapping("/delete/{typeId}")
-    public ResponseEntity<String> deleteType(@PathVariable("typeId") int typeId){
-        log.debug("Got /type/delete/" + typeId);
-        
 
-        return new ResponseEntity<>("Type not found.", HttpStatus.NOT_FOUND);
+    @GetMapping("/{productId}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable("productId") int productId){
+        log.debug("Got product/" + productId);
+        return new ResponseEntity<>(productService.getById(productId),HttpStatus.OK);
+    }
+
+    @GetMapping("/collection/{collectionId}")
+    public ResponseEntity<ProductCollectionDTO> getProductCollectionById(@PathVariable("collectionId") int collectionId){
+        log.debug("Got prpduct/collection/" + collectionId);
+
+        ProductCollectionDTO collection = collectionService.getById(collectionId);
+
+        return new ResponseEntity<>(collection,HttpStatus.OK);
+    } 
+
+    @GetMapping("/collection/{collectionId}/list")
+    public ResponseEntity<List<ProductDTO>> getProductsOfProductCollection(@PathVariable("collectionId") int collectionId){
+        log.debug("Got product/collection/{collectionId}/list" + collectionId);
+
+        ProductCollectionDTO collection = collectionService.getById(collectionId);
+
+        return new ResponseEntity<>(productService.getByCollection(collection),HttpStatus.OK);
+    } 
+    
+    @GetMapping("/collection/responsible/{userId}")
+    public ResponseEntity<List<ProductCollectionDTO>> getProductCollectionsOfUser(@PathVariable("userId") int userId){
+        log.debug("Got product/collection/all");
+        UserDTO user = userService.getById(userId);
+        return new ResponseEntity<>(collectionService.getByResponsible(user), HttpStatus.OK);
+    }
+
+    @PostMapping("/delete/{productId}")
+    public ResponseEntity<String> deleteProduct(@PathVariable("productId") int productId){
+        log.debug("Got /product/delete/" + productId);
+        
+        Optional<ProductDTO> optionalProduct = Optional.of(productService.getById(productId));
+
+        if (optionalProduct.isPresent()) {
+            collectionService.delete(productId);
+            return new ResponseEntity<>("Product deleted successfully.", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("Product not found.", HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping("/collection/delete/{collectionId}")
+    public ResponseEntity<String> deleteProductCollection(@PathVariable("collectionId") int collectionId){
+        log.debug("Got /product/collection/delete/" + collectionId);
+        
+        Optional<ProductCollectionDTO> optionalCollection = Optional.of(collectionService.getById(collectionId));
+
+        if (optionalCollection.isPresent()) {
+            collectionService.delete(collectionId);
+            return new ResponseEntity<>("Product Collection deleted successfully.", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("Product Collection not found.", HttpStatus.NOT_FOUND);
     }
 
 }

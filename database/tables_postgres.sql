@@ -44,7 +44,7 @@ CREATE TABLE product (
     collection_id INTEGER NOT NULL REFERENCES product_collection("id") ON UPDATE CASCADE ON DELETE CASCADE,
     price NUMERIC NOT NULL,
     benefit NUMERIC NOT NULL,
-    isAvailable BOOLEAN NOT NULL
+    is_available BOOLEAN NOT NULL
 );
 
 CREATE TABLE "transaction" (

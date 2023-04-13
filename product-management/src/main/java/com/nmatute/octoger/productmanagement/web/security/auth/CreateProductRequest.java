@@ -1,5 +1,7 @@
 package com.nmatute.octoger.productmanagement.web.security.auth;
 
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,11 +11,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateRequest extends Request {
-    
-    private int id;
+public class CreateProductRequest extends Request {
 
-    private String identifier;
+    private int productCollectionId;
 
-    private String description;
+    private BigDecimal price;
+
+    private BigDecimal benefit;
+
+    private boolean isAvailable;
+
 }
