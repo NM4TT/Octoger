@@ -25,6 +25,7 @@ import com.nmatute.octoger.productmanagement.web.security.auth.CreateProductColl
 import com.nmatute.octoger.productmanagement.web.security.auth.CreateProductRequest;
 import com.nmatute.octoger.productmanagement.web.security.auth.UpdateProductCollectionRequest;
 import com.nmatute.octoger.productmanagement.web.security.auth.UpdateProductRequest;
+import com.nmatute.octoger.productmanagement.web.security.config.AdminEndpoint;
 
 import lombok.RequiredArgsConstructor;
 
@@ -150,6 +151,21 @@ public class Controller {
         return new ResponseEntity<>("ProductCollection not updated.", HttpStatus.BAD_REQUEST);        
     }
 
+    @PutMapping("/collection/{collectionId}/setNonAvailable")
+    public ResponseEntity<String> setNonAvailableProductsByCollection(@PathVariable("collectionId") int collectionId) {
+
+        log.debug("Got PUT /product/collection/{collectionId}/setNonAvailable");
+        
+        List<ProductDTO> products = productService.getByCollection(collectionService.getById(collectionId));
+
+        for (ProductDTO productDTO : products) {
+            productDTO.setAvailable(false);
+            productService.save(productDTO);
+        }
+        
+        return new ResponseEntity<>("Products updated.", HttpStatus.OK);        
+    }
+
     
     @GetMapping("/all")
     public ResponseEntity<List<ProductDTO>> getAllProducts(){
@@ -194,6 +210,7 @@ public class Controller {
         return new ResponseEntity<>(collectionService.getByResponsible(user), HttpStatus.OK);
     }
 
+    @AdminEndpoint
     @PostMapping("/delete/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable("productId") int productId){
         log.debug("Got /product/delete/" + productId);
@@ -208,6 +225,7 @@ public class Controller {
         return new ResponseEntity<>("Product not found.", HttpStatus.NOT_FOUND);
     }
 
+    @AdminEndpoint
     @PostMapping("/collection/delete/{collectionId}")
     public ResponseEntity<String> deleteProductCollection(@PathVariable("collectionId") int collectionId){
         log.debug("Got /product/collection/delete/" + collectionId);
