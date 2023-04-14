@@ -22,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/type")
-@RequiredArgsConstructor
 public class Controller {
     
     private final Logger log = LoggerFactory.getLogger(Controller.class);
@@ -32,17 +31,9 @@ public class Controller {
     public ResponseEntity<String> createType(@RequestBody CreateRequest request){
         log.debug("Got /type/create");
         
-        if (!request.isEmpty(request.getIdentifier()) &&
-            !request.isEmpty(request.getDescription())
-        ) {
-        
-        String type = new String();
 
         return new ResponseEntity<>("Type created successfully.", HttpStatus.OK); 
     }
-    
-    return new ResponseEntity<>("Type not created.", HttpStatus.BAD_REQUEST);        
-}
 
     @AdminEndpoint
     @PutMapping("/update")
@@ -50,14 +41,6 @@ public class Controller {
 
         log.debug("Got PUT /type/update");
         
-        if (!request.isEmpty(String.valueOf(request.getId())) &&
-            !request.isEmpty(request.getIdentifier()) &&
-            !request.isEmpty(request.getDescription())
-        ) {
-            
-            
-            return new ResponseEntity<>("Type updated successfully.", HttpStatus.OK); 
-        }
         
         return new ResponseEntity<>("Type not updated.", HttpStatus.BAD_REQUEST);        
     }
