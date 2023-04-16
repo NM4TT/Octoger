@@ -82,8 +82,7 @@ public class Controller {
         return new ResponseEntity<>(typeService.getAll(), HttpStatus.OK);
     }
 
-    @AdminEndpoint
-    @GetMapping("/identifier/{prefix}")
+    @GetMapping("/public/identifier/{prefix}")
     public ResponseEntity<List<TypeDTO>> getByIdentifier(@PathVariable("prefix") String prefix){
         log.debug("Got type/identifier/{prefix}");
         

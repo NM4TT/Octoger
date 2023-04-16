@@ -271,19 +271,19 @@ public class Controller {
         return new ResponseEntity<>(transactionService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/product-operation/{operationId}")
+    @GetMapping("/public/product-operation/get/{operationId}")
     public ResponseEntity<ProductOperationDTO> getProductOperationById(@PathVariable("operationId") int operationId){
         log.debug("Got /accounting/product-operation/{operationId}");
         return new ResponseEntity<>(productOperationService.getById(operationId), HttpStatus.OK);
     }
 
-    @GetMapping("/sell/{sellId}")
+    @GetMapping("/public/sell/get/{sellId}")
     public ResponseEntity<SellDTO> getSellById(@PathVariable("sellId") int sellId){
         log.debug("Got /accounting/sell/{sellId}");
         return new ResponseEntity<>(sellService.getById(sellId), HttpStatus.OK);
     }
 
-    @GetMapping("/transaction/{transactionId}")
+    @GetMapping("/public/transaction/get/{transactionId}")
     public ResponseEntity<TransactionDTO> getTransactionById(@PathVariable("transactionId") int transactionId){
         log.debug("Got /accounting/transaction/{transactionId}");
         return new ResponseEntity<>(transactionService.getById(transactionId), HttpStatus.OK);

@@ -179,13 +179,13 @@ public class Controller {
         return new ResponseEntity<>(collectionService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{productId}")
+    @GetMapping("/public/get/{productId}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable("productId") int productId){
         log.debug("Got product/" + productId);
         return new ResponseEntity<>(productService.getById(productId),HttpStatus.OK);
     }
 
-    @GetMapping("/collection/{collectionId}")
+    @GetMapping("/public/collection/get/{collectionId}")
     public ResponseEntity<ProductCollectionDTO> getProductCollectionById(@PathVariable("collectionId") int collectionId){
         log.debug("Got prpduct/collection/" + collectionId);
 

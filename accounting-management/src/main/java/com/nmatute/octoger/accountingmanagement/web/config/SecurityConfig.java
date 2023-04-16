@@ -30,6 +30,8 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
+                .requestMatchers("/accounting/public/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
