@@ -98,7 +98,7 @@ public class Controller {
     @PostMapping("/sell/create")
     public ResponseEntity<String> createSell(@RequestBody CreateSellRequest request){
         log.debug("Got /accounting/sell/create");
-        
+
         if (!request.isEmpty(request.getDate()) &&
             !request.isEmpty(String.valueOf(request.getCollectionId())) &&
             !request.isEmpty(String.valueOf(request.getProductOperationId())) &&
