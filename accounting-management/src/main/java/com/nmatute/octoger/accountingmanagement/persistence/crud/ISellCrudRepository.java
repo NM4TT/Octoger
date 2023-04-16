@@ -22,7 +22,7 @@ public interface ISellCrudRepository extends CrudRepository<Sell, Integer>{
 
     Optional<Sell> findByProductOperation(ProductOperation productOperation);
 
-    @Query("SELECT po from ProductOperation po WHERE po.date BETWEEN :from AND :to")
+    @Query("SELECT s from Sell s WHERE s.date BETWEEN :from AND :to")
     Optional<List<Sell>> findByDateRange(@Param("from") Date from, @Param("to") Date to);
 
 }

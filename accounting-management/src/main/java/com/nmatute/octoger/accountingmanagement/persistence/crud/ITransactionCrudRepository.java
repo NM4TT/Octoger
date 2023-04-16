@@ -15,7 +15,7 @@ public interface ITransactionCrudRepository extends CrudRepository<Transaction, 
     
     Optional<List<Transaction>> findByType(Type type);
 
-    @Query("SELECT po from ProductOperation po WHERE po.date BETWEEN :from AND :to")
+    @Query("SELECT t from Transaction t WHERE t.date BETWEEN :from AND :to")
     Optional<List<Transaction>> findByDateRange(@Param("from") Date from, @Param("to") Date to);
 
 }
