@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import com.nmatute.octoger.accountingmanagement.domain.dto.ProductCollectionDTO;
 import com.nmatute.octoger.accountingmanagement.persistence.entity.ProductCollection;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = UserMapper.class)
 public interface ProductCollectionMapper {
 
     ProductCollectionDTO toProductCollectionDTO(ProductCollection collection);

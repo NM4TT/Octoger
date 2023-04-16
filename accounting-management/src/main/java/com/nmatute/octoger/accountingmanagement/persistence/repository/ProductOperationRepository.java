@@ -50,12 +50,12 @@ public class ProductOperationRepository implements IProductOperationRepository{
 
     @Override
     public Optional<List<ProductOperationDTO>> getByResponsible(UserDTO user) {
-        return Optional.of(mapper.toProductOperationDTOs(crud.findByResponsible(userMapper.toUser(user)).get()));
+        return Optional.of(mapper.toProductOperationDTOs(crud.findByUser(userMapper.toUser(user)).get()));
     }
 
     @Override
-    public Optional<List<ProductOperationDTO>> getByTransaction(TransactionDTO transaction) {
-        return Optional.of(mapper.toProductOperationDTOs(crud.findByTransaction(transactionMapper.toTransaction(transaction)).get()));
+    public Optional<ProductOperationDTO> getByTransaction(TransactionDTO transaction) {
+        return Optional.of(mapper.toProductOperationDTO(crud.findByTransaction(transactionMapper.toTransaction(transaction)).get()));
     }
 
     @Override
@@ -72,6 +72,11 @@ public class ProductOperationRepository implements IProductOperationRepository{
     @Override
     public void delete(int id) {
         crud.deleteById(id);
+    }
+
+    @Override
+    public Optional<List<ProductOperationDTO>> getAll() {
+        return Optional.of(mapper.toProductOperationDTOs((List<ProductOperation>)crud.findAll()));
     }
     
 }

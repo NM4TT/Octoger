@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import com.nmatute.octoger.accountingmanagement.domain.dto.SellDTO;
 import com.nmatute.octoger.accountingmanagement.persistence.entity.Sell;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {ProductCollectionMapper.class, UserMapper.class, ProductOperationMapper.class})
 public interface SellMapper {
     
     SellDTO toSellDTO(Sell sell);

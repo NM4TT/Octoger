@@ -46,8 +46,8 @@ public class SellRepository implements ISellRepository{
     }
 
     @Override
-    public Optional<List<SellDTO>> getByProductOperation(ProductOperationDTO productOperation) {
-        return Optional.of(mapper.toSellDTOs(crud.findByProductOperation(productOperationMapper.toProductOperation(productOperation)).get()));
+    public Optional<SellDTO> getByProductOperation(ProductOperationDTO productOperation) {
+        return Optional.of(mapper.toSellDTO(crud.findByProductOperation(productOperationMapper.toProductOperation(productOperation)).get()));
     }
 
     @Override
@@ -64,6 +64,11 @@ public class SellRepository implements ISellRepository{
     @Override
     public void delete(int id) {
         crud.deleteById(id);
+    }
+
+    @Override
+    public Optional<List<SellDTO>> getAll() {
+        return Optional.of(mapper.toSellDTOs((List<Sell>) crud.findAll()));
     }
     
 

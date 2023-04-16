@@ -49,5 +49,10 @@ public class TransactionRepository implements ITransactionRepository{
     public void delete(int id) {
         crud.deleteById(id);
     }
+
+    @Override
+    public Optional<List<TransactionDTO>> getAll() {
+        return Optional.of(mapper.toTransactionDTOs((List<Transaction>) crud.findAll()));
+    }
     
 }

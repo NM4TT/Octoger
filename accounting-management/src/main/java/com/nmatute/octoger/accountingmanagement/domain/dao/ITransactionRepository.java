@@ -11,6 +11,8 @@ public interface ITransactionRepository {
     
     Optional<TransactionDTO> getById(int id);
 
+    Optional<List<TransactionDTO>> getAll();
+
     Optional<List<TransactionDTO>> getByType(TypeDTO type);
 
     Optional<List<TransactionDTO>> getByDateRange(Date from, Date to);

@@ -32,7 +32,7 @@ CREATE TABLE credential (
 
 CREATE TABLE product_collection (
     "id" SERIAL PRIMARY KEY,
-    responsible_id INTEGER NOT NULL REFERENCES "user"("id") ON UPDATE CASCADE ON DELETE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES "user"("id") ON UPDATE CASCADE ON DELETE CASCADE,
     provider VARCHAR,
     "cost" NUMERIC NOT NULL,
     description VARCHAR,
@@ -60,7 +60,7 @@ CREATE TABLE product_operation (
     collection_id INTEGER NOT NULL REFERENCES product_collection("id") ON UPDATE CASCADE ON DELETE CASCADE,
     product_amount INTEGER NOT NULL,
     "date" TIMESTAMP NOT NULL,
-    responsible_id INTEGER NOT NULL REFERENCES "user"("id") ON UPDATE CASCADE ON DELETE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES "user"("id") ON UPDATE CASCADE ON DELETE CASCADE,
     transaction_id INTEGER NOT NULL REFERENCES "transaction"("id") ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -68,6 +68,6 @@ CREATE TABLE sell (
     "id" SERIAL PRIMARY KEY,
     "date" TIMESTAMP NOT NULL,
     collection_id INTEGER NOT NULL REFERENCES product_collection("id") ON UPDATE CASCADE ON DELETE CASCADE,
-    responsible_id INTEGER NOT NULL REFERENCES "user"("id") ON UPDATE CASCADE ON DELETE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES "user"("id") ON UPDATE CASCADE ON DELETE CASCADE,
     product_operation_id INTEGER NOT NULL REFERENCES product_operation("id") ON UPDATE CASCADE ON DELETE CASCADE
 );

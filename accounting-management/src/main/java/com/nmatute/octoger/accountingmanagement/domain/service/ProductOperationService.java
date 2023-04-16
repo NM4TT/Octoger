@@ -24,7 +24,10 @@ public class ProductOperationService {
         return repo.getById(id).orElse(null);
     }
 
-    
+    public List<ProductOperationDTO> getAll(){
+        return repo.getAll().orElse(null);
+    }
+
     public List<ProductOperationDTO> getByCollection(ProductCollectionDTO collection) {
         return repo.getByCollection(collection).orElse(null);
     }
@@ -40,7 +43,7 @@ public class ProductOperationService {
     }
 
     
-    public List<ProductOperationDTO> getByTransaction(TransactionDTO transaction) {
+    public ProductOperationDTO getByTransaction(TransactionDTO transaction) {
         return repo.getByTransaction(transaction).orElse(null);
     }
 

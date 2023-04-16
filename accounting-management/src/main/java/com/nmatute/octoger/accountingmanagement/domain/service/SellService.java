@@ -22,7 +22,10 @@ public class SellService {
     public SellDTO getById(int id) {
         return repo.getById(id).orElse(null);
     }
-
+    
+    public List<SellDTO> getAll(){
+        return repo.getAll().orElse(null);
+    }
     
     public List<SellDTO> getByCollection(ProductCollectionDTO collection) {
         return repo.getByCollection(collection).orElse(null);
@@ -34,7 +37,7 @@ public class SellService {
     }
 
     
-    public List<SellDTO> getByProductOperation(ProductOperationDTO productOperation) {
+    public SellDTO getByProductOperation(ProductOperationDTO productOperation) {
         return repo.getByProductOperation(productOperation).orElse(null);
     }
 

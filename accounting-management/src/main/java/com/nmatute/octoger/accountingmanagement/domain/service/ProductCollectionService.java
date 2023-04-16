@@ -1,11 +1,8 @@
 package com.nmatute.octoger.accountingmanagement.domain.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 import com.nmatute.octoger.accountingmanagement.domain.dto.ProductCollectionDTO;
-import com.nmatute.octoger.accountingmanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.accountingmanagement.persistence.repository.ProductCollectionRepository;
 
 import lombok.RequiredArgsConstructor;

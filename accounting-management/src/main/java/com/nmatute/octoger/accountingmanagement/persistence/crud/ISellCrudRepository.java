@@ -20,9 +20,9 @@ public interface ISellCrudRepository extends CrudRepository<Sell, Integer>{
 
     Optional<List<Sell>> findByUser(User user);
 
-    Optional<List<Sell>> findByProductOperation(ProductOperation productOperation);
+    Optional<Sell> findByProductOperation(ProductOperation productOperation);
 
-    @Query("SELECT po from ProductOperation po WHERE po.date >= :from AND <= :to")
+    @Query("SELECT po from ProductOperation po WHERE po.date BETWEEN :from AND :to")
     Optional<List<Sell>> findByDateRange(@Param("from") Date from, @Param("to") Date to);
 
 }

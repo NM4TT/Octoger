@@ -22,7 +22,7 @@ public class ProductCollection {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "responsible_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     private String provider;

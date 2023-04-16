@@ -20,11 +20,11 @@ public interface IProductOperationCrudRepository extends CrudRepository<ProductO
 
     Optional<List<ProductOperation>> findByType(Type type);
 
-    Optional<List<ProductOperation>> findByResponsible(User user);
+    Optional<List<ProductOperation>> findByUser(User user);
 
-    Optional<List<ProductOperation>> findByTransaction(Transaction transaction);
+    Optional<ProductOperation> findByTransaction(Transaction transaction);
 
-    @Query("SELECT po from ProductOperation po WHERE po.date >= :from AND <= :to")
+    @Query("SELECT po from ProductOperation po WHERE po.date BETWEEN :from AND :to")
     Optional<List<ProductOperation>> findByDateRange(@Param("from") Date from, @Param("to") Date to);
 
 }

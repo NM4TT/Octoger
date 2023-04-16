@@ -1,8 +1,5 @@
 package com.nmatute.octoger.accountingmanagement.domain.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import com.nmatute.octoger.accountingmanagement.domain.dto.TypeDTO;
@@ -16,8 +13,8 @@ public class TypeService {
     
     private final TypeRepository repo;
     
-    public Optional<TypeDTO> getByIdentifier(String identifier) {
-        return repo.getByIdentifier(identifier);
+    public TypeDTO getByIdentifier(String identifier) {
+        return repo.getByIdentifier(identifier).orElse(null);
     }
 
 }

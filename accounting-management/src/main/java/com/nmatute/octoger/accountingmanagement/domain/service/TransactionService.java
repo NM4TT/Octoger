@@ -22,7 +22,10 @@ public class TransactionService {
         return repo.getById(id).orElse(null);
     }
 
-    
+    public List<TransactionDTO> getAll(){
+        return repo.getAll().orElse(null);
+    }
+
     public List<TransactionDTO> getByType(TypeDTO type) {
         return repo.getByType(type).orElse(null);
     }

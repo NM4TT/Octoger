@@ -1,6 +1,5 @@
 package com.nmatute.octoger.accountingmanagement.persistence.repository;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.nmatute.octoger.accountingmanagement.domain.dao.ITypeRepository;
 import com.nmatute.octoger.accountingmanagement.domain.dto.TypeDTO;
 import com.nmatute.octoger.accountingmanagement.persistence.crud.ITypeCrudRepository;
-import com.nmatute.octoger.accountingmanagement.persistence.entity.Type;
 import com.nmatute.octoger.accountingmanagement.persistence.mapper.TypeMapper;
 
 import lombok.RequiredArgsConstructor;

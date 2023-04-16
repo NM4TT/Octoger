@@ -13,11 +13,13 @@ public interface ISellRepository {
     
     Optional<SellDTO> getById(int id);
 
+    Optional<List<SellDTO>> getAll();
+
     Optional<List<SellDTO>> getByCollection(ProductCollectionDTO collection);
 
     Optional<List<SellDTO>> getByResponsible(UserDTO user);
 
-    Optional<List<SellDTO>> getByProductOperation(ProductOperationDTO productOperation);
+    Optional<SellDTO> getByProductOperation(ProductOperationDTO productOperation);
 
     Optional<List<SellDTO>> getByDateRange(Date from, Date to);
 

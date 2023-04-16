@@ -9,6 +9,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+
 @Entity
 @Table(name = "credential", schema = "public")
 @Data

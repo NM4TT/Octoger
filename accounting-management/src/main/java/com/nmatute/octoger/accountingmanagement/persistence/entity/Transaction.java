@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+
 @Entity
 @Table(name = "transaction", schema = "public")
 @Data
@@ -22,7 +23,7 @@ public class Transaction {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "type", referencedColumnName = "id")
+    @JoinColumn(name = "type", referencedColumnName = "identifier")
     private Type type;
 
     private BigDecimal value;

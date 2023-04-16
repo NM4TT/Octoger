@@ -14,13 +14,15 @@ public interface IProductOperationRepository {
     
     Optional<ProductOperationDTO> getById(int id);
 
+    Optional<List<ProductOperationDTO>> getAll();
+
     Optional<List<ProductOperationDTO>> getByCollection(ProductCollectionDTO collection);
 
     Optional<List<ProductOperationDTO>> getByType(TypeDTO type);
 
     Optional<List<ProductOperationDTO>> getByResponsible(UserDTO user);
 
-    Optional<List<ProductOperationDTO>> getByTransaction(TransactionDTO transaction);
+    Optional<ProductOperationDTO> getByTransaction(TransactionDTO transaction);
 
     Optional<List<ProductOperationDTO>> getByDateRange(Date from, Date to);
 

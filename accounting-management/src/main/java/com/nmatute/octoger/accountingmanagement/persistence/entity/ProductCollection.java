@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+
 @Entity
 @Table(name = "product_collection", schema = "public")
 @Data
@@ -22,7 +23,7 @@ public class ProductCollection {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "responsible_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     private String provider;

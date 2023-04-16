@@ -13,5 +13,5 @@ public class UserDTO {
 
     private String lastname;
 
-    private String type;
+    private TypeDTO type;
 }
