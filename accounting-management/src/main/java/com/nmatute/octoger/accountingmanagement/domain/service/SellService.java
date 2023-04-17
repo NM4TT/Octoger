@@ -20,30 +20,30 @@ public class SellService {
     private final SellRepository repo;
     
     public SellDTO getById(int id) {
-        return repo.getById(id).orElse(null);
+        return repo.getById(id);
     }
     
     public List<SellDTO> getAll(){
-        return repo.getAll().orElse(null);
+        return repo.getAll();
     }
     
     public List<SellDTO> getByCollection(ProductCollectionDTO collection) {
-        return repo.getByCollection(collection).orElse(null);
+        return repo.getByCollection(collection);
     }
 
     
     public List<SellDTO> getByResponsible(UserDTO user) {
-        return repo.getByResponsible(user).orElse(null);
+        return repo.getByResponsible(user);
     }
 
     
     public SellDTO getByProductOperation(ProductOperationDTO productOperation) {
-        return repo.getByProductOperation(productOperation).orElse(null);
+        return repo.getByProductOperation(productOperation);
     }
 
     
     public List<SellDTO> getByDateRange(Date from, Date to) {
-        return repo.getByDateRange(from, to).orElse(null);
+        return repo.getByDateRange(from, to);
     }
     
     public SellDTO save(SellDTO sell) {

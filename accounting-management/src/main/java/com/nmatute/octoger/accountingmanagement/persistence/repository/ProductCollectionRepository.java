@@ -7,10 +7,10 @@ import com.nmatute.octoger.accountingmanagement.domain.dto.ProductCollectionDTO;
 import com.nmatute.octoger.accountingmanagement.persistence.crud.IProductCollectionCrudRepository;
 import com.nmatute.octoger.accountingmanagement.persistence.mapper.ProductCollectionMapper;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductCollectionRepository implements IProductCollectionRepository{
     
     private final IProductCollectionCrudRepository crud;

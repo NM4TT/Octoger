@@ -14,7 +14,7 @@ public class TypeService {
     private final TypeRepository repo;
     
     public TypeDTO getByIdentifier(String identifier) {
-        return repo.getByIdentifier(identifier).orElse(null);
+        return repo.getByIdentifier(identifier);
     }
 
 }

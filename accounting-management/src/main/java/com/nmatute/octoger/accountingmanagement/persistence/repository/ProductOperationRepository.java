@@ -2,7 +2,6 @@ package com.nmatute.octoger.accountingmanagement.persistence.repository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -34,33 +33,33 @@ public class ProductOperationRepository implements IProductOperationRepository{
     private final TransactionMapper transactionMapper;
     
     @Override
-    public Optional<ProductOperationDTO> getById(int id) {
-        return Optional.of(mapper.toProductOperationDTO(crud.findById(id).get()));
+    public ProductOperationDTO getById(int id) {
+        return mapper.toProductOperationDTO(crud.findById(id).get());
     }
 
     @Override
-    public Optional<List<ProductOperationDTO>> getByCollection(ProductCollectionDTO collection) {
-        return Optional.of(mapper.toProductOperationDTOs(crud.findByCollection(collectionMapper.toProductCollection(collection)).get()));
+    public List<ProductOperationDTO> getByCollection(ProductCollectionDTO collection) {
+        return mapper.toProductOperationDTOs(crud.findByCollection(collectionMapper.toProductCollection(collection)));
     }
 
     @Override
-    public Optional<List<ProductOperationDTO>> getByType(TypeDTO type) {
-        return Optional.of(mapper.toProductOperationDTOs(crud.findByType(typeMapper.toType(type)).get()));
+    public List<ProductOperationDTO> getByType(TypeDTO type) {
+        return mapper.toProductOperationDTOs(crud.findByType(typeMapper.toType(type)));
     }
 
     @Override
-    public Optional<List<ProductOperationDTO>> getByResponsible(UserDTO user) {
-        return Optional.of(mapper.toProductOperationDTOs(crud.findByUser(userMapper.toUser(user)).get()));
+    public List<ProductOperationDTO> getByResponsible(UserDTO user) {
+        return mapper.toProductOperationDTOs(crud.findByUser(userMapper.toUser(user)));
     }
 
     @Override
-    public Optional<ProductOperationDTO> getByTransaction(TransactionDTO transaction) {
-        return Optional.of(mapper.toProductOperationDTO(crud.findByTransaction(transactionMapper.toTransaction(transaction)).get()));
+    public ProductOperationDTO getByTransaction(TransactionDTO transaction) {
+        return mapper.toProductOperationDTO(crud.findByTransaction(transactionMapper.toTransaction(transaction)));
     }
 
     @Override
-    public Optional<List<ProductOperationDTO>> getByDateRange(Date from, Date to) {
-        return Optional.of(mapper.toProductOperationDTOs(crud.findByDateRange(from, to).get()));
+    public List<ProductOperationDTO> getByDateRange(Date from, Date to) {
+        return mapper.toProductOperationDTOs(crud.findByDateRange(from, to));
     }
 
     @Override
@@ -75,8 +74,8 @@ public class ProductOperationRepository implements IProductOperationRepository{
     }
 
     @Override
-    public Optional<List<ProductOperationDTO>> getAll() {
-        return Optional.of(mapper.toProductOperationDTOs((List<ProductOperation>)crud.findAll()));
+    public List<ProductOperationDTO> getAll() {
+        return mapper.toProductOperationDTOs((List<ProductOperation>)crud.findAll());
     }
     
 }

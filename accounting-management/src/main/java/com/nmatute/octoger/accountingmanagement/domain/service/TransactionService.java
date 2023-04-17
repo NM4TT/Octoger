@@ -19,20 +19,20 @@ public class TransactionService {
     
     
     public TransactionDTO getById(int id) {
-        return repo.getById(id).orElse(null);
+        return repo.getById(id);
     }
 
     public List<TransactionDTO> getAll(){
-        return repo.getAll().orElse(null);
+        return repo.getAll();
     }
 
     public List<TransactionDTO> getByType(TypeDTO type) {
-        return repo.getByType(type).orElse(null);
+        return repo.getByType(type);
     }
 
     
     public List<TransactionDTO> getByDateRange(Date from, Date to) {
-        return repo.getByDateRange(from, to).orElse(null);
+        return repo.getByDateRange(from, to);
     }
 
     

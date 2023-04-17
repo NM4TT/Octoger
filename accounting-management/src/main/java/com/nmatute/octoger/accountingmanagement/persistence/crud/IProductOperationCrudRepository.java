@@ -2,7 +2,6 @@ package com.nmatute.octoger.accountingmanagement.persistence.crud;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -16,15 +15,15 @@ import com.nmatute.octoger.accountingmanagement.persistence.entity.User;
 
 public interface IProductOperationCrudRepository extends CrudRepository<ProductOperation, Integer> {
     
-    Optional<List<ProductOperation>> findByCollection(ProductCollection collection);
+    List<ProductOperation> findByCollection(ProductCollection collection);
 
-    Optional<List<ProductOperation>> findByType(Type type);
+    List<ProductOperation> findByType(Type type);
 
-    Optional<List<ProductOperation>> findByUser(User user);
+    List<ProductOperation> findByUser(User user);
 
-    Optional<ProductOperation> findByTransaction(Transaction transaction);
+    ProductOperation findByTransaction(Transaction transaction);
 
     @Query("SELECT po from ProductOperation po WHERE po.date BETWEEN :from AND :to")
-    Optional<List<ProductOperation>> findByDateRange(@Param("from") Date from, @Param("to") Date to);
+    List<ProductOperation> findByDateRange(@Param("from") Date from, @Param("to") Date to);
 
 }

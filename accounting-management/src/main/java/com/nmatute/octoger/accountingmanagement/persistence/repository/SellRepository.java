@@ -2,7 +2,6 @@ package com.nmatute.octoger.accountingmanagement.persistence.repository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -31,28 +30,28 @@ public class SellRepository implements ISellRepository{
     private final ProductOperationMapper productOperationMapper;
 
     @Override
-    public Optional<SellDTO> getById(int id) {
-        return Optional.of(mapper.toSellDTO(crud.findById(id).get()));
+    public SellDTO getById(int id) {
+        return mapper.toSellDTO(crud.findById(id).get());
     }
 
     @Override
-    public Optional<List<SellDTO>> getByCollection(ProductCollectionDTO collection) {
-        return Optional.of(mapper.toSellDTOs(crud.findByCollection(collectionMapper.toProductCollection(collection)).get()));
+    public List<SellDTO> getByCollection(ProductCollectionDTO collection) {
+        return mapper.toSellDTOs(crud.findByCollection(collectionMapper.toProductCollection(collection)));
     }
 
     @Override
-    public Optional<List<SellDTO>> getByResponsible(UserDTO user) {
-        return Optional.of(mapper.toSellDTOs(crud.findByUser(userMapper.toUser(user)).get()));
+    public List<SellDTO> getByResponsible(UserDTO user) {
+        return mapper.toSellDTOs(crud.findByUser(userMapper.toUser(user)));
     }
 
     @Override
-    public Optional<SellDTO> getByProductOperation(ProductOperationDTO productOperation) {
-        return Optional.of(mapper.toSellDTO(crud.findByProductOperation(productOperationMapper.toProductOperation(productOperation)).get()));
+    public SellDTO getByProductOperation(ProductOperationDTO productOperation) {
+        return mapper.toSellDTO(crud.findByProductOperation(productOperationMapper.toProductOperation(productOperation)));
     }
 
     @Override
-    public Optional<List<SellDTO>> getByDateRange(Date from, Date to) {
-        return Optional.of(mapper.toSellDTOs(crud.findByDateRange(from, to).get()));
+    public List<SellDTO> getByDateRange(Date from, Date to) {
+        return mapper.toSellDTOs(crud.findByDateRange(from, to));
     }
 
     @Override
@@ -67,8 +66,8 @@ public class SellRepository implements ISellRepository{
     }
 
     @Override
-    public Optional<List<SellDTO>> getAll() {
-        return Optional.of(mapper.toSellDTOs((List<Sell>) crud.findAll()));
+    public List<SellDTO> getAll() {
+        return mapper.toSellDTOs((List<Sell>) crud.findAll());
     }
     
 

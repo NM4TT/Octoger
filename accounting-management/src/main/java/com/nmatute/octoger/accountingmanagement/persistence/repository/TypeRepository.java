@@ -1,7 +1,5 @@
 package com.nmatute.octoger.accountingmanagement.persistence.repository;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Repository;
 
 import com.nmatute.octoger.accountingmanagement.domain.dao.ITypeRepository;
@@ -19,8 +17,8 @@ public class TypeRepository implements ITypeRepository {
     private final TypeMapper mapper;
 
     @Override
-    public Optional<TypeDTO> getByIdentifier(String identifier) {
-        return Optional.of(mapper.toTypeDTO(crud.findByIdentifier(identifier)));
+    public TypeDTO getByIdentifier(String identifier) {
+        return mapper.toTypeDTO(crud.findByIdentifier(identifier));
     }
     
 }

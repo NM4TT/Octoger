@@ -16,13 +16,13 @@ import com.nmatute.octoger.accountingmanagement.persistence.entity.User;
 
 public interface ISellCrudRepository extends CrudRepository<Sell, Integer>{
     
-    Optional<List<Sell>> findByCollection(ProductCollection collection);
+    List<Sell> findByCollection(ProductCollection collection);
 
-    Optional<List<Sell>> findByUser(User user);
+    List<Sell> findByUser(User user);
 
-    Optional<Sell> findByProductOperation(ProductOperation productOperation);
+    Sell findByProductOperation(ProductOperation productOperation);
 
     @Query("SELECT s from Sell s WHERE s.date BETWEEN :from AND :to")
-    Optional<List<Sell>> findByDateRange(@Param("from") Date from, @Param("to") Date to);
+    List<Sell> findByDateRange(@Param("from") Date from, @Param("to") Date to);
 
 }

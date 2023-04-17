@@ -21,35 +21,35 @@ public class ProductOperationService {
     private final ProductOperationRepository repo;
 
     public ProductOperationDTO getById(int id) {
-        return repo.getById(id).orElse(null);
+        return repo.getById(id);
     }
 
     public List<ProductOperationDTO> getAll(){
-        return repo.getAll().orElse(null);
+        return repo.getAll();
     }
 
     public List<ProductOperationDTO> getByCollection(ProductCollectionDTO collection) {
-        return repo.getByCollection(collection).orElse(null);
+        return repo.getByCollection(collection);
     }
 
     
     public List<ProductOperationDTO> getByType(TypeDTO type) {
-        return repo.getByType(type).orElse(null);
+        return repo.getByType(type);
     }
 
     
     public List<ProductOperationDTO> getByResponsible(UserDTO user) {
-        return repo.getByResponsible(user).orElse(null);
+        return repo.getByResponsible(user);
     }
 
     
     public ProductOperationDTO getByTransaction(TransactionDTO transaction) {
-        return repo.getByTransaction(transaction).orElse(null);
+        return repo.getByTransaction(transaction);
     }
 
     
     public List<ProductOperationDTO> getByDateRange(Date from, Date to) {
-        return repo.getByDateRange(from, to).orElse(null);
+        return repo.getByDateRange(from, to);
     }
 
     

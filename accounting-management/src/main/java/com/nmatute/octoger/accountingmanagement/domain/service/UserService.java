@@ -13,7 +13,7 @@ public class UserService {
     private final UserRepository repo;
 
     public UserDTO getById(int id) {
-        return repo.getById(id).orElse(null);
+        return repo.getById(id);
     }
 
 }

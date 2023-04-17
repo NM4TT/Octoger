@@ -55,8 +55,6 @@ public class Controller {
     private final TypeService typeService;
     private final ProductCollectionService collectionService;
     private final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.ENGLISH); //7-Jun-2021
-
-
     
     @PostMapping("/product-operation/create")
     public ResponseEntity<String> createProductOperation(@RequestBody CreateProductOperationRequest request){
@@ -271,19 +269,19 @@ public class Controller {
         return new ResponseEntity<>(transactionService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/public/product-operation/get/{operationId}")
+    @GetMapping("/product-operation/get/{operationId}")
     public ResponseEntity<ProductOperationDTO> getProductOperationById(@PathVariable("operationId") int operationId){
         log.debug("Got /accounting/product-operation/{operationId}");
         return new ResponseEntity<>(productOperationService.getById(operationId), HttpStatus.OK);
     }
 
-    @GetMapping("/public/sell/get/{sellId}")
+    @GetMapping("/sell/get/{sellId}")
     public ResponseEntity<SellDTO> getSellById(@PathVariable("sellId") int sellId){
         log.debug("Got /accounting/sell/{sellId}");
         return new ResponseEntity<>(sellService.getById(sellId), HttpStatus.OK);
     }
 
-    @GetMapping("/public/transaction/get/{transactionId}")
+    @GetMapping("/transaction/get/{transactionId}")
     public ResponseEntity<TransactionDTO> getTransactionById(@PathVariable("transactionId") int transactionId){
         log.debug("Got /accounting/transaction/{transactionId}");
         return new ResponseEntity<>(transactionService.getById(transactionId), HttpStatus.OK);

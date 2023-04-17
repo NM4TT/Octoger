@@ -2,7 +2,6 @@ package com.nmatute.octoger.accountingmanagement.persistence.repository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -25,18 +24,18 @@ public class TransactionRepository implements ITransactionRepository{
     private final TypeMapper typeMapper;
     
     @Override
-    public Optional<TransactionDTO> getById(int id) {
-        return Optional.of(mapper.toTransactionDTO(crud.findById(id).get()));
+    public TransactionDTO getById(int id) {
+        return mapper.toTransactionDTO(crud.findById(id).get());
     }
 
     @Override
-    public Optional<List<TransactionDTO>> getByType(TypeDTO type) {
-        return Optional.of(mapper.toTransactionDTOs(crud.findByType(typeMapper.toType(type)).get()));
+    public List<TransactionDTO> getByType(TypeDTO type) {
+        return mapper.toTransactionDTOs(crud.findByType(typeMapper.toType(type)));
     }
 
     @Override
-    public Optional<List<TransactionDTO>> getByDateRange(Date from, Date to) {
-        return Optional.of(mapper.toTransactionDTOs(crud.findByDateRange(from, to).get()));
+    public List<TransactionDTO> getByDateRange(Date from, Date to) {
+        return mapper.toTransactionDTOs(crud.findByDateRange(from, to));
     }
 
     @Override
@@ -51,8 +50,8 @@ public class TransactionRepository implements ITransactionRepository{
     }
 
     @Override
-    public Optional<List<TransactionDTO>> getAll() {
-        return Optional.of(mapper.toTransactionDTOs((List<Transaction>) crud.findAll()));
+    public List<TransactionDTO> getAll() {
+        return mapper.toTransactionDTOs((List<Transaction>) crud.findAll());
     }
     
 }
