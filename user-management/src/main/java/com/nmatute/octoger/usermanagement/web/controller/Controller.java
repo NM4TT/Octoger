@@ -104,7 +104,8 @@ public class Controller {
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
     
-    @GetMapping("public/get/{userId}")
+    @AdminEndpoint
+    @GetMapping("get/{userId}")
     public ResponseEntity<UserDTO> getUser(@PathVariable("userId") int userId){
         log.debug("Got /user/" + userId);
         return userService.getById(userId)
