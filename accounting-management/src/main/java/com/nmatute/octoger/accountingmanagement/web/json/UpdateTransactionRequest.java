@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,7 +13,6 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @ToString
-@EqualsAndHashCode
 public class UpdateTransactionRequest extends Request {
 
     private int id;
