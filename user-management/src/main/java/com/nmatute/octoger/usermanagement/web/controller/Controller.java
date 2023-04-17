@@ -20,6 +20,7 @@ import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO.Role;
 import com.nmatute.octoger.usermanagement.domain.service.AuthenticationService;
 import com.nmatute.octoger.usermanagement.domain.service.CredentialService;
+import com.nmatute.octoger.usermanagement.domain.service.TypeService;
 import com.nmatute.octoger.usermanagement.domain.service.UserService;
 import com.nmatute.octoger.usermanagement.web.json.AuthenticationRequest;
 import com.nmatute.octoger.usermanagement.web.json.AuthenticationResponse;
@@ -37,6 +38,7 @@ public class Controller {
     private final CredentialService credentialService;
     private final UserService userService;
     private final AuthenticationService authService;
+    private final TypeService typeService;
     private final Logger log = LoggerFactory.getLogger(Controller.class);
 
     @AdminEndpoint
@@ -53,7 +55,7 @@ public class Controller {
     @PutMapping("/update")
     public ResponseEntity<String> updateUser(@RequestBody UpdateRequest request) {
 
-        log.debug("Got PUT /user/{userId}");
+        log.debug("Got PUT /user/update");
         
         if (request.isEmpty(String.valueOf(request.getId())) &&
             request.isEmpty(request.getName()) &&
@@ -80,13 +82,13 @@ public class Controller {
             existingUser.setName(request.getName());
             existingUser.setLastname(request.getLastname());
             existingUser.setPersonalIdentifier(request.getPersonalIdentifier());
-            existingUser.setType(request.getType());
+            existingUser.setType(typeService.getByIdentifier(request.getType()));
             log.debug("User data recolected for update.");
             existingUser = userService.save(existingUser);
             log.debug("User updated.");
 
             existingCredential.setUsername(request.getUsername());
-            existingCredential.setRole((existingUser.getType().endsWith("00") ? Role.ADMIN : Role.REGULAR));
+            existingCredential.setRole((existingUser.getType().getIdentifier().endsWith("00") ? Role.ADMIN : Role.REGULAR));
             existingCredential.setPassword(request.getPassword());
             credentialService.save(existingCredential);
 

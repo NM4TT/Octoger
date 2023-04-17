@@ -25,6 +25,7 @@ public class AuthenticationService {
     private final UserService userService;
     private final JwtService jwtService;
     private final AuthenticationManager authManager;
+    private final TypeService typeService;
     private final Logger log = LoggerFactory.getLogger(AuthenticationService.class);
 
     public AuthenticationResponse register(RegisterRequest request) {
@@ -43,14 +44,14 @@ public class AuthenticationService {
             user.setName(request.getName());
             user.setLastname(request.getLastname());
             user.setPersonalIdentifier(request.getPersonalIdentifier());
-            user.setType(request.getType());
+            user.setType(typeService.getByIdentifier(request.getType()));
             log.debug("User data recolected for registration.");
             user = userService.save(user);
             log.debug("User saved.");
 
             credential.setUsername(request.getUsername());
             credential.setUser(user);
-            credential.setRole((user.getType().endsWith("00") ? Role.ADMIN : Role.REGULAR));
+            credential.setRole((user.getType().getIdentifier().endsWith("00") ? Role.ADMIN : Role.REGULAR));
             credential.setPassword(request.getPassword());
             
             log.debug("Credential data recolected for registration.");

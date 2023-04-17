@@ -13,19 +13,11 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class UpdateRequest extends Request {
+public class TypeResponse extends Request {
     
     private int id;
 
-    private String personalIdentifier;
+    private String identifier;
 
-    private String name;
-
-    private String lastname;
-
-    private String type;
-
-    private String username;
-
-    private String password;
+    private String description;
 }

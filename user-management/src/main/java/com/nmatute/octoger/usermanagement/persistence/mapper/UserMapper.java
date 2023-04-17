@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.usermanagement.persistence.entity.User;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = TypeMapper.class)
 public interface UserMapper {
     
     UserDTO toUserDTO(User user);
