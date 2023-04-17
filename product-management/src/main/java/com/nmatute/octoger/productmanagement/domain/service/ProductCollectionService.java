@@ -20,10 +20,10 @@ public class ProductCollectionService {
         return repo.getById(id);
     }
     public List<ProductCollectionDTO> getByResponsible(UserDTO user){
-        return repo.getByResponsible(user).orElse(null);
+        return repo.getByResponsible(user);
     }
     public List<ProductCollectionDTO> getByProvider(String provider){
-        return repo.getByProvider(provider).orElse(null);
+        return repo.getByProvider(provider);
     }
     public ProductCollectionDTO save(ProductCollectionDTO productCollection){
         return repo.save(productCollection);
@@ -32,7 +32,7 @@ public class ProductCollectionService {
         repo.delete(id);
     }
     public List<ProductCollectionDTO> getAll() {
-        return repo.getAll().orElse(null);
+        return repo.getAll();
     }
 
 }

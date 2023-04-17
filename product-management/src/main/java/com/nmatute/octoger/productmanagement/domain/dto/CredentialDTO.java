@@ -33,7 +33,7 @@ public class CredentialDTO implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        this.role = (user.getType().endsWith("00") ? Role.ADMIN : Role.REGULAR);
+        this.role = (user.getType().getIdentifier().endsWith("00") ? Role.ADMIN : Role.REGULAR);
 
         return List.of(new SimpleGrantedAuthority(role.name()));
     }

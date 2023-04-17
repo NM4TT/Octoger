@@ -1,7 +1,6 @@
 package com.nmatute.octoger.productmanagement.persistence.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -10,14 +9,13 @@ import com.nmatute.octoger.productmanagement.domain.dto.ProductCollectionDTO;
 import com.nmatute.octoger.productmanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.productmanagement.persistence.crud.IProductCollectionCrudRepository;
 import com.nmatute.octoger.productmanagement.persistence.entity.ProductCollection;
-import com.nmatute.octoger.productmanagement.persistence.entity.User;
 import com.nmatute.octoger.productmanagement.persistence.mapper.ProductCollectionMapper;
 import com.nmatute.octoger.productmanagement.persistence.mapper.UserMapper;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductCollectionRepository implements IProductCollectionRepository{
     
     private final IProductCollectionCrudRepository crud;
@@ -29,12 +27,12 @@ public class ProductCollectionRepository implements IProductCollectionRepository
         return mapper.toProductCollectionDTO(crud.findById(id).orElse(null));
     }
     @Override
-    public Optional<List<ProductCollectionDTO>> getByResponsible(UserDTO user) {
-        return Optional.of(mapper.toProductCollectionDTOs(crud.findByUser(userMapper.toUser(user))));
+    public List<ProductCollectionDTO> getByResponsible(UserDTO user) {
+        return mapper.toProductCollectionDTOs(crud.findByUser(userMapper.toUser(user)));
     }
     @Override
-    public Optional<List<ProductCollectionDTO>> getByProvider(String provider) {
-        return Optional.of(mapper.toProductCollectionDTOs(crud.findByProvider(provider)));
+    public List<ProductCollectionDTO> getByProvider(String provider) {
+        return mapper.toProductCollectionDTOs(crud.findByProvider(provider));
     }
     @Override
     public ProductCollectionDTO save(ProductCollectionDTO productCollection) {
@@ -45,7 +43,8 @@ public class ProductCollectionRepository implements IProductCollectionRepository
     public void delete(int id) {
         crud.deleteById(id);
     }
-    public Optional<List<ProductCollectionDTO>> getAll() {
-        return Optional.of(mapper.toProductCollectionDTOs((List<ProductCollection>) crud.findAll()));
+    @Override
+    public List<ProductCollectionDTO> getAll() {
+        return mapper.toProductCollectionDTOs((List<ProductCollection>) crud.findAll());
     }
 }

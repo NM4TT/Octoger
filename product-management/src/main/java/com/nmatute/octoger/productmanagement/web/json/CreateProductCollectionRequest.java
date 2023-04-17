@@ -4,11 +4,17 @@ import java.math.BigDecimal;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
 public class CreateProductCollectionRequest extends Request {
 
     private int userId;

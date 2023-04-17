@@ -20,13 +20,13 @@ public class ProductService {
         return repo.getById(id);
     }
     public List<ProductDTO> getByCollection(ProductCollectionDTO collection){
-        return repo.getByCollection(collection).orElse(null);
+        return repo.getByCollection(collection);
     }
     public List<ProductDTO> getAvailables(){
-        return repo.getAvailables().orElse(null);
+        return repo.getAvailables();
     }
     public List<ProductDTO> getNonAvailables(){
-        return repo.getNonAvailables().orElse(null);
+        return repo.getNonAvailables();
     }
     public ProductDTO save(ProductDTO product){
         return repo.save(product);
@@ -35,7 +35,7 @@ public class ProductService {
         repo.delete(id);
     }
     public List<ProductDTO> getAll() {
-        return repo.getAll().orElse(null);
+        return repo.getAll();
     }
 
 }
