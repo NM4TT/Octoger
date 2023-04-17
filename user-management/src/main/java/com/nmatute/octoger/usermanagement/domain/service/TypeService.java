@@ -18,13 +18,14 @@ import com.nmatute.octoger.usermanagement.web.json.TypeResponse;
 @Service
 public class TypeService {
 
+    private static final String TYPEMANAGEMENT_PORT = "9011";
     private final Logger log = LoggerFactory.getLogger(TypeService.class);
     
     public TypeDTO getByIdentifier(String identifier){
         TypeDTO type = null;
 
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:9011/type/public/identifier/" + identifier;
+        String url = "http://localhost:" + TYPEMANAGEMENT_PORT + "/type/public/identifier/" + identifier;
 
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
@@ -35,32 +36,30 @@ public class TypeService {
         // create an instance of the ObjectMapper
         ObjectMapper objectMapper = new ObjectMapper();
 
-        // JSON string to be parsed
-        if (response != null) {
+        try {
             String jsonString = response.getBody().replace("[", "").replace("]", "");
-        
+    
             // parse the JSON string into a Java object
             TypeResponse responseObject;
-            try {
-                responseObject = objectMapper.readValue(jsonString, TypeResponse.class);
-            
-                if (responseObject != null &&
-                !responseObject.isEmpty(String.valueOf(responseObject.getId())) &&
-                !responseObject.isEmpty(responseObject.getIdentifier()) &&
-                !responseObject.isEmpty(responseObject.getDescription())
-                ) { 
-                    type = new TypeDTO();
-                    type.setId(responseObject.getId());
-                    type.setIdentifier(responseObject.getIdentifier());
-                    type.setDescription(responseObject.getDescription());
-                }
-
-            } catch (JsonProcessingException e) {
-                log.error("ERROR AL PARSEAR JSON: " + e.getMessage());
-            }
+            responseObject = objectMapper.readValue(jsonString, TypeResponse.class);
         
-        }
+            if (responseObject != null &&
+            !responseObject.isEmpty(String.valueOf(responseObject.getId())) &&
+            !responseObject.isEmpty(responseObject.getIdentifier()) &&
+            !responseObject.isEmpty(responseObject.getDescription())
+            ) { 
+                type = new TypeDTO();
+                type.setId(responseObject.getId());
+                type.setIdentifier(responseObject.getIdentifier());
+                type.setDescription(responseObject.getDescription());
+            }
 
+        } catch (JsonProcessingException e) {
+            log.error("ERROR AL PARSEAR JSON: " + e.getMessage());
+        } catch (NullPointerException ex){
+            log.error("Null pointer exception: " + ex.getMessage());
+        }
+    
         return type;
     }
 

@@ -24,6 +24,6 @@ public class User {
 
     private String lastname;
 
-    private String type;
+    private Type type;
 
 }
