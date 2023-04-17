@@ -1,7 +1,6 @@
 package com.nmatute.octoger.typemanagement.persistence.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -26,8 +25,8 @@ public class TypeRepository implements ITypeRepository {
     }
 
     @Override
-    public Optional<TypeDTO> getByIdentifier(String identifier) {
-        return Optional.of(mapper.toTypeDTO(crud.findByIdentifier(identifier)));
+    public TypeDTO getByIdentifier(String identifier) {
+        return mapper.toTypeDTO(crud.findByIdentifier(identifier));
     }
 
     @Override
@@ -42,12 +41,13 @@ public class TypeRepository implements ITypeRepository {
     }
 
     @Override
-    public Optional<TypeDTO> getById(int id) {
-        return Optional.of(mapper.toTypeDTO(crud.findById(id).get()));
+    public TypeDTO getById(int id) {
+        return mapper.toTypeDTO(crud.findById(id).get());
     }
 
-    public Optional<List<TypeDTO>> getByPrefix(String prefix){
-        return Optional.of(mapper.toTypeDTOs(crud.findByPrefix(prefix)));
+    @Override
+    public List<TypeDTO> getByPrefix(String prefix){
+        return mapper.toTypeDTOs(crud.findByPrefix(prefix));
     }
     
 }

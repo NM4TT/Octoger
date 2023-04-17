@@ -6,10 +6,10 @@ import com.nmatute.octoger.typemanagement.domain.dto.CredentialDTO;
 import com.nmatute.octoger.typemanagement.persistence.crud.ICredentialCrudRepository;
 import com.nmatute.octoger.typemanagement.persistence.mapper.CredentialMapper;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CredentialRepository {
     
     private final ICredentialCrudRepository crud;

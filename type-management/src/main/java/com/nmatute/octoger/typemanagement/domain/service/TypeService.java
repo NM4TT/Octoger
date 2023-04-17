@@ -21,15 +21,15 @@ public class TypeService {
     }
 
     
-    public Optional<TypeDTO> getByIdentifier(String identifier) {
+    public TypeDTO getByIdentifier(String identifier) {
         return repo.getByIdentifier(identifier);
     }
 
-    public Optional<TypeDTO> getById(int id){
+    public TypeDTO getById(int id){
         return repo.getById(id);
     }
 
-    public Optional<List<TypeDTO>> getByPrefix(String prefix){
+    public List<TypeDTO> getByPrefix(String prefix){
         return repo.getByPrefix(prefix);
     }
 

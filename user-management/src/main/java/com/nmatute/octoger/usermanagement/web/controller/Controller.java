@@ -108,9 +108,12 @@ public class Controller {
     @GetMapping("get/{userId}")
     public ResponseEntity<UserDTO> getUser(@PathVariable("userId") int userId){
         log.debug("Got /user/" + userId);
-        return userService.getById(userId)
-        .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
-        .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+
+        UserDTO user = userService.getById(userId);
+
+        return (user != null) ?
+        new ResponseEntity<>(user, HttpStatus.OK) :
+        new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
     }
     
     @AdminEndpoint

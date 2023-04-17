@@ -63,7 +63,7 @@ public class Controller {
             !request.isEmpty(request.getDescription())
         ) {
             
-            TypeDTO type = typeService.getById(request.getId()).get();
+            TypeDTO type = typeService.getById(request.getId());
 
             type.setIdentifier(request.getIdentifier());
             type.setDescription(request.getDescription());
@@ -75,47 +75,42 @@ public class Controller {
         return new ResponseEntity<>("Type not updated.", HttpStatus.BAD_REQUEST);        
     }
 
-    @AdminEndpoint
     @GetMapping("/all")
     public ResponseEntity<List<TypeDTO>> getAllTypes(){
         log.debug("Got type/all");
         return new ResponseEntity<>(typeService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/public/identifier/{prefix}")
+    @GetMapping("/identifier/{prefix}")
     public ResponseEntity<List<TypeDTO>> getByIdentifier(@PathVariable("prefix") String prefix){
         log.debug("Got type/identifier/{prefix}");
         
-        if (prefix != null && !prefix.equals("")) {
-            
-            return typeService.getByPrefix(prefix)
-            .map(types -> new ResponseEntity<>(types,HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        List<TypeDTO> types = typeService.getByPrefix(prefix);
 
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return (types != null) ?
+        new ResponseEntity<>(types, HttpStatus.OK) :
+        new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
     
-    @AdminEndpoint
     @GetMapping("/{typeId}")
     public ResponseEntity<TypeDTO> getType(@PathVariable("typeId") int typeId){
         log.debug("Got /user/" + typeId);
         
-        if (typeId >= 0) {
-            
-            return typeService.getById(typeId)
-            .map(type -> new ResponseEntity<>(type, HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        TypeDTO type = typeService.getById(typeId);
 
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return (type != null) ?
+        new ResponseEntity<>(HttpStatus.OK) :
+        new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     
     @AdminEndpoint
     @PostMapping("/delete/{typeId}")
     public ResponseEntity<String> deleteType(@PathVariable("typeId") int typeId){
         log.debug("Got /type/delete/" + typeId);
-        if (typeService.getById(typeId).isPresent()) {
+
+        TypeDTO type = typeService.getById(typeId);
+
+        if (type != null) {
             typeService.delete(typeId);
             return new ResponseEntity<>("Type deleted successfully.", HttpStatus.OK);
         } 

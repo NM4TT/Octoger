@@ -1,7 +1,6 @@
 package com.nmatute.octoger.usermanagement.persistence.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -11,14 +10,14 @@ import com.nmatute.octoger.usermanagement.persistence.crud.IUserCrudRepository;
 import com.nmatute.octoger.usermanagement.persistence.entity.User;
 import com.nmatute.octoger.usermanagement.persistence.mapper.UserMapper;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Repository
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserRepository implements IUserRepository{
     
-    private IUserCrudRepository crud;
-    private UserMapper mapper;
+    private final IUserCrudRepository crud;
+    private final UserMapper mapper;
 
     @Override
     public List<UserDTO> getAll() {
@@ -31,8 +30,8 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public Optional<UserDTO> getById(int id) {
-        return crud.findById(id).map(user -> mapper.toUserDTO(user));
+    public UserDTO getById(int id) {
+        return crud.findById(id).map(user -> mapper.toUserDTO(user)).get();
     }
 
     @Override
@@ -45,11 +44,8 @@ public class UserRepository implements IUserRepository{
     public void delete(int id) {
         crud.deleteById(id);
     }
-
-    public List<UserDTO> findByType(String type){
-        return mapper.toUserDTOs(crud.findByType(type));
-    }
     
+    @Override
     public boolean findUser(int userId){
         return crud.findUser(userId) == 1;
     }
