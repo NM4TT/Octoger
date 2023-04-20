@@ -18,12 +18,7 @@ public class CredentialService {
     private final CredentialRepository repo;
 
     private final AES AES = new AES();
- 
-    public CredentialDTO get(String username) {
-        CredentialDTO credential = repo.get(username);
-        credential.setPassword(AES.perform(credential.getPassword(), Action.DECRYPT));
-        return credential;
-    }
+
     
     public CredentialDTO save(CredentialDTO credential) {
         credential.setPassword(AES.perform(credential.getPassword(), Action.ENCRYPT));
@@ -35,7 +30,9 @@ public class CredentialService {
     }
 
     public Optional<CredentialDTO> findByUsername(String username){
-        return Optional.of(repo.findByUsername(username));
+        CredentialDTO credential = repo.findByUsername(username);
+        credential.setPassword(AES.perform(credential.getPassword(), Action.DECRYPT));
+        return Optional.of(credential);
     }
 
 }

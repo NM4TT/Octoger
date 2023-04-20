@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.nmatute.octoger.usermanagement.domain.dto.TypeDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.usermanagement.persistence.repository.UserRepository;
 
@@ -21,7 +22,7 @@ public class UserService {
     }
 
     
-    public List<UserDTO> getByType(String type) {
+    public List<UserDTO> getByType(TypeDTO type) {
         return repo.getByType(type);
     }
 

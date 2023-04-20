@@ -2,13 +2,14 @@ package com.nmatute.octoger.usermanagement.domain.dao;
 
 import java.util.List;
 
+import com.nmatute.octoger.usermanagement.domain.dto.TypeDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
 
 public interface IUserRepository {
     
     List<UserDTO> getAll();
 
-    List<UserDTO> getByType(String type);
+    List<UserDTO> getByType(TypeDTO type);
 
     UserDTO getById(int id);
     

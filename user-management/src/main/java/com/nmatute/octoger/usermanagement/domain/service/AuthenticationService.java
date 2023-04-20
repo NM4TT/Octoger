@@ -1,7 +1,5 @@
 package com.nmatute.octoger.usermanagement.domain.service;
 
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -78,12 +76,11 @@ public class AuthenticationService {
                 )
             );
 
-            Optional<CredentialDTO> optionalCredential = credentialService.findByUsername(request.getUsername());
+            CredentialDTO credentialDTO = credentialService.findByUsername(request.getUsername()).get();
 
-            if (optionalCredential.isPresent()) {
-                CredentialDTO credential = optionalCredential.get();
+            if (credentialDTO != null) {
 
-                String jwtToken = jwtService.generateToken(credential);
+                String jwtToken = jwtService.generateToken(credentialDTO);
                 log.debug("JWT Token generated in authenticate.");
         
                 return new AuthenticationResponse(jwtToken);

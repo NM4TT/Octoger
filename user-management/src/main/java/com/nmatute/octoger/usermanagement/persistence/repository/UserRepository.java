@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.nmatute.octoger.usermanagement.domain.dao.IUserRepository;
+import com.nmatute.octoger.usermanagement.domain.dto.TypeDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.usermanagement.persistence.crud.IUserCrudRepository;
 import com.nmatute.octoger.usermanagement.persistence.entity.User;
+import com.nmatute.octoger.usermanagement.persistence.mapper.TypeMapper;
 import com.nmatute.octoger.usermanagement.persistence.mapper.UserMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ public class UserRepository implements IUserRepository{
     
     private final IUserCrudRepository crud;
     private final UserMapper mapper;
+    private final TypeMapper typeMapper;
 
     @Override
     public List<UserDTO> getAll() {
@@ -25,8 +28,8 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public List<UserDTO> getByType(String type) {
-        return mapper.toUserDTOs(crud.findByType(type));
+    public List<UserDTO> getByType(TypeDTO type) {
+        return mapper.toUserDTOs(crud.findByType(typeMapper.toType(type)));
     }
 
     @Override
