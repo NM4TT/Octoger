@@ -9,6 +9,11 @@ import com.nmatute.octoger.usermanagement.persistence.mapper.TypeMapper;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Repositorio de Tipos.
+ * 
+ * @author NM4TT
+ */
 @Repository
 @RequiredArgsConstructor
 public class TypeRepository implements ITypeRepository {

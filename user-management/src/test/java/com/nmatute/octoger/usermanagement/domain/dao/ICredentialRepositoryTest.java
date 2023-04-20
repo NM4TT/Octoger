@@ -19,6 +19,11 @@ import com.nmatute.octoger.usermanagement.persistence.crud.IUserCrudRepository;
 import com.nmatute.octoger.usermanagement.persistence.mapper.CredentialMapper;
 import com.nmatute.octoger.usermanagement.persistence.repository.CredentialRepository;
 
+/**
+ * Probar CredentialRepository del Web Service.
+ *
+ * @author: NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class ICredentialRepositoryTest {
     

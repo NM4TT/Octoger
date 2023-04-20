@@ -15,6 +15,11 @@ import com.nmatute.octoger.usermanagement.persistence.entity.Credential;
 import com.nmatute.octoger.usermanagement.web.security.AES;
 import com.nmatute.octoger.usermanagement.web.security.AES.Action;
 
+/**
+ * Mapper de Credenciales
+ * 
+ * @author NM4TT
+ */
 @Mapper(componentModel = "spring", uses = UserMapper.class)
 public interface CredentialMapper {
     

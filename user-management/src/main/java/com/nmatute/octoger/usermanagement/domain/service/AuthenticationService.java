@@ -15,6 +15,11 @@ import com.nmatute.octoger.usermanagement.web.json.RegisterRequest;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Servicio de Autenticacion.
+ * 
+ * @author NM4TT
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {

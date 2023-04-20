@@ -7,6 +7,11 @@ import com.nmatute.octoger.usermanagement.persistence.repository.CredentialRepos
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Servicio de Credenciales.
+ * 
+ * @author NM4TT
+ */
 @Service
 @RequiredArgsConstructor
 public class CredentialService {

@@ -19,6 +19,11 @@ import com.nmatute.octoger.usermanagement.web.security.AES;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Beans extra utilizados por el Web Service.
+ * 
+ * @author NM4TT
+ */
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {

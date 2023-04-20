@@ -10,6 +10,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+/**
+ * Entidad de Usuarios.
+ * 
+ * @author NM4TT
+ */
 @Entity
 @Table(name = "user", schema = "public")
 @Data

@@ -18,6 +18,11 @@ import com.nmatute.octoger.usermanagement.domain.dto.TypeDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.usermanagement.persistence.repository.UserRepository;
 
+/**
+ * Probar UserService del Web Service.
+ *
+ * @author: NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class UserServiceTest {
     @Mock

@@ -14,6 +14,11 @@ import org.mockito.MockitoAnnotations;
 import com.nmatute.octoger.usermanagement.domain.dto.TypeDTO;
 import com.nmatute.octoger.usermanagement.persistence.repository.TypeRepository;
 
+/**
+ * Probar TypeService del Web Service.
+ *
+ * @author: NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class TypeServiceTest {
     @Mock

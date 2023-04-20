@@ -9,6 +9,11 @@ import org.springframework.data.repository.query.Param;
 import com.nmatute.octoger.usermanagement.persistence.entity.Type;
 import com.nmatute.octoger.usermanagement.persistence.entity.User;
 
+/**
+ * CRUD y custom query methods de Usuarios.
+ * 
+ * @author NM4TT
+ */
 public interface IUserCrudRepository extends CrudRepository<User, Integer>{
     List<User> findByType(Type type); 
     

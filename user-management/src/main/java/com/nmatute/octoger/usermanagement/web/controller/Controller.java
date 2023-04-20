@@ -30,6 +30,11 @@ import com.nmatute.octoger.usermanagement.web.security.config.AdminEndpoint;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Controller de Web Service
+ * 
+ * @author NM4TT
+ */
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -41,6 +46,11 @@ public class Controller {
     private final TypeService typeService;
     private final Logger log = LoggerFactory.getLogger(Controller.class);
 
+    /**
+     * Metodo para dar de alta usuarios.
+     * @param entity Usuario a ser registrado en el sistema.
+     * @return Token JWT.
+     */
     @AdminEndpoint
     @PostMapping("/create")
     public ResponseEntity<AuthenticationResponse> createUser(@RequestBody RegisterRequest entity){
@@ -51,6 +61,11 @@ public class Controller {
         return (response != null) ? ResponseEntity.ok(response) : ResponseEntity.badRequest().body(response);
     }
 
+    /**
+     * Metodo para actualizar usuarios.
+     * @param request Json con detalles de actualizacion.
+     * @return Mensaje descriptivo de operacion realizada.
+     */
     @AdminEndpoint
     @PutMapping("/update")
     public ResponseEntity<String> updateUser(@RequestBody UpdateRequest request) {
@@ -97,6 +112,10 @@ public class Controller {
         
     }
 
+    /**
+     * Metodo para obtener todos los usuarios del sistema.
+     * @return Lista de todos los usuarios.
+     */
     @AdminEndpoint
     @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAllUsers(){
@@ -104,6 +123,11 @@ public class Controller {
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
     
+    /**
+     * Metodo para obtener un usuario especifico por su ID.
+     * @param userId ID del usuario.
+     * @return Usuario encontrado.
+     */
     @AdminEndpoint
     @GetMapping("get/{userId}")
     public ResponseEntity<UserDTO> getUser(@PathVariable("userId") int userId){
@@ -113,9 +137,14 @@ public class Controller {
 
         return (user != null) ?
         new ResponseEntity<>(user, HttpStatus.OK) :
-        new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+        new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     
+    /**
+     * Metodo para eliminar un usuario por su ID.
+     * @param userId ID de usuario.
+     * @return Mensaje descriptivo de operacion realizada.
+     */
     @AdminEndpoint
     @PostMapping("/delete/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable("userId") int userId){
@@ -128,6 +157,11 @@ public class Controller {
         return new ResponseEntity<>("User not found.", HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Metodo para autenticar un usuario y generar un JWT token.
+     * @param request Json con detalles de autenticacion.
+     * @return Token JWT
+     */
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
         log.debug("Got /authenticate");

@@ -21,6 +21,11 @@ import com.nmatute.octoger.usermanagement.persistence.mapper.TypeMapper;
 import com.nmatute.octoger.usermanagement.persistence.mapper.UserMapper;
 import com.nmatute.octoger.usermanagement.persistence.repository.UserRepository;
 
+/**
+ * Probar UserRepository del Web Service.
+ *
+ * @author: NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class IUserRepositoryTest {
 

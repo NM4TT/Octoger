@@ -25,6 +25,11 @@ import com.nmatute.octoger.usermanagement.web.json.AuthenticationRequest;
 import com.nmatute.octoger.usermanagement.web.json.AuthenticationResponse;
 import com.nmatute.octoger.usermanagement.web.json.RegisterRequest;
 
+/**
+ * Probar Controller de Web Service.
+ *
+ * @author: NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class ControllerTest {
 
@@ -43,6 +48,9 @@ public class ControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * Probar metodo para crear usuarios en controller.
+     */
     @Test
     void testCreateUser() {
         RegisterRequest request = new RegisterRequest();
@@ -64,6 +72,9 @@ public class ControllerTest {
         assertEquals(expectedResponse.getBody(), actualResponse.getBody());
     }
 
+    /**
+     * Probar metodo para eliminar usuario en controller.
+     */
     @Test
     void testDeleteUser() {
         UserDTO user = new UserDTO();
@@ -84,6 +95,9 @@ public class ControllerTest {
         assertEquals(expectedResponse.getBody(), actualResponse.getBody());
     }
 
+    /**
+     * Probar metodo para autenticacion de usuario en controller.
+     */
     @Test
     void testAuthenticate() {
         AuthenticationRequest request = new AuthenticationRequest();
@@ -105,6 +119,9 @@ public class ControllerTest {
         assertEquals(expectedResponse.getBody(), actualResponse.getBody());
     }
 
+    /**
+     * Probar metodo para obtener todos los usuarios.
+     */
     @Test
     void testGetAllUsers() {
         UserDTO user = new UserDTO();
@@ -115,6 +132,9 @@ public class ControllerTest {
         assertNotNull(result);
     }
 
+    /**
+     * Probar metodo para obtener usuario especifico.
+     */
     @Test
     void testGetUser() {
         UserDTO user = new UserDTO();
@@ -126,6 +146,9 @@ public class ControllerTest {
         assertEquals(user, result);
     }
 
+    /**
+     * Probar metodo para actualizar usuario en controller.
+     */
     @Test
     void testUpdateUser() {
         UserDTO user = new UserDTO();

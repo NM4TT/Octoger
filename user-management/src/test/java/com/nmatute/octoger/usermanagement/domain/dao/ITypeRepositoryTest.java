@@ -16,6 +16,11 @@ import com.nmatute.octoger.usermanagement.persistence.crud.ITypeCrudRepository;
 import com.nmatute.octoger.usermanagement.persistence.mapper.TypeMapper;
 import com.nmatute.octoger.usermanagement.persistence.repository.TypeRepository;
 
+/**
+ * Probar TypeRepository del Web Service.
+ *
+ * @author: NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class ITypeRepositoryTest {
 

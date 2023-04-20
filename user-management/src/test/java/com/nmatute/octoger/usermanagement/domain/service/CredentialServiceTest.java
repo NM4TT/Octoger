@@ -14,6 +14,11 @@ import org.mockito.MockitoAnnotations;
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO;
 import com.nmatute.octoger.usermanagement.persistence.repository.CredentialRepository;
 
+/**
+ * Probar CredentialService del Web Service.
+ *
+ * @author: NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class CredentialServiceTest {
     @Mock

@@ -4,7 +4,6 @@ import org.springframework.stereotype.Repository;
 
 import com.nmatute.octoger.usermanagement.domain.dao.ICredentialRepository;
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO;
-import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO.Role;
 import com.nmatute.octoger.usermanagement.persistence.crud.ICredentialCrudRepository;
 import com.nmatute.octoger.usermanagement.persistence.crud.IUserCrudRepository;
 import com.nmatute.octoger.usermanagement.persistence.entity.Credential;
@@ -12,6 +11,11 @@ import com.nmatute.octoger.usermanagement.persistence.mapper.CredentialMapper;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Repositorio de Credenciales
+ * 
+ * @author NM4TT
+ */
 @Repository
 @RequiredArgsConstructor
 public class CredentialRepository implements ICredentialRepository{

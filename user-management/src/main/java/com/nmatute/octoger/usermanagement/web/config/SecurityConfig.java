@@ -14,6 +14,11 @@ import com.nmatute.octoger.usermanagement.web.security.config.JwtAuthenticationF
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Configuracion de Seguridad de Web Service
+ * 
+ * @author NM4TT
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
