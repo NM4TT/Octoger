@@ -1,10 +1,6 @@
 package com.nmatute.octoger.usermanagement.domain.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -16,9 +12,10 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.mockito.MockitoAnnotations;
 
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO;
+import com.nmatute.octoger.usermanagement.domain.dto.TypeDTO;
+import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.usermanagement.persistence.crud.ICredentialCrudRepository;
 import com.nmatute.octoger.usermanagement.persistence.crud.IUserCrudRepository;
-import com.nmatute.octoger.usermanagement.persistence.entity.Credential;
 import com.nmatute.octoger.usermanagement.persistence.mapper.CredentialMapper;
 import com.nmatute.octoger.usermanagement.persistence.repository.CredentialRepository;
 
@@ -26,62 +23,54 @@ import com.nmatute.octoger.usermanagement.persistence.repository.CredentialRepos
 public class ICredentialRepositoryTest {
     
     @Mock
+    private CredentialMapper mapper;
+    @Mock
     private ICredentialCrudRepository crud;
     @Mock
     private IUserCrudRepository userCrud;
-    @Mock
-    private CredentialMapper mapper;
 
     @InjectMocks
     private CredentialRepository repo;
 
-    private CredentialDTO credentialDTO;
-    private Credential credential;
-
     @BeforeAll
     void setup(){
         MockitoAnnotations.openMocks(this);
-
-        credential = new Credential();
-        credential.setPassword("password");
-        credential.setUsername("username");
-        
-        credentialDTO = new CredentialDTO();
-        credentialDTO.setPassword("password");
-        credentialDTO.setUsername("username");
     }
     
     @Test
     void testFindByUsername() {
-        when(mapper.toCredentialDTO(credential)).thenReturn(credentialDTO);
-        when(crud.findByUsername(any(String.class))).thenReturn(credential);
+        CredentialDTO credential = new CredentialDTO();
+        credential.setUsername("username");
+        when(repo.findByUsername("username")).thenReturn(credential);
         
-        CredentialDTO credentialFound = mapper.toCredentialDTO(crud.findByUsername("test"));
+        CredentialDTO credentialFound = repo.findByUsername("username");
 
-        assertEquals(credentialFound.getUsername(), credential.getUsername());
-        assertEquals(credentialFound.getPassword(), credential.getPassword());
+        assertEquals(credential, credentialFound);
     }
 
     @Test
     void testGetUserType() {
-        when(userCrud.getUserType(anyInt()))
-        .thenReturn(anyString());
+        CredentialDTO credential = new CredentialDTO();
+        UserDTO user = new UserDTO();
+        TypeDTO type = new TypeDTO();
+        type.setIdentifier("test");
+        user.setType(type);
+        user.setId(1);
+        credential.setUser(user);
+        when(repo.getUserType(1)).thenReturn("test");
         
-        String result = userCrud.getUserType(5);
+        String result = repo.getUserType(1);
 
-        assertNotNull(result);
+        assertEquals("test",result);
     }
 
     @Test
     void testSave() {
-        when(mapper.toCredential(credentialDTO)).thenReturn(credential);
-        when(mapper.toCredentialDTO(credential)).thenReturn(credentialDTO);
-        when(crud.save(any(Credential.class))).thenReturn(credential);
+        CredentialDTO credential = new CredentialDTO();
+        when(repo.save(credential)).thenReturn(credential);
 
-        CredentialDTO savedCredential = mapper.toCredentialDTO(crud.save(mapper.toCredential(credentialDTO)));
+        CredentialDTO savedCredential = repo.save(credential);
 
-        assertNotNull(savedCredential);
-        assertEquals(credentialDTO.getUsername(), savedCredential.getUsername());
-        assertEquals(credentialDTO.getPassword(), savedCredential.getPassword());
+        assertEquals(credential, savedCredential);
     }
 }

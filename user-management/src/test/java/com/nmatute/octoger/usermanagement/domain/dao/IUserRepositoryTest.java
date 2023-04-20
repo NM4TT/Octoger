@@ -2,12 +2,9 @@ package com.nmatute.octoger.usermanagement.domain.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -20,8 +17,6 @@ import org.mockito.MockitoAnnotations;
 import com.nmatute.octoger.usermanagement.domain.dto.TypeDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.usermanagement.persistence.crud.IUserCrudRepository;
-import com.nmatute.octoger.usermanagement.persistence.entity.Type;
-import com.nmatute.octoger.usermanagement.persistence.entity.User;
 import com.nmatute.octoger.usermanagement.persistence.mapper.TypeMapper;
 import com.nmatute.octoger.usermanagement.persistence.mapper.UserMapper;
 import com.nmatute.octoger.usermanagement.persistence.repository.UserRepository;
@@ -38,75 +33,64 @@ public class IUserRepositoryTest {
 
     @InjectMocks
     private UserRepository repo;
-
-    private User user;
-    private UserDTO userDTO;
-    private Type type;
-    private TypeDTO typeDTO;
+    
 
     @BeforeAll
     void setup(){
         MockitoAnnotations.openMocks(this);
-
-        user = new User();
-        user.setName("name");
-        user.setLastname("lastname");
-        
-        userDTO = new UserDTO();
-        userDTO.setName("name");
-        userDTO.setLastname("lastname");
-
-        typeDTO = new TypeDTO();
-        type = new Type();
     }
 
     @Test
     void testFindUser() {
-        when(crud.findUser(anyInt())).thenReturn(Integer.MIN_VALUE);
+        UserDTO user = new UserDTO();
+        user.setId(1);
+        when(crud.findUser(1)).thenReturn(1);
 
         int value = crud.findUser(1);
 
-        assertEquals(value, Integer.MIN_VALUE);
+        assertEquals(1, value);
     }
 
     @Test
     void testGetAll() {
-        when(mapper.toUserDTO(user)).thenReturn(userDTO);
-        when(crud.findAll()).thenReturn(List.of(user));
+        UserDTO user = new UserDTO();
+        when(repo.getAll()).thenReturn(List.of(user));
 
-        List<UserDTO> users = mapper.toUserDTOs((List<User>) crud.findAll());
+        List<UserDTO> users = repo.getAll();
 
         assertNotNull(users);
     }
 
     @Test
     void testGetById() {
-        when(mapper.toUserDTO(user)).thenReturn(userDTO);
-        when(crud.findById(any(Integer.class))).thenReturn(Optional.of(user));
+        UserDTO user = new UserDTO();
+        user.setId(1);
+        when(repo.getById(1)).thenReturn(user);
 
-        UserDTO result = mapper.toUserDTO(crud.findById(1).get());
+        UserDTO result = repo.getById(1);
 
-        assertNotNull(result);
+        assertEquals(user, result);
     }
 
     @Test
     void testGetByType() {
-        when(mapper.toUserDTO(user)).thenReturn(userDTO);
-        when(typeMapper.toType(typeDTO)).thenReturn(type);
-        when(crud.findByType(any(Type.class))).thenReturn(List.of(user));
+        UserDTO user = new UserDTO();
+        TypeDTO type = new TypeDTO();
+        user.setType(type);
+        when(repo.getByType(type)).thenReturn(List.of(user));
 
-        List<UserDTO> users = mapper.toUserDTOs((List<User>) crud.findByType(type));
+        List<UserDTO> users = repo.getByType(type);
 
         assertNotNull(users);
     }
 
     @Test
     void testSave() {
-        when(mapper.toUserDTO(user)).thenReturn(userDTO);
-        when(crud.save(any(User.class))).thenReturn(user);
+        UserDTO user = new UserDTO();
+        when(repo.save(user)).thenReturn(user);
 
-        UserDTO result = mapper.toUserDTO(crud.save(user));
+        UserDTO result = repo.save(user);
 
-        assertNotNull(result);
+        assertEquals(user, result);
     }
 }

@@ -70,7 +70,7 @@ public class Controller {
             
             // Retrieve the existing entity from the repository by its ID
             Optional<UserDTO> optionalUser = Optional.of(userService.findById(request.getId()));
-            Optional<CredentialDTO> optionalCredential = credentialService.findByUsername(request.getUsername());
+            Optional<CredentialDTO> optionalCredential = Optional.of(credentialService.findByUsername(request.getUsername()));
             
             if (!optionalUser.isPresent() || !optionalCredential.isPresent()) {
                 return new ResponseEntity<>("Entity not found", HttpStatus.NOT_FOUND);
@@ -129,7 +129,7 @@ public class Controller {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> deleteUser(@RequestBody AuthenticationRequest request){
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
         log.debug("Got /authenticate");
         
         AuthenticationResponse response = authService.authenticate(request);

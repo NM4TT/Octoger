@@ -6,10 +6,10 @@ public interface ICredentialRepository {
     
     CredentialDTO save(CredentialDTO credential);
 
-    public int findIdByUsername(String username);
+    int findIdByUsername(String username);
 
-    public CredentialDTO findByUsername(String username);
+    CredentialDTO findByUsername(String username);
 
-    public String getUserType(int userId);
+    String getUserType(int userId);
 
 }

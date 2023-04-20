@@ -34,7 +34,8 @@ public class UserRepository implements IUserRepository{
 
     @Override
     public UserDTO getById(int id) {
-        return crud.findById(id).map(user -> mapper.toUserDTO(user)).get();
+        UserDTO user = mapper.toUserDTO(crud.findById(id).orElse(null));
+        return user;
     }
 
     @Override

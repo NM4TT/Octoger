@@ -35,7 +35,6 @@ public class CredentialRepository implements ICredentialRepository{
     public CredentialDTO findByUsername(String username){
         CredentialDTO credential = mapper
         .toCredentialDTO(crud.findByUsername(username));
-        credential.setRole((credential.getUser().getType().getIdentifier().endsWith("00") ? Role.ADMIN : Role.REGULAR));
         return credential;
     }
 

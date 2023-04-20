@@ -76,7 +76,7 @@ public class AuthenticationService {
                 )
             );
 
-            CredentialDTO credentialDTO = credentialService.findByUsername(request.getUsername()).get();
+            CredentialDTO credentialDTO = credentialService.findByUsername(request.getUsername());
 
             if (credentialDTO != null) {
 
