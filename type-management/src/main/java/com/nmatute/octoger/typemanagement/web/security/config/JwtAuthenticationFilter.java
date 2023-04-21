@@ -20,6 +20,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Filtro de tokens JWT.
+ * 
+ * @author NM4TT
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter{
@@ -40,7 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         final String jwtToken;
         final String username;
 
-        //Checks JWT token existence
+        //Revisa si el token JWT existe.
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             log.debug( "JWT Token not found.");
             filterChain.doFilter(request, response);
@@ -51,7 +56,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
         username = jwtService.extractUsername(jwtToken);
 
-        //Checks if sender (user) exists and is already checked
+        //Revisa si el usuario que envia el request ya se verifico.
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             log.debug("User will be verified for first time.");
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);

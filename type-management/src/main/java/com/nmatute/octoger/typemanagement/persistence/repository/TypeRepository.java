@@ -12,6 +12,11 @@ import com.nmatute.octoger.typemanagement.persistence.mapper.TypeMapper;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para Repositorio de Tipos.
+ * 
+ * @author NM4TT
+ */
 @Repository
 @RequiredArgsConstructor
 public class TypeRepository implements ITypeRepository {
@@ -42,7 +47,8 @@ public class TypeRepository implements ITypeRepository {
 
     @Override
     public TypeDTO getById(int id) {
-        return mapper.toTypeDTO(crud.findById(id).get());
+        TypeDTO type = mapper.toTypeDTO(crud.findById(id).orElse(null));
+        return type;
     }
 
     @Override

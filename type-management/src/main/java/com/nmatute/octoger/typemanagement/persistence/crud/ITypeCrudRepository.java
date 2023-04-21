@@ -8,6 +8,11 @@ import org.springframework.data.repository.query.Param;
 
 import com.nmatute.octoger.typemanagement.persistence.entity.Type;
 
+/**
+ * Clase para CRUD y custom queries de Tipos.
+ * 
+ * @author NM4TT
+ */
 public interface ITypeCrudRepository extends CrudRepository<Type,Integer>{
     Type findByIdentifier(String identifier);
 

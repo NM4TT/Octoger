@@ -9,6 +9,11 @@ import com.nmatute.octoger.typemanagement.persistence.repository.TypeRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Servicio de tipos.
+ * 
+ * @author NM4TT
+ */
 @Service
 @RequiredArgsConstructor
 public class TypeService {

@@ -11,6 +11,11 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Data;
 
+/**
+ * DTO de Credenciales.
+ * 
+ * @author NM4TT
+ */
 @Data
 public class CredentialDTO implements UserDetails {
  

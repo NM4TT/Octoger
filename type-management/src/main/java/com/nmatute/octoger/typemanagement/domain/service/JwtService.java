@@ -18,6 +18,11 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.NoArgsConstructor;
 
+/**
+ * Servicio de JWT.
+ * 
+ * @author NM4TT
+ */
 @Service
 @NoArgsConstructor
 public class JwtService {

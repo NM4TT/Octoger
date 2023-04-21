@@ -22,6 +22,11 @@ import com.nmatute.octoger.typemanagement.web.security.config.AdminEndpoint;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Controller de Web Service
+ * 
+ * @author NM4TT
+ */
 @RestController
 @RequestMapping("/type")
 @RequiredArgsConstructor
@@ -30,6 +35,11 @@ public class Controller {
     private final TypeService typeService;
     private final Logger log = LoggerFactory.getLogger(Controller.class);
 
+    /**
+     * Metodo para crear un tipo.
+     * @param request informacion del tipo a crear
+     * @return estatus de operacion
+     */
     @AdminEndpoint
     @PostMapping("/create")
     public ResponseEntity<String> createType(@RequestBody CreateRequest request){
@@ -37,21 +47,25 @@ public class Controller {
         
         if (!request.isEmpty(request.getIdentifier()) &&
             !request.isEmpty(request.getDescription())
-        ) {
-        
-        TypeDTO type = new TypeDTO();
+        ) {    
+            TypeDTO type = new TypeDTO();
 
-        type.setIdentifier(request.getIdentifier());
-        type.setDescription(request.getDescription());
+            type.setIdentifier(request.getIdentifier());
+            type.setDescription(request.getDescription());
 
-        typeService.save(type);
+            typeService.save(type);
 
-        return new ResponseEntity<>("Type created successfully.", HttpStatus.OK); 
-    }
+            return new ResponseEntity<>("Type created successfully.", HttpStatus.OK); 
+        }
     
-    return new ResponseEntity<>("Type not created.", HttpStatus.BAD_REQUEST);        
-}
+        return new ResponseEntity<>("Type not created.", HttpStatus.BAD_REQUEST);        
+    }
 
+    /**
+     * Metodo para actualizar un tipo.
+     * @param request detalles de actualizacion
+     * @return estatus de operacion
+     */
     @AdminEndpoint
     @PutMapping("/update")
     public ResponseEntity<String> updateType(@RequestBody UpdateRequest request) {
@@ -75,12 +89,21 @@ public class Controller {
         return new ResponseEntity<>("Type not updated.", HttpStatus.BAD_REQUEST);        
     }
 
+    /**
+     * Metodo para obtener lista de todos los tipos.
+     * @return Lista de todos los tipos existentes
+     */
     @GetMapping("/all")
     public ResponseEntity<List<TypeDTO>> getAllTypes(){
         log.debug("Got type/all");
         return new ResponseEntity<>(typeService.getAll(), HttpStatus.OK);
     }
 
+    /**
+     * Metodo para obtener una lista de tipos por su prefijo.
+     * @param prefix prefijo de tipos
+     * @return Lista de tipos con prefijo en comun
+     */
     @GetMapping("/identifier/{prefix}")
     public ResponseEntity<List<TypeDTO>> getByIdentifier(@PathVariable("prefix") String prefix){
         log.debug("Got type/identifier/{prefix}");
@@ -92,6 +115,11 @@ public class Controller {
         new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
     
+    /**
+     * Metodo para obtener tipo por ID.
+     * @param typeId ID del tipo
+     * @return Tipo
+     */
     @GetMapping("/{typeId}")
     public ResponseEntity<TypeDTO> getType(@PathVariable("typeId") int typeId){
         log.debug("Got /user/" + typeId);
@@ -103,6 +131,11 @@ public class Controller {
         new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     
+    /**
+     * Metodo para eliminar un tipo.
+     * @param typeId ID del tipo
+     * @return estatus de operacion
+     */
     @AdminEndpoint
     @PostMapping("/delete/{typeId}")
     public ResponseEntity<String> deleteType(@PathVariable("typeId") int typeId){
