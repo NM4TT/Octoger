@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO;
@@ -29,6 +30,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authManager;
     private final TypeService typeService;
+    private final PasswordEncoder encoder;
     private final Logger log = LoggerFactory.getLogger(AuthenticationService.class);
 
     public AuthenticationResponse register(RegisterRequest request) {
@@ -55,7 +57,9 @@ public class AuthenticationService {
             credential.setUsername(request.getUsername());
             credential.setUser(user);
             credential.setRole((user.getType().getIdentifier().endsWith("00") ? Role.ADMIN : Role.REGULAR));
-            credential.setPassword(request.getPassword());
+            
+            //Encriptacion de la password que viene del request.
+            credential.setPassword(encoder.encode(request.getPassword()));
             
             log.debug("Credential data recolected for registration.");
             

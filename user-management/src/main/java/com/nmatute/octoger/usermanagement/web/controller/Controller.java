@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +45,7 @@ public class Controller {
     private final UserService userService;
     private final AuthenticationService authService;
     private final TypeService typeService;
+    private final PasswordEncoder encoder;
     private final Logger log = LoggerFactory.getLogger(Controller.class);
 
     /**
@@ -169,6 +171,35 @@ public class Controller {
         AuthenticationResponse response = authService.authenticate(request);
 
         return (response != null) ? ResponseEntity.ok(response) : ResponseEntity.badRequest().body(response);
+    }
+
+    @GetMapping("/login")
+    public ResponseEntity<UserDTO> login(@RequestBody AuthenticationRequest request){
+
+        CredentialDTO credential = null;
+        HttpStatus status = HttpStatus.NOT_FOUND;
+
+        if (!request.isEmpty(request.getUsername()) && !request.isEmpty(request.getPassword())) {
+            
+            credential = credentialService.findByUsername(request.getUsername());
+
+            if (credential != null) {
+                
+                if (credential.getPassword().equals(encoder.encode(request.getPassword()))) {
+                    status = HttpStatus.OK;
+                    return new ResponseEntity<UserDTO>(credential.getUser(),status);
+                } else {
+                    return new ResponseEntity<UserDTO>(status);
+                }
+
+            } else {
+                return new ResponseEntity<UserDTO>(status);
+            }
+
+        } else {
+            return new ResponseEntity<UserDTO>(status);
+        }
+
     }
 
 }

@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
  *
  * @author: NM4TT
  */
-@Component
 public class AES implements PasswordEncoder {
 
     private static final String KEY = "mysecretkey12345";

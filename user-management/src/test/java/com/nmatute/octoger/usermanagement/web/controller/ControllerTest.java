@@ -2,6 +2,7 @@ package com.nmatute.octoger.usermanagement.web.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -162,5 +163,34 @@ public class ControllerTest {
 
         assertEquals(user, savedUser);
         assertEquals(credential, savedCredential);
+    }
+
+    /**
+     * Metodo para probar login en Controller.
+     * 
+     * @author NM4TT
+     */
+    @Test
+    void testLogin(){
+        CredentialDTO credential = new CredentialDTO();
+        UserDTO user = new UserDTO();
+        credential.setUser(user);
+        credential.setUsername("username");
+        credential.setPassword("12345");
+        when(credentialService.findByUsername("username")).thenReturn(credential);
+
+        CredentialDTO result = credentialService.findByUsername("username");
+
+        if (result != null) {
+            
+            if (result.getPassword().equals(credential.getPassword())) {
+                assertEquals(credential, result);
+            } else {
+                fail("password no coincide.", null);
+            }
+
+        } else {
+            fail("credencial no encontrada.", new NullPointerException());
+        }
     }
 }

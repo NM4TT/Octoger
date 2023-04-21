@@ -12,8 +12,6 @@ import org.mapstruct.Mappings;
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO;
 import com.nmatute.octoger.usermanagement.domain.dto.CredentialDTO.Role;
 import com.nmatute.octoger.usermanagement.persistence.entity.Credential;
-import com.nmatute.octoger.usermanagement.web.security.AES;
-import com.nmatute.octoger.usermanagement.web.security.AES.Action;
 
 /**
  * Mapper de Credenciales
@@ -47,11 +45,6 @@ public interface CredentialMapper {
         if (credential.getUser().getType().getIdentifier().endsWith("01")) {
             credentialDTO.setRole(Role.REGULAR);
         }
-    }
-
-    @AfterMapping
-    default void setPassword(@MappingTarget CredentialDTO credentialDTO, Credential credential){
-        credentialDTO.setPassword(new AES().perform(credential.getPassword(), Action.ENCRYPT));
     }
 
 }
