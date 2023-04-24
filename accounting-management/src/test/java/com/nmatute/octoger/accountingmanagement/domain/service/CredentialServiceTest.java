@@ -1,5 +1,7 @@
 package com.nmatute.octoger.accountingmanagement.domain.service;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.nmatute.octoger.accountingmanagement.domain.dto.CredentialDTO;
@@ -9,12 +11,12 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CredentialService {
+public class CredentialServiceTest {
 
     private final CredentialRepository repo;
 
-    public CredentialDTO findByUsername(String username){
-        return repo.findByUsername(username);
+    public Optional<CredentialDTO> findByUsername(String username){
+        return Optional.of(repo.findByUsername(username));
     }
 
 }

@@ -34,7 +34,8 @@ public class ProductOperationRepository implements IProductOperationRepository{
     
     @Override
     public ProductOperationDTO getById(int id) {
-        return mapper.toProductOperationDTO(crud.findById(id).get());
+        ProductOperationDTO operation = mapper.toProductOperationDTO(crud.findById(id).orElse(null));
+        return operation;
     }
 
     @Override

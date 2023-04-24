@@ -31,7 +31,8 @@ public class SellRepository implements ISellRepository{
 
     @Override
     public SellDTO getById(int id) {
-        return mapper.toSellDTO(crud.findById(id).get());
+        SellDTO sell = mapper.toSellDTO(crud.findById(id).orElse(null));
+        return sell;
     }
 
     @Override

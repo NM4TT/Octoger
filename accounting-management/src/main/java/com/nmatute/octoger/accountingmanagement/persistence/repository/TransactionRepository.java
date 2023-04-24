@@ -25,7 +25,8 @@ public class TransactionRepository implements ITransactionRepository{
     
     @Override
     public TransactionDTO getById(int id) {
-        return mapper.toTransactionDTO(crud.findById(id).get());
+        TransactionDTO transaction = mapper.toTransactionDTO(crud.findById(id).orElse(null));
+        return transaction;
     }
 
     @Override
