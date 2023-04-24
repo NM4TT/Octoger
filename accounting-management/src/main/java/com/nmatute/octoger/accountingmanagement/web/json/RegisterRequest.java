@@ -1,5 +1,7 @@
 package com.nmatute.octoger.accountingmanagement.web.json;
 
+import java.math.BigDecimal;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,14 +18,20 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @ToString
-public class CreateSellRequest extends Request {
+public class RegisterRequest extends Request{
+    
+    private String type;
 
-    private String date;
+    private String date; 
 
+    private boolean isSell; 
+
+    private BigDecimal value;
+    
+    private int productAmount; 
+    
     private int collectionId;
 
     private int userId;
-
-    private int productOperationId;
 
 }

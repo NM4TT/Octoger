@@ -31,9 +31,7 @@ import com.nmatute.octoger.accountingmanagement.domain.service.SellService;
 import com.nmatute.octoger.accountingmanagement.domain.service.TransactionService;
 import com.nmatute.octoger.accountingmanagement.domain.service.TypeService;
 import com.nmatute.octoger.accountingmanagement.domain.service.UserService;
-import com.nmatute.octoger.accountingmanagement.web.json.CreateProductOperationRequest;
-import com.nmatute.octoger.accountingmanagement.web.json.CreateSellRequest;
-import com.nmatute.octoger.accountingmanagement.web.json.CreateTransactionRequest;
+import com.nmatute.octoger.accountingmanagement.web.json.RegisterRequest;
 import com.nmatute.octoger.accountingmanagement.web.json.SearchByDateRequest;
 import com.nmatute.octoger.accountingmanagement.web.json.UpdateProductOperationRequest;
 import com.nmatute.octoger.accountingmanagement.web.json.UpdateSellRequest;
@@ -60,114 +58,70 @@ public class Controller {
     private final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.ENGLISH); //7-Jun-2021
     
     /**
-     * Metodo para crear una operacion de producto.
-     * @param request detalles de creacion
+     * Metodo para registrar una operacion contable.
+     * @param request detalles de registro
      * @return estatus de operacion
      */
-    @PostMapping("/product-operation/create")
-    public ResponseEntity<String> createProductOperation(@RequestBody CreateProductOperationRequest request){
-        log.debug("Got /accounting/product-operation/create");
-        
-        if (!request.isEmpty(request.getDate()) &&
-            !request.isEmpty(String.valueOf(request.getCollectionId())) &&
-            !request.isEmpty(String.valueOf(request.getProductAmount())) &&
-            !request.isEmpty(String.valueOf(request.getTransactionId())) && 
-            !request.isEmpty(String.valueOf(request.getUserId())) && 
-            !request.isEmpty(request.getType())
-        ) {
-            
-            ProductOperationDTO operation = new ProductOperationDTO();
-            ProductCollectionDTO collection = collectionService.getById(request.getCollectionId());
-            TransactionDTO transaction = transactionService.getById(request.getTransactionId());
-            UserDTO user = userService.getById(request.getUserId());
-            TypeDTO type = typeService.getByIdentifier(request.getType());
-            operation.setCollection(collection);
-            operation.setTransaction(transaction);
-            operation.setUser(user);
-            operation.setType(type);
-            operation.setProductAmount(request.getProductAmount());
-
-            try {
-                operation.setDate(FORMATTER.parse(request.getDate()));
-                productOperationService.save(operation);
-                log.debug("Product Operation created successfully.");
-                
-                return new ResponseEntity<>("Product Operation created successfully.", HttpStatus.OK);
-            } catch (ParseException e) {
-                log.debug("Error parsing date of Product Operation.");
-            } 
-        }
-        
-        return new ResponseEntity<>("Product Operation not created." + request.toString(), HttpStatus.BAD_REQUEST);   
-    }
-
-    /**
-     * Metodo para crear una venta.
-     * @param request detalles de creacion
-     * @return estatus de operacion
-     */
-    @PostMapping("/sell/create")
-    public ResponseEntity<String> createSell(@RequestBody CreateSellRequest request){
-        log.debug("Got /accounting/sell/create");
-
-        if (!request.isEmpty(request.getDate()) &&
-            !request.isEmpty(String.valueOf(request.getCollectionId())) &&
-            !request.isEmpty(String.valueOf(request.getProductOperationId())) &&
-            !request.isEmpty(String.valueOf(request.getUserId()))
-        ) {
-            
-            SellDTO sell = new SellDTO();
-            ProductCollectionDTO collection = collectionService.getById(request.getCollectionId());
-            ProductOperationDTO operation = productOperationService.getById(request.getProductOperationId());
-            UserDTO user = userService.getById(request.getUserId());
-            sell.setCollection(collection);
-            sell.setProductOperation(operation);
-            sell.setUser(user);
-
-            try {
-                sell.setDate(FORMATTER.parse(request.getDate()));
-                sellService.save(sell);
-                log.debug("Sell created successfully.");
-                
-                return new ResponseEntity<>("Sell created successfully.", HttpStatus.OK);
-            } catch (ParseException e) {
-                log.debug("Error parsing date of sell.");
-            }
-        }
-        
-        return new ResponseEntity<>("Sell not created.", HttpStatus.BAD_REQUEST);  
-    }
-
-    /**
-     * Metodo para crear una transaccion.
-     * @param request detalles de creacion
-     * @return estatus de operacion
-     */
-    @PostMapping("/transaction/create")
-    public ResponseEntity<String> createTransaction(@RequestBody CreateTransactionRequest request){
-        log.debug("Got /accounting/transaction/create");
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody RegisterRequest request){
+        log.debug("Got /accounting/register");
         
         if (!request.isEmpty(request.getDate()) &&
             !request.isEmpty(request.getType()) &&
-            !request.isEmpty(String.valueOf(request.getValue()))
+            !request.isEmpty(String.valueOf(request.isSell())) &&
+            !request.isEmpty(String.valueOf(request.getValue())) &&
+            !request.isEmpty(String.valueOf(request.getProductAmount())) &&
+            !request.isEmpty(String.valueOf(request.getCollectionId())) &&
+            !request.isEmpty(String.valueOf(request.getUserId()))
         ) {
             
-            TransactionDTO transaction = new TransactionDTO();
-            TypeDTO type = typeService.getByIdentifier(request.getType());
-            transaction.setType(type);
-            transaction.setValue(request.getValue());
             try {
-                transaction.setDate(FORMATTER.parse(request.getDate()));
-                transactionService.save(transaction);
-                log.debug("Transaction updated successfully.");
+                Date date = FORMATTER.parse(request.getDate());
                 
-                return new ResponseEntity<>("Transaction created successfully.", HttpStatus.OK);
+                TypeDTO type = typeService.getByIdentifier(request.getType());
+                ProductCollectionDTO collection = collectionService.getById(request.getCollectionId());
+                UserDTO user = userService.getById(request.getUserId());
+                
+                //check de DTOs
+                if(user == null || type == null || collection == null){
+                    throw new Exception("user, Type or collection not found.");
+                }
+
+                //Se crea la transaccion
+                TransactionDTO transaction = new TransactionDTO();
+                transaction.setType(type);
+                transaction.setValue(request.getValue());
+                transaction.setDate(date);
+                transaction = transactionService.save(transaction);
+
+                //Se crea operacion de producto
+                ProductOperationDTO operation = new ProductOperationDTO();
+                operation.setTransaction(transaction);
+                operation.setCollection(collection);
+                operation.setDate(date);
+                operation.setProductAmount(request.getProductAmount());
+                operation.setType(type);
+                operation.setUser(user);
+                operation = productOperationService.save(operation);
+
+                if (request.isSell()) {
+                    SellDTO sell = new SellDTO();
+                    sell.setCollection(collection);
+                    sell.setDate(date);
+                    sell.setProductOperation(operation);
+                    sell.setUser(user);
+                    sell = sellService.save(sell);
+                }
+
+                return new ResponseEntity<>("Info registered successfully.", HttpStatus.OK);
             } catch (ParseException e) {
-                log.debug("Error parsing date of transaction.");
+                log.debug("Error parsing date of info to register.");
+            } catch (Exception ex){
+                log.debug(ex.getMessage());
             }
         }
         
-        return new ResponseEntity<>("Transaction not created.", HttpStatus.BAD_REQUEST);    
+        return new ResponseEntity<>("Info not registered." + request.toString(), HttpStatus.BAD_REQUEST);   
     }
 
     /**
