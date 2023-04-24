@@ -13,7 +13,11 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-
+/**
+ * Clase para Entidad de Operacion de Productos.
+ * 
+ * @author NM4TT
+ */
 @Entity
 @Table(name = "product_operation", schema = "public")
 @Data

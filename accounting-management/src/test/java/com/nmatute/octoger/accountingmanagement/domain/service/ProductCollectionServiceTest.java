@@ -14,6 +14,11 @@ import org.mockito.MockitoAnnotations;
 import com.nmatute.octoger.accountingmanagement.domain.dto.ProductCollectionDTO;
 import com.nmatute.octoger.accountingmanagement.persistence.repository.ProductCollectionRepository;
 
+/**
+ * Clase para testear Servicio de Coleccion de Productos.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class ProductCollectionServiceTest {
     

@@ -7,6 +7,11 @@ import java.lang.annotation.ElementType;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 
+/**
+ * Tag personalizada para marcar endpoints solo disponibles para usuarios ADMIN.
+ * 
+ * @author NM4TT
+ */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @PreAuthorize("hasAuthority('ADMIN')")

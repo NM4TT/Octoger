@@ -42,6 +42,9 @@ import com.nmatute.octoger.accountingmanagement.web.security.config.AdminEndpoin
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Controlador de WebService
+ */
 @RestController
 @RequestMapping("/accounting")
 @RequiredArgsConstructor
@@ -56,6 +59,11 @@ public class Controller {
     private final ProductCollectionService collectionService;
     private final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.ENGLISH); //7-Jun-2021
     
+    /**
+     * Metodo para crear una operacion de producto.
+     * @param request detalles de creacion
+     * @return estatus de operacion
+     */
     @PostMapping("/product-operation/create")
     public ResponseEntity<String> createProductOperation(@RequestBody CreateProductOperationRequest request){
         log.debug("Got /accounting/product-operation/create");
@@ -93,6 +101,11 @@ public class Controller {
         return new ResponseEntity<>("Product Operation not created." + request.toString(), HttpStatus.BAD_REQUEST);   
     }
 
+    /**
+     * Metodo para crear una venta.
+     * @param request detalles de creacion
+     * @return estatus de operacion
+     */
     @PostMapping("/sell/create")
     public ResponseEntity<String> createSell(@RequestBody CreateSellRequest request){
         log.debug("Got /accounting/sell/create");
@@ -125,6 +138,11 @@ public class Controller {
         return new ResponseEntity<>("Sell not created.", HttpStatus.BAD_REQUEST);  
     }
 
+    /**
+     * Metodo para crear una transaccion.
+     * @param request detalles de creacion
+     * @return estatus de operacion
+     */
     @PostMapping("/transaction/create")
     public ResponseEntity<String> createTransaction(@RequestBody CreateTransactionRequest request){
         log.debug("Got /accounting/transaction/create");
@@ -152,6 +170,11 @@ public class Controller {
         return new ResponseEntity<>("Transaction not created.", HttpStatus.BAD_REQUEST);    
     }
 
+    /**
+     * Metodo para actualizar operacion de producto.
+     * @param request detalles de actualizacion
+     * @return estatus de operacion
+     */
     @PutMapping("/product-operation/update")
     public ResponseEntity<String> updateProductOperation(@RequestBody UpdateProductOperationRequest request){
         log.debug("Got /accounting/product-operation/update");
@@ -190,6 +213,11 @@ public class Controller {
         return new ResponseEntity<>("Product Operation not updated.", HttpStatus.BAD_REQUEST);   
     }
 
+    /**
+     * Metodo para actualizar venta.
+     * @param request detalles de actualizacion
+     * @return estatus de operacion
+     */
     @PutMapping("/sell/update")
     public ResponseEntity<String> updateSell(@RequestBody UpdateSellRequest request){
         log.debug("Got /accounting/sell/update");
@@ -223,6 +251,11 @@ public class Controller {
         return new ResponseEntity<>("Sell not updated.", HttpStatus.BAD_REQUEST);        
     }
 
+    /**
+     * Metodo para actualizar transaccion.
+     * @param request detalles de actualizacion
+     * @return estatus de operacion
+     */
     @PutMapping("/transaction/update")
     public ResponseEntity<String> updateTransaction(@RequestBody UpdateTransactionRequest request){
         log.debug("Got /accounting/transaction/update");
@@ -251,42 +284,74 @@ public class Controller {
         return new ResponseEntity<>("Transaction not updated.", HttpStatus.BAD_REQUEST);        
     }
     
+    /**
+     * Metodo para obtener todas las operaciones de producto.
+     * @return Lista de operaciones
+     */
     @GetMapping("/product-operation/all")
     public ResponseEntity<List<ProductOperationDTO>> getAllProductOperations(){
         log.debug("Got /accounting/product-operation/all");
         return new ResponseEntity<>(productOperationService.getAll(), HttpStatus.OK);
     }
 
+    /**
+     * Metodo para obtener todas las ventas.
+     * @return Lista de ventas
+     */
     @GetMapping("/sell/all")
     public ResponseEntity<List<SellDTO>> getAllSells(){
         log.debug("Got /accounting/sell/all");
         return new ResponseEntity<>(sellService.getAll(), HttpStatus.OK);
     }
 
+    /**
+     * Metodo para obtener todas las transacciones.
+     * @return Lista de transacciones
+     */
     @GetMapping("/transaction/all")
     public ResponseEntity<List<TransactionDTO>> getAllTransactions(){
         log.debug("Got /accounting/transaction/all");
         return new ResponseEntity<>(transactionService.getAll(), HttpStatus.OK);
     }
 
+    /**
+     * Metodo para obtener una operacion de producto especifica.
+     * @param operationId ID de operacion
+     * @return operacion encontrada
+     */
     @GetMapping("/product-operation/get/{operationId}")
     public ResponseEntity<ProductOperationDTO> getProductOperationById(@PathVariable("operationId") int operationId){
         log.debug("Got /accounting/product-operation/{operationId}");
         return new ResponseEntity<>(productOperationService.getById(operationId), HttpStatus.OK);
     }
 
+    /**
+     * Metodo para obtener una venta especifica.
+     * @param sellId ID de venta
+     * @return venta encontrada
+     */
     @GetMapping("/sell/get/{sellId}")
     public ResponseEntity<SellDTO> getSellById(@PathVariable("sellId") int sellId){
         log.debug("Got /accounting/sell/{sellId}");
         return new ResponseEntity<>(sellService.getById(sellId), HttpStatus.OK);
     }
 
+    /**
+     * Metodo para obtener una transaccion especifica.
+     * @param transactionId ID de transaccion
+     * @return transaccion encontrada
+     */
     @GetMapping("/transaction/get/{transactionId}")
     public ResponseEntity<TransactionDTO> getTransactionById(@PathVariable("transactionId") int transactionId){
         log.debug("Got /accounting/transaction/{transactionId}");
         return new ResponseEntity<>(transactionService.getById(transactionId), HttpStatus.OK);
     }
 
+    /**
+     * Metodo para obtener todas las operaciones de productos en un rango de fecha.
+     * @param request detalles del rango de fecha
+     * @return Lista de operaciones
+     */
     @GetMapping("/product-operation/by-date")
     public ResponseEntity<List<ProductOperationDTO>> getProductOperationByDate(@RequestBody SearchByDateRequest request){
         log.debug("Got /accounting/product-operation/by-date");
@@ -309,6 +374,11 @@ public class Controller {
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); 
     }
 
+    /**
+     * Metodo para obtener todas las ventas en un rango de fecha.
+     * @param request detalles del rango de fecha
+     * @return Lista de ventas
+     */
     @GetMapping("/sell/by-date")
     public ResponseEntity<List<SellDTO>> getSellByDate(@RequestBody SearchByDateRequest request){
         log.debug("Got /accounting/sell/by-date");
@@ -331,6 +401,11 @@ public class Controller {
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); 
     }
 
+    /**
+     * Metodo para obtener todas las transacciones en un rango de fecha.
+     * @param request detalles del rango de fecha
+     * @return Lista de transacciones
+     */
     @GetMapping("/transaction/by-date")
     public ResponseEntity<List<TransactionDTO>> getTransactionByDate(@RequestBody SearchByDateRequest request){
         log.debug("Got /accounting/transaction/by-date");
@@ -353,6 +428,11 @@ public class Controller {
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); 
     }
 
+    /**
+     * Metodo para obtener todas las operaciones de producto de una coleccion de productos.
+     * @param collectionId ID de coleccion
+     * @return Lista de operaciones
+     */
     @GetMapping("/product-operation/collection/{collectionId}")
     public ResponseEntity<List<ProductOperationDTO>> getProductOperationByCollection(@PathVariable("collectionId") int collectionId){
         log.debug("Got /accounting/product-operation/{collectionId}");
@@ -366,6 +446,11 @@ public class Controller {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Metodo para obtener todas las ventas de una coleccion de productos.
+     * @param collectionId ID de coleccion
+     * @return Lista de ventas
+     */
     @GetMapping("/sell/collection/{collectionId}")
     public ResponseEntity<List<SellDTO>> getSellByCollection(@PathVariable("collectionId") int collectionId){
         log.debug("Got /accounting/sell/{collectionId}");
@@ -379,6 +464,11 @@ public class Controller {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Metodo para obtener todas las operaciones de productos de un usuario.
+     * @param userId ID de usuario
+     * @return Lista de operaciones
+     */
     @GetMapping("/product-operation/user/{userId}")
     public ResponseEntity<List<ProductOperationDTO>> getProductOperationByResponsible(@PathVariable("userId") int userId){
         log.debug("Got /accounting/product-operation/{userId}");
@@ -392,6 +482,11 @@ public class Controller {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Metodo para obtener todas las ventas de un usuario.
+     * @param userId ID de usuario
+     * @return Lista de ventas
+     */
     @GetMapping("/sell/user/{userId}")
     public ResponseEntity<List<SellDTO>> getSellByResponsible(@PathVariable("userId") int userId){
         log.debug("Got /accounting/sell/{userId}");
@@ -405,6 +500,11 @@ public class Controller {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Metodo para obtener todas las operaciones de producto de un tipo.
+     * @param type identificador del tipo
+     * @return Lista de operaciones
+     */
     @GetMapping("/product-operation/type/{type}")
     public ResponseEntity<List<ProductOperationDTO>> getProductOperationByType(@PathVariable("type") String type){
         log.debug("Got /accounting/product-operation/{type}");
@@ -418,6 +518,11 @@ public class Controller {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Metodo para obtener todas las transacciones de un tipo.
+     * @param type identificador del tipo
+     * @return Lista de transacciones
+     */
     @GetMapping("/transaction/type/{type}")
     public ResponseEntity<List<TransactionDTO>> getSellByType(@PathVariable("type") String type){
         log.debug("Got /accounting/transaction/{type}");
@@ -431,6 +536,11 @@ public class Controller {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Metodo para obtener una operacion de producto por ID de transaccion.
+     * @param transactionId ID de transaccion
+     * @return operacion encontrada
+     */
     @GetMapping("/product-operation/transaction/{transactionId}")
     public ResponseEntity<ProductOperationDTO> getProductOperationByTransactionId(@PathVariable("transactionId") int transactionId){
         log.debug("Got /accounting/product-operation/{transactionId}");
@@ -444,6 +554,11 @@ public class Controller {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Metodo para obtener una venta por ID de operacion de producto.
+     * @param operationId ID de operacion
+     * @return venta encontrada
+     */
     @GetMapping("/sell/operation/{operationId}")
     public ResponseEntity<SellDTO> getSellByOperationId(@PathVariable("operationId") int operationId){
         log.debug("Got /accounting/sell/{operationId}");
@@ -457,6 +572,11 @@ public class Controller {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
     
+    /**
+     * Metodo para eliminar una operacion de producto por ID.
+     * @param operationId ID de operacion
+     * @return estatus de operacion realizada
+     */
     @AdminEndpoint
     @PostMapping("/product-operation/delete/{operationId}")
     public ResponseEntity<String> deleteProductOperation(@PathVariable("operationId") int operationId){
@@ -472,6 +592,11 @@ public class Controller {
         return new ResponseEntity<>("Product operation not found.", HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Metodo para eliminar una venta por ID.
+     * @param sellId ID de venta
+     * @return estatus de operacion realizada
+     */
     @AdminEndpoint
     @PostMapping("/sell/delete/{sellId}")
     public ResponseEntity<String> deleteSell(@PathVariable("sellId") int sellId){
@@ -487,6 +612,11 @@ public class Controller {
         return new ResponseEntity<>("Sell not found.", HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Metodo para eliminar una transaccion por ID.
+     * @param transactionId ID de transaccion
+     * @return estatus de operacion realizada
+     */
     @AdminEndpoint
     @PostMapping("/transaction/delete/{transactionId}")
     public ResponseEntity<String> deleteTransaction(@PathVariable("transactionId") int transactionId){

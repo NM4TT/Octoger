@@ -8,6 +8,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.mapper.CredentialMap
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para Repositorio de Credenciales.
+ * 
+ * @author NM4TT
+ */
 @Repository
 @RequiredArgsConstructor
 public class CredentialRepository {

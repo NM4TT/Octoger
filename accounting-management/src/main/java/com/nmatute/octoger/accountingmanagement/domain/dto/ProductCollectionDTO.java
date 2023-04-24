@@ -4,6 +4,11 @@ import java.math.BigDecimal;
 
 import lombok.Data;
 
+/**
+ * DTO de Coleccion de Productos.
+ * 
+ * @author NM4TT
+ */
 @Data
 public class ProductCollectionDTO {
     

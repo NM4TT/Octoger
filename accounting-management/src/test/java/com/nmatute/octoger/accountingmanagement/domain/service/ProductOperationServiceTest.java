@@ -23,6 +23,11 @@ import com.nmatute.octoger.accountingmanagement.domain.dto.TypeDTO;
 import com.nmatute.octoger.accountingmanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.accountingmanagement.persistence.repository.ProductOperationRepository;
 
+/**
+ * Clase para testear Servicio de Operaciones de Producto.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class ProductOperationServiceTest {
     

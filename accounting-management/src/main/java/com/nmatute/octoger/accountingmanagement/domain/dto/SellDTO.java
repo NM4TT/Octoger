@@ -4,6 +4,11 @@ import java.util.Date;
 
 import lombok.Data;
 
+/**
+ * DTO de Ventas.
+ * 
+ * @author NM4TT
+ */
 @Data
 public class SellDTO {
     

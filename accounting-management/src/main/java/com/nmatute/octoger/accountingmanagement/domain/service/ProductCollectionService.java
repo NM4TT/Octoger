@@ -7,6 +7,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.repository.ProductCo
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para Servicio de Coleccion de Productos.
+ * 
+ * @author NM4TT
+ */
 @Service
 @RequiredArgsConstructor
 public class ProductCollectionService {

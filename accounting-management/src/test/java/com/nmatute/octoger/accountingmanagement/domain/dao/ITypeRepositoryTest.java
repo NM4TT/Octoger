@@ -16,6 +16,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.crud.ITypeCrudReposi
 import com.nmatute.octoger.accountingmanagement.persistence.mapper.TypeMapper;
 import com.nmatute.octoger.accountingmanagement.persistence.repository.TypeRepository;
 
+/**
+ * Clase para testear Repositorio de Tipos.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class ITypeRepositoryTest {
 

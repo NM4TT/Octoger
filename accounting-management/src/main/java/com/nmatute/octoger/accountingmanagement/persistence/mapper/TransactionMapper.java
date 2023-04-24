@@ -7,6 +7,11 @@ import org.mapstruct.Mapper;
 import com.nmatute.octoger.accountingmanagement.domain.dto.TransactionDTO;
 import com.nmatute.octoger.accountingmanagement.persistence.entity.Transaction;
 
+/**
+ * Clase para Mapper de Transacciones.
+ * 
+ * @author NM4TT
+ */
 @Mapper(componentModel = "spring")
 public interface TransactionMapper {
     

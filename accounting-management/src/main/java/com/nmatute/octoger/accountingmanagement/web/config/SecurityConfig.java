@@ -14,6 +14,11 @@ import com.nmatute.octoger.accountingmanagement.web.security.config.JwtAuthentic
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para configuracion personalizada de seguridad.
+ * 
+ * @author NM4TT
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)

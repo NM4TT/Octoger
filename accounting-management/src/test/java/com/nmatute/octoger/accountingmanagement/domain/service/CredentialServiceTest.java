@@ -9,6 +9,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.repository.Credentia
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para testear Servicio de Credenciales.
+ * 
+ * @author NM4TT
+ */
 @Service
 @RequiredArgsConstructor
 public class CredentialServiceTest {

@@ -14,6 +14,11 @@ import org.mockito.MockitoAnnotations;
 import com.nmatute.octoger.accountingmanagement.domain.dto.TypeDTO;
 import com.nmatute.octoger.accountingmanagement.persistence.repository.TypeRepository;
 
+/**
+ * Clase para testear Servicio de Tipos.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class TypeServiceTest {
 

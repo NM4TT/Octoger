@@ -22,6 +22,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.mapper.TransactionMa
 import com.nmatute.octoger.accountingmanagement.persistence.mapper.TypeMapper;
 import com.nmatute.octoger.accountingmanagement.persistence.repository.TransactionRepository;
 
+/**
+ * Clase para testear Repositorio de Transacciones.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class ITransactionRepositoryTest {
     

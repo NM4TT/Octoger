@@ -9,6 +9,11 @@ import com.nmatute.octoger.accountingmanagement.domain.dto.TransactionDTO;
 import com.nmatute.octoger.accountingmanagement.domain.dto.TypeDTO;
 import com.nmatute.octoger.accountingmanagement.domain.dto.UserDTO;
 
+/**
+ * DAO de Operacion de Productos.
+ * 
+ * @author NM4TT
+ */
 public interface IProductOperationRepository {
     
     ProductOperationDTO getById(int id);

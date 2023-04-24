@@ -14,6 +14,11 @@ import org.mockito.MockitoAnnotations;
 import com.nmatute.octoger.accountingmanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.accountingmanagement.persistence.repository.UserRepository;
 
+/**
+ * Clase para testear Servicio de Usuarios.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class UserServiceTest {
 

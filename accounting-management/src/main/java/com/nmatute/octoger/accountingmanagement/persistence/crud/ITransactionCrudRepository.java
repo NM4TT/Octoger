@@ -10,6 +10,11 @@ import org.springframework.data.repository.query.Param;
 import com.nmatute.octoger.accountingmanagement.persistence.entity.Transaction;
 import com.nmatute.octoger.accountingmanagement.persistence.entity.Type;
 
+/**
+ * CRUD y custom query methods de Transacciones.
+ * 
+ * @author NM4TT
+ */
 public interface ITransactionCrudRepository extends CrudRepository<Transaction, Integer>{
     
     List<Transaction> findByType(Type type);

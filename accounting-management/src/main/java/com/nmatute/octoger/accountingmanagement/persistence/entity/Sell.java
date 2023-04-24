@@ -12,7 +12,11 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-
+/**
+ * Clase para Entidad de Ventas.
+ * 
+ * @author NM4TT
+ */
 @Entity
 @Table(name = "sell", schema = "public")
 @Data

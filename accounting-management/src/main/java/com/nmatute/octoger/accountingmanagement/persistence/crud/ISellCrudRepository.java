@@ -13,6 +13,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.entity.ProductOperat
 import com.nmatute.octoger.accountingmanagement.persistence.entity.Sell;
 import com.nmatute.octoger.accountingmanagement.persistence.entity.User;
 
+/**
+ * CRUD y custom query methods de Ventas.
+ * 
+ * @author NM4TT
+ */
 public interface ISellCrudRepository extends CrudRepository<Sell, Integer>{
     
     List<Sell> findByCollection(ProductCollection collection);

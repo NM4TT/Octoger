@@ -12,7 +12,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-
+/**
+ * Clase para Entidad de Transacciones.
+ * 
+ * @author NM4TT
+ */
 @Entity
 @Table(name = "transaction", schema = "public")
 @Data

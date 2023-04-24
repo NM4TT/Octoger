@@ -14,6 +14,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.repository.ProductOp
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para Servicio de Operacion de Productos.
+ * 
+ * @author NM4TT
+ */
 @Service
 @RequiredArgsConstructor
 public class ProductOperationService {

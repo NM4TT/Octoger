@@ -16,6 +16,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.crud.IUserCrudReposi
 import com.nmatute.octoger.accountingmanagement.persistence.mapper.UserMapper;
 import com.nmatute.octoger.accountingmanagement.persistence.repository.UserRepository;
 
+/**
+ * Clase para testear Repositorio de Usuarios.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class IUserRepositoryTest {
 

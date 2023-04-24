@@ -21,6 +21,11 @@ import com.nmatute.octoger.accountingmanagement.domain.dto.SellDTO;
 import com.nmatute.octoger.accountingmanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.accountingmanagement.persistence.repository.SellRepository;
 
+/**
+ * Clase para testear Servicio de Ventas.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class SellServiceTest {
     

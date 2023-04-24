@@ -13,6 +13,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.repository.SellRepos
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para Servicio de Ventas.
+ * 
+ * @author NM4TT
+ */
 @Service
 @RequiredArgsConstructor
 public class SellService {

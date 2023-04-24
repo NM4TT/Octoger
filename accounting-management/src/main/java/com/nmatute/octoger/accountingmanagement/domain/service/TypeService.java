@@ -7,6 +7,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.repository.TypeRepos
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para Servicio de Tipos.
+ * 
+ * @author NM4TT
+ */
 @Service
 @RequiredArgsConstructor
 public class TypeService {

@@ -6,6 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * Json
+ * 
+ * @author NM4TT
+ */
 @Setter
 @Getter
 @Builder

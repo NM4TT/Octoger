@@ -9,6 +9,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.mapper.UserMapper;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para Repositorio de Usuarios.
+ * 
+ * @author NM4TT
+ */
 @Repository
 @RequiredArgsConstructor
 public class UserRepository implements IUserRepository{

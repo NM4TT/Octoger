@@ -11,6 +11,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.repository.Transacti
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para Servicio de Transacciones.
+ * 
+ * @author NM4TT
+ */
 @Service
 @RequiredArgsConstructor
 public class TransactionService {

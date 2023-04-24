@@ -8,6 +8,11 @@ import com.nmatute.octoger.accountingmanagement.domain.dto.ProductOperationDTO;
 import com.nmatute.octoger.accountingmanagement.domain.dto.SellDTO;
 import com.nmatute.octoger.accountingmanagement.domain.dto.UserDTO;
 
+/**
+ * DAO de Ventas.
+ * 
+ * @author NM4TT
+ */
 public interface ISellRepository {
     
     SellDTO getById(int id);

@@ -13,6 +13,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.entity.Transaction;
 import com.nmatute.octoger.accountingmanagement.persistence.entity.Type;
 import com.nmatute.octoger.accountingmanagement.persistence.entity.User;
 
+/**
+ * CRUD y custom query methods de Operacion de Productos.
+ * 
+ * @author NM4TT
+ */
 public interface IProductOperationCrudRepository extends CrudRepository<ProductOperation, Integer> {
     
     List<ProductOperation> findByCollection(ProductCollection collection);

@@ -15,6 +15,11 @@ import com.nmatute.octoger.accountingmanagement.domain.dto.CredentialDTO;
 import com.nmatute.octoger.accountingmanagement.domain.service.CredentialService;
 import com.nmatute.octoger.accountingmanagement.persistence.repository.CredentialRepository;
 
+/**
+ * Clase para testear Repositorio de Credenciales.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class ICredentialRepositoryTest {
     

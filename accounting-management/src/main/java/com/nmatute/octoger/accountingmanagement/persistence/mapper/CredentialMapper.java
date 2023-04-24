@@ -10,6 +10,11 @@ import org.mapstruct.Mappings;
 import com.nmatute.octoger.accountingmanagement.domain.dto.CredentialDTO;
 import com.nmatute.octoger.accountingmanagement.persistence.entity.Credential;
 
+/**
+ * Clase para Mapper de Credenciales.
+ * 
+ * @author NM4TT
+ */
 @Mapper(componentModel = "spring", uses = UserMapper.class)
 public interface CredentialMapper {
     

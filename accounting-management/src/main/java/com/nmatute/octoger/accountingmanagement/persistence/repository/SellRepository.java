@@ -19,6 +19,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.mapper.UserMapper;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para Repositorio de Ventas.
+ * 
+ * @author NM4TT
+ */
 @Repository
 @RequiredArgsConstructor
 public class SellRepository implements ISellRepository{

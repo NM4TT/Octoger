@@ -21,6 +21,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.mapper.UserMapper;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para Repositorio de Operaciones de Producto.
+ * 
+ * @author NM4TT
+ */
 @Repository
 @RequiredArgsConstructor
 public class ProductOperationRepository implements IProductOperationRepository{

@@ -26,6 +26,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.mapper.SellMapper;
 import com.nmatute.octoger.accountingmanagement.persistence.mapper.UserMapper;
 import com.nmatute.octoger.accountingmanagement.persistence.repository.SellRepository;
 
+/**
+ * Clase para testear Repositorio de Ventas.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class ISellRepositoryTest {
     

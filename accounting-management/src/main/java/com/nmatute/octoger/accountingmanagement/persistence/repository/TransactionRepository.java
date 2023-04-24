@@ -15,6 +15,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.mapper.TypeMapper;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para Repositorio de Transacciones.
+ * 
+ * @author NM4TT
+ */
 @Repository
 @RequiredArgsConstructor
 public class TransactionRepository implements ITransactionRepository{

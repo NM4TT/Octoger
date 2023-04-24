@@ -18,6 +18,11 @@ import com.nmatute.octoger.accountingmanagement.domain.dto.TransactionDTO;
 import com.nmatute.octoger.accountingmanagement.domain.dto.TypeDTO;
 import com.nmatute.octoger.accountingmanagement.persistence.repository.TransactionRepository;
 
+/**
+ * Clase para testear Servicio de Transacciones.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class TransactionServiceTest {
     

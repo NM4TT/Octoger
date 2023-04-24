@@ -7,6 +7,11 @@ import org.mapstruct.Mapper;
 import com.nmatute.octoger.accountingmanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.accountingmanagement.persistence.entity.User;
 
+/**
+ * Clase para Mapper de Usuarios.
+ * 
+ * @author NM4TT
+ */
 @Mapper(componentModel = "spring", uses = TypeMapper.class)
 public interface UserMapper {
     

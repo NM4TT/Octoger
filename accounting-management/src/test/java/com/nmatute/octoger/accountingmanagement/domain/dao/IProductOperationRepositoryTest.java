@@ -29,6 +29,11 @@ import com.nmatute.octoger.accountingmanagement.persistence.mapper.TypeMapper;
 import com.nmatute.octoger.accountingmanagement.persistence.mapper.UserMapper;
 import com.nmatute.octoger.accountingmanagement.persistence.repository.ProductOperationRepository;
 
+/**
+ * Clase para testear Repositorio de Operaciones de Producto.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class IProductOperationRepositoryTest {
     
