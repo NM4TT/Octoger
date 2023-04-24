@@ -7,7 +7,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-
+/**
+ * Entidad de Tipos.
+ * 
+ * @author NM4TT
+ */
 @Entity
 @Table(name = "type", schema = "public")
 @Data

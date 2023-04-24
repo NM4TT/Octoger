@@ -16,6 +16,11 @@ import com.nmatute.octoger.productmanagement.persistence.crud.ITypeCrudRepositor
 import com.nmatute.octoger.productmanagement.persistence.mapper.TypeMapper;
 import com.nmatute.octoger.productmanagement.persistence.repository.TypeRepository;
 
+/**
+ * Clase para testear Repositorio de Tipos en web service.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class ITypeRepositoryTest {
     

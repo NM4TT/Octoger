@@ -29,6 +29,11 @@ import com.nmatute.octoger.productmanagement.web.security.config.AdminEndpoint;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Controller para Web Service
+ * 
+ * @author NM4TT
+ */
 @RestController
 @RequestMapping("/product")
 @RequiredArgsConstructor
@@ -39,6 +44,11 @@ public class Controller {
     private final ProductCollectionService collectionService;
     private final UserService userService;
     
+    /**
+     * Metodo para crear productos.
+     * @param request detalles del producto
+     * @return estatus de operacion
+     */
     @PostMapping("/create")
     public ResponseEntity<String> createProduct(@RequestBody CreateProductRequest request){
         log.debug("Got /product/create");
@@ -62,6 +72,11 @@ public class Controller {
         return new ResponseEntity<>("Product not created.", HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Metodo para crear coleccion de productos.
+     * @param request detalles de coleccion
+     * @return estatus de operacion
+     */
     @PostMapping("/collection/create")
     public ResponseEntity<String> createProductCollection(@RequestBody CreateProductCollectionRequest request){
         log.debug("Got /product/collection/create");
@@ -92,6 +107,11 @@ public class Controller {
     }
 
     
+    /**
+     * Metodo para actualizar producto.
+     * @param request detalles de actualizacion
+     * @return estatus de operacion
+     */
     @PutMapping("/update")
     public ResponseEntity<String> updateProduct(@RequestBody UpdateProductRequest request) {
 
@@ -120,6 +140,11 @@ public class Controller {
         return new ResponseEntity<>("Product not updated.", HttpStatus.BAD_REQUEST);        
     }
 
+    /**
+     * Metodo para actualizar coleccion.
+     * @param request detalles de actualizacion
+     * @return estatus de operacion
+     */
     @PutMapping("/collection/update")
     public ResponseEntity<String> updateProductCollection(@RequestBody UpdateProductCollectionRequest request) {
 
@@ -151,6 +176,11 @@ public class Controller {
         return new ResponseEntity<>("ProductCollection not updated.", HttpStatus.BAD_REQUEST);        
     }
 
+    /**
+     * Metodo para setear todos los productos de una coleccion como NoDisponibles.
+     * @param collectionId ID de coleccion
+     * @return estatus de operacion
+     */
     @PutMapping("/collection/{collectionId}/setNonAvailable")
     public ResponseEntity<String> setNonAvailableProductsByCollection(@PathVariable("collectionId") int collectionId) {
 
@@ -166,25 +196,42 @@ public class Controller {
         return new ResponseEntity<>("Products updated.", HttpStatus.OK);        
     }
 
-    
+    /**
+     * Metodo para obtener todos los productos en el sistema.
+     * @return Lista de productos
+     */
     @GetMapping("/all")
     public ResponseEntity<List<ProductDTO>> getAllProducts(){
         log.debug("Got product/all");
         return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
 
+    /**
+     * Metodo para obtener todas las colecciones de productos en sistema.
+     * @return Lista de colecciones
+     */
     @GetMapping("/collection/all")
     public ResponseEntity<List<ProductCollectionDTO>> getAllProductCollections(){
         log.debug("Got product/collection/all");
         return new ResponseEntity<>(collectionService.getAll(), HttpStatus.OK);
     }
 
+    /**
+     * Metodo para obtener producto especifico por ID.
+     * @param productId ID de producto
+     * @return producto encontrado
+     */
     @GetMapping("/get/{productId}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable("productId") int productId){
         log.debug("Got product/" + productId);
         return new ResponseEntity<>(productService.getById(productId),HttpStatus.OK);
     }
 
+    /**
+     * Metodo para obtener coleccion de producto especifica por ID.
+     * @param collectionId ID de coleccion
+     * @return coleccion encontrada
+     */
     @GetMapping("/collection/get/{collectionId}")
     public ResponseEntity<ProductCollectionDTO> getProductCollectionById(@PathVariable("collectionId") int collectionId){
         log.debug("Got prpduct/collection/" + collectionId);
@@ -194,6 +241,11 @@ public class Controller {
         return new ResponseEntity<>(collection,HttpStatus.OK);
     } 
 
+    /**
+     * Metodo para obtener todos los productos de una coleccion de productos.
+     * @param collectionId ID de coleccion
+     * @return Lista de productos
+     */
     @GetMapping("/collection/{collectionId}/list")
     public ResponseEntity<List<ProductDTO>> getProductsOfProductCollection(@PathVariable("collectionId") int collectionId){
         log.debug("Got product/collection/{collectionId}/list" + collectionId);
@@ -203,6 +255,11 @@ public class Controller {
         return new ResponseEntity<>(productService.getByCollection(collection),HttpStatus.OK);
     } 
     
+    /**
+     * Metodo para obtener colecciones de productos por usuario.
+     * @param userId ID de usuario
+     * @return Lista de colecciones
+     */
     @GetMapping("/collection/responsible/{userId}")
     public ResponseEntity<List<ProductCollectionDTO>> getProductCollectionsOfUser(@PathVariable("userId") int userId){
         log.debug("Got product/collection/all");
@@ -210,6 +267,11 @@ public class Controller {
         return new ResponseEntity<>(collectionService.getByResponsible(user), HttpStatus.OK);
     }
 
+    /**
+     * Metodo para eliminar un producto por ID.
+     * @param productId ID de producto
+     * @return estatus de operacion
+     */
     @AdminEndpoint
     @PostMapping("/delete/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable("productId") int productId){
@@ -225,6 +287,11 @@ public class Controller {
         return new ResponseEntity<>("Product not found.", HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Metodo para eliminar una coleccion por ID.
+     * @param productId ID de coleccion
+     * @return estatus de operacion
+     */
     @AdminEndpoint
     @PostMapping("/collection/delete/{collectionId}")
     public ResponseEntity<String> deleteProductCollection(@PathVariable("collectionId") int collectionId){

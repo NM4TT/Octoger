@@ -7,6 +7,11 @@ import org.mapstruct.Mapper;
 import com.nmatute.octoger.productmanagement.domain.dto.TypeDTO;
 import com.nmatute.octoger.productmanagement.persistence.entity.Type;
 
+/**
+ * Mapper de Tipos.
+ * 
+ * @author NM4TT
+ */
 @Mapper(componentModel = "spring")
 public interface TypeMapper {
     

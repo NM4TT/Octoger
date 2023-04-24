@@ -9,6 +9,11 @@ import org.springframework.data.repository.query.Param;
 import com.nmatute.octoger.productmanagement.persistence.entity.Product;
 import com.nmatute.octoger.productmanagement.persistence.entity.ProductCollection;
 
+/**
+ * Clase para CRUD y custom queries de Productos.
+ * 
+ * @author NM4TT
+ */
 public interface IProductCrudRepository extends CrudRepository<Product,Integer>{
     
     @Query("SELECT p FROM Product p WHERE p.isAvailable = :availability")

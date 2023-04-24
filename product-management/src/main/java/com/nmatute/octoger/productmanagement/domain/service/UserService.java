@@ -7,6 +7,11 @@ import com.nmatute.octoger.productmanagement.persistence.repository.UserReposito
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Servicio de Usuarios.
+ * 
+ * @author NM4TT
+ */
 @Service
 @RequiredArgsConstructor
 public class UserService {

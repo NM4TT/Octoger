@@ -10,6 +10,11 @@ import com.nmatute.octoger.productmanagement.persistence.repository.ProductRepos
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Servicio de Productos.
+ * 
+ * @author NM4TT
+ */
 @Service
 @RequiredArgsConstructor
 public class ProductService {

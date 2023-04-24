@@ -12,6 +12,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+/**
+ * Entidad de Productos.
+ * 
+ * @author NM4TT
+ */
 @Entity
 @Table(name = "product", schema = "public")
 @Data

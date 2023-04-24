@@ -5,6 +5,11 @@ import java.util.List;
 import com.nmatute.octoger.productmanagement.domain.dto.ProductCollectionDTO;
 import com.nmatute.octoger.productmanagement.domain.dto.UserDTO;
 
+/**
+ * DAO de Coleccion de Productos.
+ * 
+ * @author NM4TT
+ */
 public interface IProductCollectionRepository {
     ProductCollectionDTO getById(int id);
     List<ProductCollectionDTO> getByResponsible(UserDTO user);

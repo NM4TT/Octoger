@@ -19,6 +19,11 @@ import com.nmatute.octoger.productmanagement.web.security.AES;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para beans extra.
+ * 
+ * @author NM4TT
+ */
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {

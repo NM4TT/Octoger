@@ -16,6 +16,11 @@ import com.nmatute.octoger.productmanagement.persistence.crud.ICredentialCrudRep
 import com.nmatute.octoger.productmanagement.persistence.mapper.CredentialMapper;
 import com.nmatute.octoger.productmanagement.persistence.repository.CredentialRepository;
 
+/**
+ * Clase para testear Repositorio de Credenciales en web service.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class ICredentialRepositoryTest {
     

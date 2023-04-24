@@ -9,6 +9,11 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+/**
+ * Entidad de Credenciales.
+ * 
+ * @author NM4TT
+ */
 @Entity
 @Table(name = "credential", schema = "public")
 @Data

@@ -14,6 +14,11 @@ import com.nmatute.octoger.productmanagement.persistence.mapper.ProductMapper;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Clase para Repositorio de Productos.
+ * 
+ * @author NM4TT
+ */
 @Repository
 @RequiredArgsConstructor
 public class ProductRepository implements IProductRepository {

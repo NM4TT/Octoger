@@ -8,6 +8,11 @@ import org.mapstruct.Mapper;
 import com.nmatute.octoger.productmanagement.domain.dto.ProductCollectionDTO;
 import com.nmatute.octoger.productmanagement.persistence.entity.ProductCollection;
 
+/**
+ * Mapper de Coleccion de Productos.
+ * 
+ * @author NM4TT
+ */
 @Mapper(componentModel = "spring", uses = UserMapper.class)
 public interface ProductCollectionMapper {
 

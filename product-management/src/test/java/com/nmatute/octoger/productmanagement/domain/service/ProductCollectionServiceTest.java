@@ -18,6 +18,11 @@ import com.nmatute.octoger.productmanagement.domain.dto.ProductCollectionDTO;
 import com.nmatute.octoger.productmanagement.domain.dto.UserDTO;
 import com.nmatute.octoger.productmanagement.persistence.repository.ProductCollectionRepository;
 
+/**
+ * Clase para testear Servicio de Coleccion de Productos en web service.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class ProductCollectionServiceTest {
     

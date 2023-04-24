@@ -21,6 +21,11 @@ import com.nmatute.octoger.productmanagement.persistence.mapper.ProductCollectio
 import com.nmatute.octoger.productmanagement.persistence.mapper.ProductMapper;
 import com.nmatute.octoger.productmanagement.persistence.repository.ProductRepository;
 
+/**
+ * Clase para testear Repositorio de Productos en web service.
+ * 
+ * @author NM4TT
+ */
 @TestInstance(Lifecycle.PER_CLASS)
 public class IProductRepositoryTest {
 
