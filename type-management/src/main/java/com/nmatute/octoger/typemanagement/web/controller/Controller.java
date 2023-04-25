@@ -96,7 +96,12 @@ public class Controller {
     @GetMapping("/all")
     public ResponseEntity<List<TypeDTO>> getAllTypes(){
         log.debug("Got type/all");
-        return new ResponseEntity<>(typeService.getAll(), HttpStatus.OK);
+
+        List<TypeDTO> types = typeService.getAll();
+
+        return new ResponseEntity<>(types, 
+                                    (types != null) ?
+                                    HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -110,9 +115,9 @@ public class Controller {
         
         List<TypeDTO> types = typeService.getByPrefix(prefix);
 
-        return (types != null) ?
-        new ResponseEntity<>(types, HttpStatus.OK) :
-        new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(types, 
+                                    (types != null) ?
+                                    HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
     
     /**
@@ -126,9 +131,9 @@ public class Controller {
         
         TypeDTO type = typeService.getById(typeId);
 
-        return (type != null) ?
-        new ResponseEntity<>(HttpStatus.OK) :
-        new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(type, 
+                                    (type != null) ?
+                                    HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
     
     /**
