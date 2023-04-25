@@ -55,7 +55,7 @@ public class Controller {
     private final UserService userService;
     private final TypeService typeService;
     private final ProductCollectionService collectionService;
-    private final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.ENGLISH); //7-Jun-2021
+    private final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.ENGLISH);
     
     /**
      * Metodo para registrar una operacion contable.
@@ -270,7 +270,12 @@ public class Controller {
     @GetMapping("/product-operation/all")
     public ResponseEntity<List<ProductOperationDTO>> getAllProductOperations(){
         log.debug("Got /accounting/product-operation/all");
-        return new ResponseEntity<>(productOperationService.getAll(), HttpStatus.OK);
+
+        List<ProductOperationDTO> products = productOperationService.getAll();
+
+        return new ResponseEntity<>(products, 
+                                   (products != null) ? 
+                                   HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -280,7 +285,12 @@ public class Controller {
     @GetMapping("/sell/all")
     public ResponseEntity<List<SellDTO>> getAllSells(){
         log.debug("Got /accounting/sell/all");
-        return new ResponseEntity<>(sellService.getAll(), HttpStatus.OK);
+
+        List<SellDTO> sells = sellService.getAll();
+
+        return new ResponseEntity<>(sells, 
+                                   (sells != null) ? 
+                                   HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -290,7 +300,12 @@ public class Controller {
     @GetMapping("/transaction/all")
     public ResponseEntity<List<TransactionDTO>> getAllTransactions(){
         log.debug("Got /accounting/transaction/all");
-        return new ResponseEntity<>(transactionService.getAll(), HttpStatus.OK);
+
+        List<TransactionDTO> transactions = transactionService.getAll();
+
+        return new ResponseEntity<>(transactions, 
+                                   (transactions != null) ? 
+                                   HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -301,7 +316,12 @@ public class Controller {
     @GetMapping("/product-operation/get/{operationId}")
     public ResponseEntity<ProductOperationDTO> getProductOperationById(@PathVariable("operationId") int operationId){
         log.debug("Got /accounting/product-operation/{operationId}");
-        return new ResponseEntity<>(productOperationService.getById(operationId), HttpStatus.OK);
+
+        ProductOperationDTO operation = productOperationService.getById(operationId);
+
+        return new ResponseEntity<>(operation, 
+                                   (operation != null) ? 
+                                   HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -312,7 +332,12 @@ public class Controller {
     @GetMapping("/sell/get/{sellId}")
     public ResponseEntity<SellDTO> getSellById(@PathVariable("sellId") int sellId){
         log.debug("Got /accounting/sell/{sellId}");
-        return new ResponseEntity<>(sellService.getById(sellId), HttpStatus.OK);
+
+        SellDTO sell = sellService.getById(sellId);
+
+        return new ResponseEntity<>(sell, 
+                                   (sell != null) ? 
+                                   HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -323,7 +348,12 @@ public class Controller {
     @GetMapping("/transaction/get/{transactionId}")
     public ResponseEntity<TransactionDTO> getTransactionById(@PathVariable("transactionId") int transactionId){
         log.debug("Got /accounting/transaction/{transactionId}");
-        return new ResponseEntity<>(transactionService.getById(transactionId), HttpStatus.OK);
+
+        TransactionDTO transaction = transactionService.getById(transactionId);
+
+        return new ResponseEntity<>(transaction, 
+                                   (transaction != null) ? 
+                                   HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -416,10 +446,11 @@ public class Controller {
     public ResponseEntity<List<ProductOperationDTO>> getProductOperationByCollection(@PathVariable("collectionId") int collectionId){
         log.debug("Got /accounting/product-operation/{collectionId}");
 
-        Optional<ProductCollectionDTO> collection = Optional.of(collectionService.getById(collectionId));
-
-        if (collection.isPresent()) {
-            return new ResponseEntity<>(productOperationService.getByCollection(collection.get()), HttpStatus.OK);
+        ProductCollectionDTO collection = collectionService.getById(collectionId);
+        List<ProductOperationDTO> operations = productOperationService.getByCollection(collection);
+        
+        if (collection != null && operations != null) {
+            return new ResponseEntity<>(operations, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -434,10 +465,11 @@ public class Controller {
     public ResponseEntity<List<SellDTO>> getSellByCollection(@PathVariable("collectionId") int collectionId){
         log.debug("Got /accounting/sell/{collectionId}");
 
-        Optional<ProductCollectionDTO> collection = Optional.of(collectionService.getById(collectionId));
+        ProductCollectionDTO collection = collectionService.getById(collectionId);
+        List<SellDTO> sells = sellService.getByCollection(collection);
 
-        if (collection.isPresent()) {
-            return new ResponseEntity<>(sellService.getByCollection(collection.get()), HttpStatus.OK);
+        if (collection != null && sells != null) {
+            return new ResponseEntity<>(sells, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -452,10 +484,11 @@ public class Controller {
     public ResponseEntity<List<ProductOperationDTO>> getProductOperationByResponsible(@PathVariable("userId") int userId){
         log.debug("Got /accounting/product-operation/{userId}");
 
-        Optional<UserDTO> user = Optional.of(userService.getById(userId));
+        UserDTO user = userService.getById(userId);
+        List<ProductOperationDTO> operations = productOperationService.getByResponsible(user);
 
-        if (user.isPresent()) {
-            return new ResponseEntity<>(productOperationService.getByResponsible(user.get()), HttpStatus.OK);
+        if (user != null && operations != null) {
+            return new ResponseEntity<>(operations, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -470,10 +503,11 @@ public class Controller {
     public ResponseEntity<List<SellDTO>> getSellByResponsible(@PathVariable("userId") int userId){
         log.debug("Got /accounting/sell/{userId}");
 
-        Optional<UserDTO> user = Optional.of(userService.getById(userId));
+        UserDTO user = userService.getById(userId);
+        List<SellDTO> sells = sellService.getByResponsible(user);
 
-        if (user.isPresent()) {
-            return new ResponseEntity<>(sellService.getByResponsible(user.get()), HttpStatus.OK);
+        if (user != null && sells != null) {
+            return new ResponseEntity<>(sells, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -488,10 +522,11 @@ public class Controller {
     public ResponseEntity<List<ProductOperationDTO>> getProductOperationByType(@PathVariable("type") String type){
         log.debug("Got /accounting/product-operation/{type}");
 
-        Optional<TypeDTO> t = Optional.of(typeService.getByIdentifier(type));
+        TypeDTO t = typeService.getByIdentifier(type);
+        List<ProductOperationDTO> operations = productOperationService.getByType(t);
 
-        if (t.isPresent()) {
-            return new ResponseEntity<>(productOperationService.getByType(t.get()), HttpStatus.OK);
+        if (t != null && operations != null) {
+            return new ResponseEntity<>(operations, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -506,10 +541,11 @@ public class Controller {
     public ResponseEntity<List<TransactionDTO>> getSellByType(@PathVariable("type") String type){
         log.debug("Got /accounting/transaction/{type}");
 
-        Optional<TypeDTO> t = Optional.of(typeService.getByIdentifier(type));
+        TypeDTO t = typeService.getByIdentifier(type);
+        List<TransactionDTO> transactions = transactionService.getByType(t);
 
-        if (t.isPresent()) {
-            return new ResponseEntity<>(transactionService.getByType(t.get()), HttpStatus.OK);
+        if (t != null && transactions != null) {
+            return new ResponseEntity<>(transactions, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -524,10 +560,11 @@ public class Controller {
     public ResponseEntity<ProductOperationDTO> getProductOperationByTransactionId(@PathVariable("transactionId") int transactionId){
         log.debug("Got /accounting/product-operation/{transactionId}");
 
-        Optional<TransactionDTO> t = Optional.of(transactionService.getById(transactionId));
+        TransactionDTO t = transactionService.getById(transactionId);
+        ProductOperationDTO operation = productOperationService.getByTransaction(t);
 
-        if (t.isPresent()) {
-            return new ResponseEntity<>(productOperationService.getByTransaction(t.get()), HttpStatus.OK);
+        if (t != null && operation != null) {
+            return new ResponseEntity<>(operation, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -542,10 +579,11 @@ public class Controller {
     public ResponseEntity<SellDTO> getSellByOperationId(@PathVariable("operationId") int operationId){
         log.debug("Got /accounting/sell/{operationId}");
 
-        Optional<ProductOperationDTO> po = Optional.of(productOperationService.getById(operationId));
+        ProductOperationDTO po = productOperationService.getById(operationId);
+        SellDTO sell = sellService.getByProductOperation(po);
 
-        if (po.isPresent()) {
-            return new ResponseEntity<>(sellService.getByProductOperation(po.get()), HttpStatus.OK);
+        if (po != null && sell != null) {
+            return new ResponseEntity<>(sell, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
