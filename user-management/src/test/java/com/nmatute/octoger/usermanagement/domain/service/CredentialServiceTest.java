@@ -49,9 +49,9 @@ public class CredentialServiceTest {
         CredentialDTO credential = new CredentialDTO();
         credential.setId(1);
         credential.setUsername("username");
-        when(service.findIdByUsername("username")).thenReturn(1);
+        when(service.findIdByUsername("username")).thenReturn(1L);
         
-        int result = service.findIdByUsername("username");
+        long result = service.findIdByUsername("username");
 
         assertEquals(1,result);
     }

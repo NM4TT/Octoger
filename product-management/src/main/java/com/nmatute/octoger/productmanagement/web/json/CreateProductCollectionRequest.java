@@ -22,7 +22,7 @@ import lombok.ToString;
 @ToString
 public class CreateProductCollectionRequest extends Request {
 
-    private int userId;
+    private long userId;
 
     private String provider;
 
@@ -30,6 +30,6 @@ public class CreateProductCollectionRequest extends Request {
 
     private String description;
 
-    private int productQuantity;
+    private long productQuantity;
 
 }

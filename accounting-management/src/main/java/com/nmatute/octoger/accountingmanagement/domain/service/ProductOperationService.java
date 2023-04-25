@@ -25,7 +25,7 @@ public class ProductOperationService {
     
     private final ProductOperationRepository repo;
 
-    public ProductOperationDTO getById(int id) {
+    public ProductOperationDTO getById(long id) {
         return repo.getById(id);
     }
 
@@ -63,7 +63,7 @@ public class ProductOperationService {
     }
 
     
-    public void delete(int id) {
+    public void delete(long id) {
         repo.delete(id);
     }
 

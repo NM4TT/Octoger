@@ -11,11 +11,11 @@ import com.nmatute.octoger.productmanagement.domain.dto.ProductDTO;
  * @author NM4TT
  */
 public interface IProductRepository {
-    ProductDTO getById(int id);
+    ProductDTO getById(long id);
     List<ProductDTO> getByCollection(ProductCollectionDTO collection);
     List<ProductDTO> getAvailables();
     List<ProductDTO> getNonAvailables();
     ProductDTO save(ProductDTO product);
     List<ProductDTO> getAll();
-    void delete(int id);
+    void delete(long id);
 }

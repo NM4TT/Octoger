@@ -25,7 +25,7 @@ public class ProductOperation {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "type", referencedColumnName = "identifier")
@@ -36,7 +36,7 @@ public class ProductOperation {
     private ProductCollection collection;
 
     @Column(name = "product_amount")
-    private int productAmount;
+    private long productAmount;
 
     private Date date;
 

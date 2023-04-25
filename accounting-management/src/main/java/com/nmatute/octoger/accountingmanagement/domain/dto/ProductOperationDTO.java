@@ -12,13 +12,13 @@ import lombok.Data;
 @Data
 public class ProductOperationDTO {
 
-    private int id;
+    private long id;
 
     private TypeDTO type;
 
     private ProductCollectionDTO collection;
 
-    private int productAmount;
+    private long productAmount;
 
     private Date date;
 

@@ -41,12 +41,12 @@ public class TypeRepository implements ITypeRepository {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
         crud.deleteById(id);
     }
 
     @Override
-    public TypeDTO getById(int id) {
+    public TypeDTO getById(long id) {
         TypeDTO type = mapper.toTypeDTO(crud.findById(id).orElse(null));
         return type;
     }

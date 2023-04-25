@@ -22,7 +22,7 @@ public class ProductCollectionRepository implements IProductCollectionRepository
     private final ProductCollectionMapper mapper;
 
     @Override
-    public ProductCollectionDTO getById(int id) {
+    public ProductCollectionDTO getById(long id) {
         return mapper.toProductCollectionDTO(crud.findById(id).orElse(null));
     }
     

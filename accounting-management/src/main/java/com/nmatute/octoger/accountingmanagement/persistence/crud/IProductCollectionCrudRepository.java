@@ -8,6 +8,7 @@ import com.nmatute.octoger.accountingmanagement.persistence.entity.ProductCollec
  * 
  * @author NM4TT
  */
-public interface IProductCollectionCrudRepository extends CrudRepository<ProductCollection,Integer> {
+public interface IProductCollectionCrudRepository 
+extends CrudRepository<ProductCollection,Long> {
 
 }

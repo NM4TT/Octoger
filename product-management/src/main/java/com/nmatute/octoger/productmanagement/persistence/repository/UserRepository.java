@@ -22,7 +22,7 @@ public class UserRepository implements IUserRepository{
     private final UserMapper mapper;
 
     @Override
-    public UserDTO getById(int id) {
+    public UserDTO getById(long id) {
         UserDTO user = mapper.toUserDTO(crud.findById(id).orElse(null));
         return user;
     }

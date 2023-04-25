@@ -24,7 +24,7 @@ public class ProductCollection {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -37,6 +37,6 @@ public class ProductCollection {
     private String description;
 
     @Column(name = "product_quantity")
-    private int productQuantity;
+    private long productQuantity;
 
 }

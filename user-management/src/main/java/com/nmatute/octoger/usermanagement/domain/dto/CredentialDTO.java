@@ -19,7 +19,7 @@ import lombok.Data;
 @Data
 public class CredentialDTO implements UserDetails {
  
-    private int id;
+    private long id;
 
     private UserDTO user;
 

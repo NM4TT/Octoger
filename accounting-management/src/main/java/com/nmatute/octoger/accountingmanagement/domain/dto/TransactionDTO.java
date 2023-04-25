@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 public class TransactionDTO {
     
-    private int id;
+    private long id;
 
     private TypeDTO type;
 

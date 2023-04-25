@@ -32,7 +32,7 @@ public class UserService {
     }
 
     
-    public UserDTO getById(int id) {
+    public UserDTO getById(long id) {
         return repo.getById(id);
     }
 
@@ -42,15 +42,15 @@ public class UserService {
     }
 
     
-    public void delete(int id) {
+    public void delete(long id) {
         repo.delete(id);
     }
 
-    public boolean findUser(int userId){
+    public boolean findUser(long userId){
         return repo.findUser(userId);
     }
 
-    public UserDTO findById(int id){
+    public UserDTO findById(long id){
         return repo.getById(id);
     }
 

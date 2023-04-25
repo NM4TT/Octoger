@@ -22,7 +22,7 @@ import lombok.ToString;
 @ToString
 public class CreateProductRequest extends Request {
 
-    private int collectionId;
+    private long collectionId;
 
     private BigDecimal price;
 

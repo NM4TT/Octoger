@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class SellDTO {
     
-    private int id;
+    private long id;
 
     private Date date;
 

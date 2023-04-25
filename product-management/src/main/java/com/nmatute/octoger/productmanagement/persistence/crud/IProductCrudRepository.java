@@ -14,7 +14,7 @@ import com.nmatute.octoger.productmanagement.persistence.entity.ProductCollectio
  * 
  * @author NM4TT
  */
-public interface IProductCrudRepository extends CrudRepository<Product,Integer>{
+public interface IProductCrudRepository extends CrudRepository<Product,Long>{
     
     @Query("SELECT p FROM Product p WHERE p.isAvailable = :availability")
     List<Product> findByAvailability(@Param("availability")boolean availability);

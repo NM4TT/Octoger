@@ -9,6 +9,6 @@ import com.nmatute.octoger.accountingmanagement.persistence.entity.Credential;
  * 
  * @author NM4TT
  */
-public interface ICredentialCrudRepository extends CrudRepository<Credential,Integer>{
+public interface ICredentialCrudRepository extends CrudRepository<Credential,Long>{
     Credential findByUsername(String username);
 }

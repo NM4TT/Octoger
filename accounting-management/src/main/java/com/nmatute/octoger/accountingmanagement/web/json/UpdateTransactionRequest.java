@@ -20,7 +20,7 @@ import lombok.ToString;
 @ToString
 public class UpdateTransactionRequest extends Request {
 
-    private int id;
+    private long id;
 
     private String type;
 

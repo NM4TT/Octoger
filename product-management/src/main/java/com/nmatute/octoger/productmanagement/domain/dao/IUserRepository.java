@@ -8,5 +8,5 @@ import com.nmatute.octoger.productmanagement.domain.dto.UserDTO;
  * @author NM4TT
  */
 public interface IUserRepository {
-    UserDTO getById(int id);
+    UserDTO getById(long id);
 }

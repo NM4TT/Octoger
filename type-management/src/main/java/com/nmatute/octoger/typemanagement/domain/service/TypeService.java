@@ -29,7 +29,7 @@ public class TypeService {
         return repo.getByIdentifier(identifier);
     }
 
-    public TypeDTO getById(int id){
+    public TypeDTO getById(long id){
         return repo.getById(id);
     }
 
@@ -42,7 +42,7 @@ public class TypeService {
     }
 
     
-    public void delete(int id) {
+    public void delete(long id) {
         repo.delete(id);
     }
 }

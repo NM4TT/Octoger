@@ -38,7 +38,7 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public UserDTO getById(int id) {
+    public UserDTO getById(long id) {
         UserDTO user = mapper.toUserDTO(crud.findById(id).orElse(null));
         return user;
     }
@@ -50,12 +50,12 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
         crud.deleteById(id);
     }
     
     @Override
-    public boolean findUser(int userId){
+    public boolean findUser(long userId){
         return crud.findUser(userId) == 1;
     }
 

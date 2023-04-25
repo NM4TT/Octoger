@@ -29,7 +29,7 @@ public class TransactionRepository implements ITransactionRepository{
     private final TypeMapper typeMapper;
     
     @Override
-    public TransactionDTO getById(int id) {
+    public TransactionDTO getById(long id) {
         TransactionDTO transaction = mapper.toTransactionDTO(crud.findById(id).orElse(null));
         return transaction;
     }
@@ -51,7 +51,7 @@ public class TransactionRepository implements ITransactionRepository{
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
         crud.deleteById(id);
     }
 

@@ -24,7 +24,7 @@ public class SellService {
 
     private final SellRepository repo;
     
-    public SellDTO getById(int id) {
+    public SellDTO getById(long id) {
         return repo.getById(id);
     }
     
@@ -56,7 +56,7 @@ public class SellService {
     }
 
     
-    public void delete(int id) {
+    public void delete(long id) {
         repo.delete(id);
     }
     

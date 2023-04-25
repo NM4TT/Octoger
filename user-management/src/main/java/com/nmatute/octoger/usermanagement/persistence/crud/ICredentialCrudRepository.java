@@ -11,7 +11,7 @@ import com.nmatute.octoger.usermanagement.persistence.entity.Credential;
  * 
  * @author NM4TT
  */
-public interface ICredentialCrudRepository extends CrudRepository<Credential,Integer>{
+public interface ICredentialCrudRepository extends CrudRepository<Credential,Long>{
     @Query("SELECT c FROM Credential c WHERE c.username = :username")
     Credential findByUsername(@Param("username")String username);
 }

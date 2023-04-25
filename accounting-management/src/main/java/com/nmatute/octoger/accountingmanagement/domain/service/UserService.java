@@ -17,7 +17,7 @@ public class UserService {
     
     private final UserRepository repo;
 
-    public UserDTO getById(int id) {
+    public UserDTO getById(long id) {
         return repo.getById(id);
     }
 

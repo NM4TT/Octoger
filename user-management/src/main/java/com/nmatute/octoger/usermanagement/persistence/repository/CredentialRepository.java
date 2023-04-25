@@ -31,7 +31,7 @@ public class CredentialRepository implements ICredentialRepository{
     }
     
     @Override
-    public int findIdByUsername(String username){
+    public long findIdByUsername(String username){
         return crud.findByUsername(username).getId();
     }
 
@@ -43,7 +43,7 @@ public class CredentialRepository implements ICredentialRepository{
     }
 
     @Override
-    public String getUserType(int userId){
+    public String getUserType(long userId){
         return userCrud.getUserType(userId);
     }
 

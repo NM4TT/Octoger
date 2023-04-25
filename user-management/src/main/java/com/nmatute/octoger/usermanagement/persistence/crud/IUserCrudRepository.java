@@ -14,12 +14,12 @@ import com.nmatute.octoger.usermanagement.persistence.entity.User;
  * 
  * @author NM4TT
  */
-public interface IUserCrudRepository extends CrudRepository<User, Integer>{
+public interface IUserCrudRepository extends CrudRepository<User, Long>{
     List<User> findByType(Type type); 
     
     @Query("SELECT count(*) FROM User WHERE id = :userId")
-    int findUser(@Param("userId") int userId);
+    int findUser(@Param("userId") long userId);
 
     @Query("SELECT type FROM User WHERE type = :userId")
-    String getUserType(@Param("userId") int userId);
+    String getUserType(@Param("userId") long userId);
 }

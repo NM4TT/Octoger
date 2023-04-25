@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class ProductCollectionDTO {
     
-    private int id;
+    private long id;
 
     private UserDTO user;
 
@@ -22,6 +22,6 @@ public class ProductCollectionDTO {
 
     private String description;
 
-    private int productQuantity;
+    private long productQuantity;
 
 }

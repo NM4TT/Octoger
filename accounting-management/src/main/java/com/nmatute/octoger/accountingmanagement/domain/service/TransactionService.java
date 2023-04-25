@@ -23,7 +23,7 @@ public class TransactionService {
     private final TransactionRepository repo;
     
     
-    public TransactionDTO getById(int id) {
+    public TransactionDTO getById(long id) {
         return repo.getById(id);
     }
 
@@ -46,7 +46,7 @@ public class TransactionService {
     }
 
     
-    public void delete(int id) {
+    public void delete(long id) {
         repo.delete(id);
     }
     

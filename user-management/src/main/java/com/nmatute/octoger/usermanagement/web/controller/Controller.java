@@ -140,7 +140,7 @@ public class Controller {
      */
     @AdminEndpoint
     @GetMapping("get/{userId}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable("userId") int userId){
+    public ResponseEntity<UserDTO> getUser(@PathVariable("userId") long userId){
         log.debug("Got /user/" + userId);
 
         UserDTO user = userService.getById(userId);
@@ -157,7 +157,7 @@ public class Controller {
      */
     @AdminEndpoint
     @PostMapping("/delete/{userId}")
-    public ResponseEntity<String> deleteUser(@PathVariable("userId") int userId){
+    public ResponseEntity<String> deleteUser(@PathVariable("userId") long userId){
         log.debug("Got /user/delete/" + userId);
         if (userService.findUser(userId)) {
             userService.delete(userId);

@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class TypeDTO {
     
-    private int id;
+    private long id;
 
     private String identifier;
 

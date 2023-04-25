@@ -8,5 +8,5 @@ import com.nmatute.octoger.accountingmanagement.domain.dto.ProductCollectionDTO;
  * @author NM4TT
  */
 public interface IProductCollectionRepository {
-    ProductCollectionDTO getById(int id);
+    ProductCollectionDTO getById(long id);
 }

@@ -8,6 +8,6 @@ import com.nmatute.octoger.accountingmanagement.persistence.entity.User;
  * 
  * @author NM4TT
  */
-public interface IUserCrudRepository extends CrudRepository<User, Integer>{
+public interface IUserCrudRepository extends CrudRepository<User, Long>{
    
 }

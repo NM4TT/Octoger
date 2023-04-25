@@ -35,7 +35,7 @@ public class SellRepository implements ISellRepository{
     private final ProductOperationMapper productOperationMapper;
 
     @Override
-    public SellDTO getById(int id) {
+    public SellDTO getById(long id) {
         SellDTO sell = mapper.toSellDTO(crud.findById(id).orElse(null));
         return sell;
     }
@@ -67,7 +67,7 @@ public class SellRepository implements ISellRepository{
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
         crud.deleteById(id);
     }
 

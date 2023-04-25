@@ -18,7 +18,7 @@ import com.nmatute.octoger.accountingmanagement.persistence.entity.User;
  * 
  * @author NM4TT
  */
-public interface ISellCrudRepository extends CrudRepository<Sell, Integer>{
+public interface ISellCrudRepository extends CrudRepository<Sell, Long>{
     
     List<Sell> findByCollection(ProductCollection collection);
 

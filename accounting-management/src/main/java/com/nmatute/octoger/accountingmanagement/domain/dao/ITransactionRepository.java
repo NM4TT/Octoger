@@ -13,7 +13,7 @@ import com.nmatute.octoger.accountingmanagement.domain.dto.TypeDTO;
  */
 public interface ITransactionRepository {
     
-    TransactionDTO getById(int id);
+    TransactionDTO getById(long id);
 
     List<TransactionDTO> getAll();
 
@@ -23,6 +23,6 @@ public interface ITransactionRepository {
 
     TransactionDTO save(TransactionDTO transaction);
 
-    void delete(int id);
+    void delete(long id);
 
 }

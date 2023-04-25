@@ -28,10 +28,10 @@ public class RegisterRequest extends Request{
 
     private BigDecimal value;
     
-    private int productAmount; 
+    private long productAmount; 
     
-    private int collectionId;
+    private long collectionId;
 
-    private int userId;
+    private long userId;
 
 }

@@ -15,7 +15,7 @@ import com.nmatute.octoger.accountingmanagement.persistence.entity.Type;
  * 
  * @author NM4TT
  */
-public interface ITransactionCrudRepository extends CrudRepository<Transaction, Integer>{
+public interface ITransactionCrudRepository extends CrudRepository<Transaction, Long>{
     
     List<Transaction> findByType(Type type);
 

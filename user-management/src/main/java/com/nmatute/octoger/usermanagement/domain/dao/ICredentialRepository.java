@@ -11,10 +11,10 @@ public interface ICredentialRepository {
     
     CredentialDTO save(CredentialDTO credential);
 
-    int findIdByUsername(String username);
+    long findIdByUsername(String username);
 
     CredentialDTO findByUsername(String username);
 
-    String getUserType(int userId);
+    String getUserType(long userId);
 
 }

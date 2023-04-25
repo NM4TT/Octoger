@@ -21,7 +21,7 @@ public class ProductCollectionService {
     
     private final ProductCollectionRepository repo;
 
-    public ProductCollectionDTO getById(int id){
+    public ProductCollectionDTO getById(long id){
         return repo.getById(id);
     }
     public List<ProductCollectionDTO> getByResponsible(UserDTO user){
@@ -33,7 +33,7 @@ public class ProductCollectionService {
     public ProductCollectionDTO save(ProductCollectionDTO productCollection){
         return repo.save(productCollection);
     }
-    public void delete(int id){
+    public void delete(long id){
         repo.delete(id);
     }
     public List<ProductCollectionDTO> getAll() {

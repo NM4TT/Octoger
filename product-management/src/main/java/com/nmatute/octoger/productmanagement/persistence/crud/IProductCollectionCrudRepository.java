@@ -14,7 +14,8 @@ import com.nmatute.octoger.productmanagement.persistence.entity.User;
  * 
  * @author NM4TT
  */
-public interface IProductCollectionCrudRepository extends CrudRepository<ProductCollection,Integer> {
+public interface IProductCollectionCrudRepository 
+extends CrudRepository<ProductCollection,Long> {
     @Query("SELECT pc FROM ProductCollection pc WHERE pc.user = :user")
     List<ProductCollection> findByUser(@Param("user") User user);
 

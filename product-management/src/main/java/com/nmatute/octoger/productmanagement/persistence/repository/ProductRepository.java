@@ -28,7 +28,7 @@ public class ProductRepository implements IProductRepository {
     private final ProductCollectionMapper collectionMapper;
     
     @Override
-    public ProductDTO getById(int id) {
+    public ProductDTO getById(long id) {
         return mapper.toProductDTO(crud.findById(id).orElse(null));
     }
     @Override
@@ -49,7 +49,7 @@ public class ProductRepository implements IProductRepository {
         return mapper.toProductDTO(crud.save(p));
     }
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
         crud.deleteById(id);
     }
 

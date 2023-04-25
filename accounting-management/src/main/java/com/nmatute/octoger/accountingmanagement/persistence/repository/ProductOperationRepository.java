@@ -38,7 +38,7 @@ public class ProductOperationRepository implements IProductOperationRepository{
     private final TransactionMapper transactionMapper;
     
     @Override
-    public ProductOperationDTO getById(int id) {
+    public ProductOperationDTO getById(long id) {
         ProductOperationDTO operation = mapper.toProductOperationDTO(crud.findById(id).orElse(null));
         return operation;
     }
@@ -75,7 +75,7 @@ public class ProductOperationRepository implements IProductOperationRepository{
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
         crud.deleteById(id);
     }
 

@@ -8,6 +8,6 @@ import com.nmatute.octoger.usermanagement.persistence.entity.Type;
  * 
  * @author NM4TT
  */
-public interface ITypeCrudRepository extends CrudRepository<Type,Integer>{
+public interface ITypeCrudRepository extends CrudRepository<Type,Long>{
     Type findByIdentifier(String identifier);
 }

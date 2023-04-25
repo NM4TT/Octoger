@@ -17,10 +17,10 @@ public interface ITypeRepository {
 
     List<TypeDTO> getByPrefix(String prefix);
 
-    TypeDTO getById(int id);
+    TypeDTO getById(long id);
     
     TypeDTO save(TypeDTO user);
     
-    void delete(int id);
+    void delete(long id);
 
 }

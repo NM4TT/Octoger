@@ -18,7 +18,7 @@ public class ProductCollectionService {
     
     private final ProductCollectionRepository repo;
 
-    public ProductCollectionDTO getById(int id){
+    public ProductCollectionDTO getById(long id){
         return repo.getById(id);
     }
 }

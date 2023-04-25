@@ -16,12 +16,12 @@ public interface IUserRepository {
 
     List<UserDTO> getByType(TypeDTO type);
 
-    UserDTO getById(int id);
+    UserDTO getById(long id);
     
-    boolean findUser(int userId);
+    boolean findUser(long userId);
     
     UserDTO save(UserDTO user);
     
-    void delete(int id);
+    void delete(long id);
 
 }

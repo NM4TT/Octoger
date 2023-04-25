@@ -22,9 +22,9 @@ import lombok.ToString;
 @ToString
 public class UpdateProductRequest extends Request {
     
-    private int id;
+    private long id;
 
-    private int collectionId;
+    private long collectionId;
 
     private BigDecimal price;
 

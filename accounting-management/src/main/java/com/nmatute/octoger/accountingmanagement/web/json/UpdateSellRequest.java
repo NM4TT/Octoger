@@ -18,14 +18,14 @@ import lombok.ToString;
 @ToString
 public class UpdateSellRequest extends Request {
 
-    private int id;
+    private long id;
 
     private String date;
 
-    private int collectionId;
+    private long collectionId;
 
-    private int userId;
+    private long userId;
 
-    private int productOperationId;
+    private long productOperationId;
 
 }

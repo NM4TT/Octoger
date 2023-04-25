@@ -13,7 +13,7 @@ import com.nmatute.octoger.typemanagement.persistence.entity.Type;
  * 
  * @author NM4TT
  */
-public interface ITypeCrudRepository extends CrudRepository<Type,Integer>{
+public interface ITypeCrudRepository extends CrudRepository<Type,Long>{
     Type findByIdentifier(String identifier);
 
     @Query("SELECT t FROM Type t WHERE t.identifier LIKE :prefix%")

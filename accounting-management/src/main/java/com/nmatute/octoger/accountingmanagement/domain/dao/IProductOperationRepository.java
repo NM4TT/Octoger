@@ -16,7 +16,7 @@ import com.nmatute.octoger.accountingmanagement.domain.dto.UserDTO;
  */
 public interface IProductOperationRepository {
     
-    ProductOperationDTO getById(int id);
+    ProductOperationDTO getById(long id);
 
     List<ProductOperationDTO> getAll();
 
@@ -32,6 +32,6 @@ public interface IProductOperationRepository {
 
     ProductOperationDTO save(ProductOperationDTO productOperation);
 
-    void delete(int id);
+    void delete(long id);
 
 }

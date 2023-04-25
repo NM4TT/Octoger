@@ -15,7 +15,7 @@ import com.nmatute.octoger.accountingmanagement.domain.dto.UserDTO;
  */
 public interface ISellRepository {
     
-    SellDTO getById(int id);
+    SellDTO getById(long id);
 
     List<SellDTO> getAll();
 
@@ -29,6 +29,6 @@ public interface ISellRepository {
 
     SellDTO save(SellDTO sell);
 
-    void delete(int id);
+    void delete(long id);
 
 }

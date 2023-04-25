@@ -24,7 +24,7 @@ public class Sell {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     private Date date;
 

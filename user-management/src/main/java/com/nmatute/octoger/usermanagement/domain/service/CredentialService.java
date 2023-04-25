@@ -22,7 +22,7 @@ public class CredentialService {
         return repo.save(credential);
     }
     
-    public int findIdByUsername(String username){
+    public long findIdByUsername(String username){
         return repo.findIdByUsername(username);
     }
 
