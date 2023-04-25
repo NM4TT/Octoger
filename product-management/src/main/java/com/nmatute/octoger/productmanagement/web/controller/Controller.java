@@ -58,16 +58,28 @@ public class Controller {
             !request.isEmpty(String.valueOf(request.getBenefit()))
         ) {
         
-            ProductDTO product = new ProductDTO();
-            ProductCollectionDTO collection = collectionService.getById(request.getCollectionId());
-            product.setProductCollection(collection);
-            product.setPrice(request.getPrice());
-            product.setBenefit(request.getBenefit());
-            product.setAvailable(true);
-            productService.save(product);
-            log.debug("Product saved successfully.");
+            try {
+                
+                ProductDTO product = new ProductDTO();
+                ProductCollectionDTO collection = collectionService.getById(request.getCollectionId());
+                
+                if(collection == null){
+                    throw new Exception("Some DTOs were not found.");
+                }
+                
+                product.setProductCollection(collection);
+                product.setPrice(request.getPrice());
+                product.setBenefit(request.getBenefit());
+                product.setAvailable(true);
+                productService.save(product);
+                log.debug("Product saved successfully.");
 
-            return new ResponseEntity<>("Product created successfully.\n" + product.toString(), HttpStatus.OK);
+                return new ResponseEntity<>("Product created successfully.", HttpStatus.OK);
+
+            } catch (Exception e) {
+                log.debug(e.getMessage());
+            }
+            
         } 
         return new ResponseEntity<>("Product not created.", HttpStatus.BAD_REQUEST);
     }
@@ -88,19 +100,28 @@ public class Controller {
             !request.isEmpty(String.valueOf(request.getProductQuantity()))
         ) {
         
-            ProductCollectionDTO collection = new ProductCollectionDTO();
-            UserDTO user = userService.getById(request.getUserId());
+            try {
+                ProductCollectionDTO collection = new ProductCollectionDTO();
+                UserDTO user = userService.getById(request.getUserId());
 
-            collection.setUser(user);
-            collection.setDescription(request.getDescription());
-            collection.setProvider(request.getProvider());
-            collection.setCost(request.getCost());
-            collection.setProductQuantity(request.getProductQuantity());
+                if (user == null) {
+                    throw new Exception("Some DTOs were not found.");
+                }
 
-            collectionService.save(collection);
-            log.debug("Product Collection saved successfully.");
+                collection.setUser(user);
+                collection.setDescription(request.getDescription());
+                collection.setProvider(request.getProvider());
+                collection.setCost(request.getCost());
+                collection.setProductQuantity(request.getProductQuantity());
 
-            return new ResponseEntity<>("ProductCollection created successfully.", HttpStatus.OK); 
+                collectionService.save(collection);
+                log.debug("Product Collection saved successfully.");
+
+                return new ResponseEntity<>("ProductCollection created successfully.", HttpStatus.OK); 
+            } catch (Exception e) {
+                log.debug(e.getMessage());
+            }
+            
         }
     
         return new ResponseEntity<>("ProductCollection not created.", HttpStatus.BAD_REQUEST);        
@@ -124,17 +145,27 @@ public class Controller {
             !request.isEmpty(String.valueOf(request.isAvailable()))
         ) {
             
-            ProductDTO product = productService.getById(request.getId());
-            ProductCollectionDTO collection = collectionService.getById(request.getCollectionId());
-            product.setProductCollection(collection);
-            product.setPrice(request.getPrice());
-            product.setBenefit(request.getBenefit());
-            product.setAvailable(request.isAvailable());
+            try {
+                ProductDTO product = productService.getById(request.getId());
+                ProductCollectionDTO collection = collectionService.getById(request.getCollectionId());
 
-            productService.save(product);
-            log.debug("Product updated successfully.");
-            
-            return new ResponseEntity<>("Product updated successfully.", HttpStatus.OK); 
+                if(product == null || collection == null){
+                    throw new Exception("Some DTOs were not found.");
+                }
+
+                product.setProductCollection(collection);
+                product.setPrice(request.getPrice());
+                product.setBenefit(request.getBenefit());
+                product.setAvailable(request.isAvailable());
+
+                productService.save(product);
+                log.debug("Product updated successfully.");
+                
+                return new ResponseEntity<>("Product updated successfully.", HttpStatus.OK); 
+            } catch (Exception e) {
+                log.debug(e.getMessage());
+            }
+
         }
         
         return new ResponseEntity<>("Product not updated.", HttpStatus.BAD_REQUEST);        
@@ -158,19 +189,30 @@ public class Controller {
             !request.isEmpty(String.valueOf(request.getProductQuantity()))
         ) {
             
-            ProductCollectionDTO collection = collectionService.getById(request.getId());
-            UserDTO user = userService.getById(request.getUserId());
+            try {
+                
+                ProductCollectionDTO collection = collectionService.getById(request.getId());
+                UserDTO user = userService.getById(request.getUserId());
 
-            collection.setUser(user);
-            collection.setDescription(request.getDescription());
-            collection.setProvider(request.getProvider());
-            collection.setCost(request.getCost());
-            collection.setProductQuantity(request.getProductQuantity());
+                if (collection == null || user == null) {
+                    throw new Exception("Some DTOs were not found.");
+                }
 
-            collectionService.save(collection);
-            log.debug("Product Collection updated successfully.");
-            
-            return new ResponseEntity<>("ProductCollection updated successfully.", HttpStatus.OK); 
+                collection.setUser(user);
+                collection.setDescription(request.getDescription());
+                collection.setProvider(request.getProvider());
+                collection.setCost(request.getCost());
+                collection.setProductQuantity(request.getProductQuantity());
+
+                collectionService.save(collection);
+                log.debug("Product Collection updated successfully.");
+                
+                return new ResponseEntity<>("ProductCollection updated successfully.", HttpStatus.OK); 
+
+            } catch (Exception e) {
+                log.debug(e.getMessage());
+            }
+
         }
         
         return new ResponseEntity<>("ProductCollection not updated.", HttpStatus.BAD_REQUEST);        
@@ -186,14 +228,26 @@ public class Controller {
 
         log.debug("Got PUT /product/collection/{collectionId}/setNonAvailable");
         
-        List<ProductDTO> products = productService.getByCollection(collectionService.getById(collectionId));
+        try {
+            ProductCollectionDTO collection = collectionService.getById(collectionId);
+            List<ProductDTO> products = productService.getByCollection(collection);
 
-        for (ProductDTO productDTO : products) {
-            productDTO.setAvailable(false);
-            productService.save(productDTO);
+            if (collection == null || products == null) {
+                throw new Exception("Some DTOs were not found.");
+            }
+
+            for (ProductDTO productDTO : products) {
+                productDTO.setAvailable(false);
+                productService.save(productDTO);
+            }
+
+            return new ResponseEntity<>("Products updated.", HttpStatus.OK);
+
+        } catch (Exception e) {
+           log.debug(e.getMessage());
         }
-        
-        return new ResponseEntity<>("Products updated.", HttpStatus.OK);        
+
+        return new ResponseEntity<>("Products not updated.", HttpStatus.NOT_FOUND);        
     }
 
     /**
@@ -203,7 +257,21 @@ public class Controller {
     @GetMapping("/all")
     public ResponseEntity<List<ProductDTO>> getAllProducts(){
         log.debug("Got product/all");
-        return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
+
+        try {
+            List<ProductDTO> products = productService.getAll();
+
+            if (products == null) {
+                throw new Exception();
+            }
+
+            return new ResponseEntity<>(products, HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -213,7 +281,21 @@ public class Controller {
     @GetMapping("/collection/all")
     public ResponseEntity<List<ProductCollectionDTO>> getAllProductCollections(){
         log.debug("Got product/collection/all");
-        return new ResponseEntity<>(collectionService.getAll(), HttpStatus.OK);
+
+        try {
+            List<ProductCollectionDTO> collections = collectionService.getAll();
+
+            if (collections == null) {
+                throw new Exception();
+            }
+
+            return new ResponseEntity<>(collections, HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -224,7 +306,21 @@ public class Controller {
     @GetMapping("/get/{productId}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable("productId") int productId){
         log.debug("Got product/" + productId);
-        return new ResponseEntity<>(productService.getById(productId),HttpStatus.OK);
+
+        try {
+            ProductDTO product = productService.getById(productId);
+
+            if (product == null) {
+                throw new Exception();
+            }
+
+            return new ResponseEntity<>(product,HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+        }
+
+        return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -236,9 +332,20 @@ public class Controller {
     public ResponseEntity<ProductCollectionDTO> getProductCollectionById(@PathVariable("collectionId") int collectionId){
         log.debug("Got prpduct/collection/" + collectionId);
 
-        ProductCollectionDTO collection = collectionService.getById(collectionId);
+        try {
+            ProductCollectionDTO collection = collectionService.getById(collectionId);
 
-        return new ResponseEntity<>(collection,HttpStatus.OK);
+            if (collection == null) {
+                throw new Exception();
+            }
+
+            return new ResponseEntity<>(collection,HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+        }
+
+        return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
     } 
 
     /**
@@ -250,9 +357,22 @@ public class Controller {
     public ResponseEntity<List<ProductDTO>> getProductsOfProductCollection(@PathVariable("collectionId") int collectionId){
         log.debug("Got product/collection/{collectionId}/list" + collectionId);
 
-        ProductCollectionDTO collection = collectionService.getById(collectionId);
+        try {
 
-        return new ResponseEntity<>(productService.getByCollection(collection),HttpStatus.OK);
+            ProductCollectionDTO collection = collectionService.getById(collectionId);
+            List<ProductDTO> products = productService.getByCollection(collection);
+
+            if (collection == null || products == null) {
+                throw new Exception();
+            }
+            
+            return new ResponseEntity<>(products,HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+        }
+
+        return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
     } 
     
     /**
@@ -263,8 +383,23 @@ public class Controller {
     @GetMapping("/collection/responsible/{userId}")
     public ResponseEntity<List<ProductCollectionDTO>> getProductCollectionsOfUser(@PathVariable("userId") int userId){
         log.debug("Got product/collection/all");
-        UserDTO user = userService.getById(userId);
-        return new ResponseEntity<>(collectionService.getByResponsible(user), HttpStatus.OK);
+
+        try {
+
+            UserDTO user = userService.getById(userId);
+            List<ProductCollectionDTO> collections = collectionService.getByResponsible(user);
+            
+            if (user == null || collections == null) {
+                throw new Exception();
+            }
+
+            return new ResponseEntity<List<ProductCollectionDTO>>(collections, HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.debug(e.getMessage());
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     /**
