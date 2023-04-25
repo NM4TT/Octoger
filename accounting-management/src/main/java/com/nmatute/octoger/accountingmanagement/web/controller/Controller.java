@@ -84,7 +84,7 @@ public class Controller {
                 
                 //check de DTOs
                 if(user == null || type == null || collection == null){
-                    throw new Exception("user, Type or collection not found.");
+                    throw new Exception("Some DTOs were not found.");
                 }
 
                 //Se crea la transaccion
@@ -141,19 +141,25 @@ public class Controller {
             !request.isEmpty(String.valueOf(request.getUserId())) && 
             !request.isEmpty(request.getType())
         ) {
-            
-            ProductOperationDTO operation = productOperationService.getById(request.getId());
-            ProductCollectionDTO collection = collectionService.getById(request.getCollectionId());
-            TransactionDTO transaction = transactionService.getById(request.getTransactionId());
-            UserDTO user = userService.getById(request.getUserId());
-            TypeDTO type = typeService.getByIdentifier(request.getType());
-            operation.setCollection(collection);
-            operation.setTransaction(transaction);
-            operation.setUser(user);
-            operation.setType(type);
-            operation.setProductAmount(request.getProductAmount());
 
             try {
+
+                ProductOperationDTO operation = productOperationService.getById(request.getId());
+                ProductCollectionDTO collection = collectionService.getById(request.getCollectionId());
+                TransactionDTO transaction = transactionService.getById(request.getTransactionId());
+                UserDTO user = userService.getById(request.getUserId());
+                TypeDTO type = typeService.getByIdentifier(request.getType());
+
+                if (operation == null || collection == null || transaction == null || user == null || type == null) {
+                    throw new Exception("Some DTOs were not found.");
+                }
+
+                operation.setCollection(collection);
+                operation.setTransaction(transaction);
+                operation.setUser(user);
+                operation.setType(type);
+                operation.setProductAmount(request.getProductAmount());
+
                 operation.setDate(FORMATTER.parse(request.getDate()));
                 productOperationService.save(operation);
                 log.debug("Product Operation updated successfully.");
@@ -161,6 +167,8 @@ public class Controller {
                 return new ResponseEntity<>("Product Operation updated successfully.", HttpStatus.OK);
             } catch (ParseException e) {
                 log.debug("Error parsing date of Product Operation.");
+            } catch (Exception ex){
+                log.debug(ex.getMessage());
             }
         }
         
@@ -182,16 +190,22 @@ public class Controller {
             !request.isEmpty(String.valueOf(request.getProductOperationId())) &&
             !request.isEmpty(String.valueOf(request.getUserId()))
         ) {
-            
-            SellDTO sell = sellService.getById(request.getId());
-            ProductCollectionDTO collection = collectionService.getById(request.getCollectionId());
-            ProductOperationDTO operation = productOperationService.getById(request.getProductOperationId());
-            UserDTO user = userService.getById(request.getUserId());
-            sell.setCollection(collection);
-            sell.setProductOperation(operation);
-            sell.setUser(user);
 
             try {
+
+                SellDTO sell = sellService.getById(request.getId());
+                ProductCollectionDTO collection = collectionService.getById(request.getCollectionId());
+                ProductOperationDTO operation = productOperationService.getById(request.getProductOperationId());
+                UserDTO user = userService.getById(request.getUserId());
+                
+                if (operation == null || collection == null || user == null || sell == null) {
+                    throw new Exception("Some DTOs were not found.");
+                }
+
+                sell.setCollection(collection);
+                sell.setProductOperation(operation);
+                sell.setUser(user);
+
                 sell.setDate(FORMATTER.parse(request.getDate()));
                 sellService.save(sell);
                 log.debug("Sell updated successfully.");
@@ -199,6 +213,8 @@ public class Controller {
                 return new ResponseEntity<>("Sell updated successfully.", HttpStatus.OK);
             } catch (ParseException e) {
                 log.debug("Error parsing date of sell.");
+            } catch (Exception ex){
+                log.debug(ex.getMessage());
             }
         }
         
@@ -220,11 +236,18 @@ public class Controller {
             !request.isEmpty(String.valueOf(request.getValue()))
         ) {
             
-            TransactionDTO transaction = transactionService.getById(request.getId());
-            TypeDTO type = typeService.getByIdentifier(request.getType());
-            transaction.setType(type);
-            transaction.setValue(request.getValue());
             try {
+
+                TransactionDTO transaction = transactionService.getById(request.getId());
+                TypeDTO type = typeService.getByIdentifier(request.getType());
+                
+                if (transaction == null || type == null) {
+                    throw new Exception("Some DTOs were not found.");
+                }
+                
+                transaction.setType(type);
+                transaction.setValue(request.getValue());
+
                 transaction.setDate(FORMATTER.parse(request.getDate()));
                 transactionService.save(transaction);
                 log.debug("Transaction updated successfully.");
@@ -232,6 +255,8 @@ public class Controller {
                 return new ResponseEntity<>("Transaction updated successfully.", HttpStatus.OK);
             } catch (ParseException e) {
                 log.debug("Error parsing date of transaction.");
+            } catch (Exception ex){
+                log.debug(ex.getMessage());
             }
         }
         
