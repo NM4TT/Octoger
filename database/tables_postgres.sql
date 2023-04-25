@@ -12,17 +12,6 @@ CREATE TABLE "user" (
     "type" VARCHAR(5) NOT NULL REFERENCES "type"(identifier) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE crud_log (
-    "id" SERIAL PRIMARY KEY,
-    "table" VARCHAR NOT NULL,
-    "date" TIMESTAMP NOT NULL,
-    field VARCHAR NOT NULL,
-    record VARCHAR NOT NULL,
-    old_value VARCHAR,
-    new_value VARCHAR,
-    "type" VARCHAR(5) NOT NULL REFERENCES "type"(identifier) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
 CREATE TABLE credential (
     "id" SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES "user"("id") ON UPDATE CASCADE ON DELETE CASCADE,
