@@ -258,20 +258,11 @@ public class Controller {
     public ResponseEntity<List<ProductDTO>> getAllProducts(){
         log.debug("Got product/all");
 
-        try {
-            List<ProductDTO> products = productService.getAll();
+        List<ProductDTO> products = productService.getAll();
 
-            if (products == null) {
-                throw new Exception();
-            }
-
-            return new ResponseEntity<>(products, HttpStatus.OK);
-
-        } catch (Exception e) {
-            log.debug(e.getMessage());
-        }
-
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(products, 
+                                    (products != null) ?
+                                    HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -282,20 +273,11 @@ public class Controller {
     public ResponseEntity<List<ProductCollectionDTO>> getAllProductCollections(){
         log.debug("Got product/collection/all");
 
-        try {
-            List<ProductCollectionDTO> collections = collectionService.getAll();
+        List<ProductCollectionDTO> collections = collectionService.getAll();
 
-            if (collections == null) {
-                throw new Exception();
-            }
-
-            return new ResponseEntity<>(collections, HttpStatus.OK);
-
-        } catch (Exception e) {
-            log.debug(e.getMessage());
-        }
-
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(collections, 
+                                    (collections != null) ?
+                                    HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -307,20 +289,11 @@ public class Controller {
     public ResponseEntity<ProductDTO> getProductById(@PathVariable("productId") int productId){
         log.debug("Got product/" + productId);
 
-        try {
-            ProductDTO product = productService.getById(productId);
+        ProductDTO product = productService.getById(productId);
 
-            if (product == null) {
-                throw new Exception();
-            }
-
-            return new ResponseEntity<>(product,HttpStatus.OK);
-
-        } catch (Exception e) {
-            log.debug(e.getMessage());
-        }
-
-        return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(product, 
+                                    (product != null) ?
+                                    HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -332,20 +305,11 @@ public class Controller {
     public ResponseEntity<ProductCollectionDTO> getProductCollectionById(@PathVariable("collectionId") int collectionId){
         log.debug("Got prpduct/collection/" + collectionId);
 
-        try {
-            ProductCollectionDTO collection = collectionService.getById(collectionId);
+        ProductCollectionDTO collection = collectionService.getById(collectionId);
 
-            if (collection == null) {
-                throw new Exception();
-            }
-
-            return new ResponseEntity<>(collection,HttpStatus.OK);
-
-        } catch (Exception e) {
-            log.debug(e.getMessage());
-        }
-
-        return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(collection, 
+                                    (collection != null) ?
+                                    HttpStatus.OK : HttpStatus.NOT_FOUND);
     } 
 
     /**
@@ -357,19 +321,11 @@ public class Controller {
     public ResponseEntity<List<ProductDTO>> getProductsOfProductCollection(@PathVariable("collectionId") int collectionId){
         log.debug("Got product/collection/{collectionId}/list" + collectionId);
 
-        try {
+        ProductCollectionDTO collection = collectionService.getById(collectionId);
+        List<ProductDTO> products = productService.getByCollection(collection);
 
-            ProductCollectionDTO collection = collectionService.getById(collectionId);
-            List<ProductDTO> products = productService.getByCollection(collection);
-
-            if (collection == null || products == null) {
-                throw new Exception();
-            }
-            
+        if (collection != null && products != null) {
             return new ResponseEntity<>(products,HttpStatus.OK);
-
-        } catch (Exception e) {
-            log.debug(e.getMessage());
         }
 
         return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
@@ -384,22 +340,14 @@ public class Controller {
     public ResponseEntity<List<ProductCollectionDTO>> getProductCollectionsOfUser(@PathVariable("userId") int userId){
         log.debug("Got product/collection/all");
 
-        try {
+        UserDTO user = userService.getById(userId);
+        List<ProductCollectionDTO> collections = collectionService.getByResponsible(user);
 
-            UserDTO user = userService.getById(userId);
-            List<ProductCollectionDTO> collections = collectionService.getByResponsible(user);
-            
-            if (user == null || collections == null) {
-                throw new Exception();
-            }
-
-            return new ResponseEntity<List<ProductCollectionDTO>>(collections, HttpStatus.OK);
-
-        } catch (Exception e) {
-            log.debug(e.getMessage());
+        if (user != null && collections != null) {
+            return new ResponseEntity<>(collections,HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
     }
 
     /**
