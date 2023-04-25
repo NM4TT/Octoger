@@ -121,7 +121,7 @@ public class Controller {
             }
         }
         
-        return new ResponseEntity<>("Info not registered." + request.toString(), HttpStatus.BAD_REQUEST);   
+        return new ResponseEntity<>("Info not registered.", HttpStatus.BAD_REQUEST);   
     }
 
     /**
