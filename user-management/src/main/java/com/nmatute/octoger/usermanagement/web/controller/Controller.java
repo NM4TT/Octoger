@@ -60,7 +60,8 @@ public class Controller {
 
         AuthenticationResponse response = authService.register(entity);
 
-        return (response != null) ? ResponseEntity.ok(response) : ResponseEntity.badRequest().body(response);
+        return (response != null) ? 
+        ResponseEntity.ok(response) : ResponseEntity.badRequest().body(response);
     }
 
     /**
@@ -85,31 +86,34 @@ public class Controller {
             return new ResponseEntity<>("Request is empty.", HttpStatus.BAD_REQUEST);
         } else {
             
-            // Retrieve the existing entity from the repository by its ID
-            Optional<UserDTO> optionalUser = Optional.of(userService.findById(request.getId()));
-            Optional<CredentialDTO> optionalCredential = Optional.of(credentialService.findByUsername(request.getUsername()));
-            
-            if (!optionalUser.isPresent() || !optionalCredential.isPresent()) {
-                return new ResponseEntity<>("Entity not found", HttpStatus.NOT_FOUND);
+            try {
+                UserDTO user = userService.findById(request.getId());
+                CredentialDTO credential = credentialService.findByUsername(request.getUsername());
+                
+                if (user == null || credential == null) {
+                    throw new Exception("Some DTOs were not found.");
+                }
+                
+                user.setName(request.getName());
+                user.setLastname(request.getLastname());
+                user.setPersonalIdentifier(request.getPersonalIdentifier());
+                user.setType(typeService.getByIdentifier(request.getType()));
+                log.debug("User data recolected for update.");
+                user = userService.save(user);
+                log.debug("User updated.");
+
+                credential.setUsername(request.getUsername());
+                credential.setRole((user.getType().getIdentifier().endsWith("00") ? Role.ADMIN : Role.REGULAR));
+                credential.setPassword(request.getPassword());
+                credentialService.save(credential);    
+
+                return new ResponseEntity<>("User updated successfully.", HttpStatus.OK);
+                
+            } catch (Exception e) {
+                log.debug(e.getMessage());
             }
-            
-            UserDTO existingUser  = optionalUser.get();
-            CredentialDTO existingCredential = optionalCredential.get();
-            
-            existingUser.setName(request.getName());
-            existingUser.setLastname(request.getLastname());
-            existingUser.setPersonalIdentifier(request.getPersonalIdentifier());
-            existingUser.setType(typeService.getByIdentifier(request.getType()));
-            log.debug("User data recolected for update.");
-            existingUser = userService.save(existingUser);
-            log.debug("User updated.");
 
-            existingCredential.setUsername(request.getUsername());
-            existingCredential.setRole((existingUser.getType().getIdentifier().endsWith("00") ? Role.ADMIN : Role.REGULAR));
-            existingCredential.setPassword(request.getPassword());
-            credentialService.save(existingCredential);
-
-            return new ResponseEntity<>("User updated successfully.", HttpStatus.OK);
+            return new ResponseEntity<>("User not updated.", HttpStatus.BAD_REQUEST);
         }
         
     }
@@ -122,7 +126,12 @@ public class Controller {
     @GetMapping("/all")
     public ResponseEntity<List<UserDTO>> getAllUsers(){
         log.debug("Got user/all");
-        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
+
+        List<UserDTO> users = userService.getAll();
+
+        return new ResponseEntity<>(users, 
+                                    (users != null) ?
+                                    HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
     
     /**
@@ -137,9 +146,9 @@ public class Controller {
 
         UserDTO user = userService.getById(userId);
 
-        return (user != null) ?
-        new ResponseEntity<>(user, HttpStatus.OK) :
-        new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(user, 
+                                    (user != null) ?
+                                    HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
     
     /**
