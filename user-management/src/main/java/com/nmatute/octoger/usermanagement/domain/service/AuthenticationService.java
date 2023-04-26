@@ -51,6 +51,11 @@ public class AuthenticationService {
             user.setPersonalIdentifier(request.getPersonalIdentifier());
             user.setType(typeService.getByIdentifier(request.getType()));
             log.debug("User data recolected for registration.");
+
+            if (user.getType() == null) {
+                return null;
+            }
+
             user = userService.save(user);
             log.debug("User saved.");
 
