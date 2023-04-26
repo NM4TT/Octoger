@@ -53,13 +53,48 @@ public class Controller {
      * @return Token JWT.
      */
     @PostMapping("/public/create")
-    public ResponseEntity<AuthenticationResponse> createUser(@RequestBody RegisterRequest entity){
-        log.debug("Got user/create");
+    public ResponseEntity<String> createUser(@RequestBody RegisterRequest request){
+        UserDTO user = new UserDTO();
+        CredentialDTO credential = new CredentialDTO();
 
-        AuthenticationResponse response = authService.register(entity);
+        log.debug("Request structure: " + request.toString());
 
-        return (response != null) ? 
-        ResponseEntity.ok(response) : ResponseEntity.badRequest().body(response);
+        if(!request.isEmpty(request.getName()) &&
+            !request.isEmpty(request.getLastname()) &&
+            !request.isEmpty(request.getPersonalIdentifier()) &&
+            !request.isEmpty(request.getType()) && request.getType().contains("USR") &&
+            !request.isEmpty(request.getUsername()) &&
+            !request.isEmpty(request.getPassword())
+        ){
+            user.setName(request.getName());
+            user.setLastname(request.getLastname());
+            user.setPersonalIdentifier(request.getPersonalIdentifier());
+            user.setType(typeService.getByIdentifier(request.getType()));
+            log.debug("User data recolected for registration.");
+
+            if (user.getType() == null) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+
+            user = userService.save(user);
+            log.debug("User saved.");
+
+            credential.setUsername(request.getUsername());
+            credential.setUser(user);
+            credential.setRole((user.getType().getIdentifier().endsWith("00") ? Role.ADMIN : Role.REGULAR));
+            
+            //Encriptacion de la password que viene del request.
+            credential.setPassword(encoder.encode(request.getPassword()));
+            
+            log.debug("Credential data recolected for registration.");
+            
+            credentialService.save(credential);
+            log.debug("User saved");
+
+            return new ResponseEntity<String>("User created successfully", HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("Incomplete Request.",HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -81,7 +116,7 @@ public class Controller {
             request.isEmpty(request.getUsername()) &&
             request.isEmpty(request.getPassword())
         ){
-            return new ResponseEntity<>("Request is empty.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Incomplete Request.", HttpStatus.BAD_REQUEST);
         } else {
             
             try {
