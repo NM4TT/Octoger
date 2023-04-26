@@ -17,7 +17,7 @@ CREATE TABLE "user" (
 CREATE TABLE credential (
     "id" SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES "user"("id") ON UPDATE CASCADE ON DELETE CASCADE,
-    username VARCHAR(6) UNIQUE NOT NULL,
+    username VARCHAR(10) UNIQUE NOT NULL,
     "password" VARCHAR NOT NULL
 );
 
