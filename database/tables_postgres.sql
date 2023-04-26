@@ -140,9 +140,9 @@ BEGIN
   IF (TG_OP = 'INSERT') THEN
     INSERT INTO type_log (id, identifier, description, action) VALUES (NEW.id, NEW.identifier, NEW.description, 'insert');
   ELSIF (TG_OP = 'UPDATE') THEN
-    INSERT INTO type_log (id, identifier, description, action) VALUES (NEW.id, NEW.col1, NEW.col2, 'update');
+    INSERT INTO type_log (id, identifier, description, action) VALUES (NEW.id, NEW.identifier, NEW.description, 'update');
   ELSIF (TG_OP = 'DELETE') THEN
-    INSERT INTO type_log (id, identifier, description, action) VALUES (OLD.id, OLD.col1, OLD.col2, 'delete');
+    INSERT INTO type_log (id, identifier, description, action) VALUES (NEW.id, OLD.identifier, OLD.description, 'delete');
   END IF;
   RETURN NULL;
 END;
