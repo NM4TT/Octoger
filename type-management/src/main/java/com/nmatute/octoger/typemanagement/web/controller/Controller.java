@@ -115,7 +115,7 @@ public class Controller {
         List<TypeDTO> types = typeService.getByPrefix(prefix);
 
         return new ResponseEntity<>(types, 
-                                    (types != null) ?
+                                    (types != null && types.size() > 0) ?
                                     HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
     

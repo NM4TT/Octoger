@@ -142,7 +142,7 @@ BEGIN
   ELSIF (TG_OP = 'UPDATE') THEN
     INSERT INTO type_log (id, identifier, description, action) VALUES (NEW.id, NEW.identifier, NEW.description, 'update');
   ELSIF (TG_OP = 'DELETE') THEN
-    INSERT INTO type_log (id, identifier, description, action) VALUES (NEW.id, OLD.identifier, OLD.description, 'delete');
+    INSERT INTO type_log (id, identifier, description, action) VALUES (OLD.id, OLD.identifier, OLD.description, 'delete');
   END IF;
   RETURN NULL;
 END;
