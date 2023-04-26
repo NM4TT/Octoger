@@ -52,8 +52,7 @@ public class Controller {
      * @param entity Usuario a ser registrado en el sistema.
      * @return Token JWT.
      */
-    @AdminEndpoint
-    @PostMapping("/create")
+    @PostMapping("/public/create")
     public ResponseEntity<AuthenticationResponse> createUser(@RequestBody RegisterRequest entity){
         log.debug("Got user/create");
 
@@ -172,7 +171,7 @@ public class Controller {
      * @param request Json con detalles de autenticacion.
      * @return Token JWT
      */
-    @PostMapping("/authenticate")
+    @PostMapping("/public/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request){
         log.debug("Got /authenticate");
         
@@ -181,7 +180,7 @@ public class Controller {
         return (response != null) ? ResponseEntity.ok(response) : ResponseEntity.badRequest().body(response);
     }
 
-    @GetMapping("/login")
+    @GetMapping("/public/login")
     public ResponseEntity<UserDTO> login(@RequestBody AuthenticationRequest request){
 
         CredentialDTO credential = null;
