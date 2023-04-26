@@ -138,11 +138,11 @@ CREATE OR REPLACE FUNCTION type_log_function()
 RETURNS TRIGGER AS $$
 BEGIN
   IF (TG_OP = 'INSERT') THEN
-    INSERT INTO table_log (id, identifier, description, action) VALUES (NEW.id, NEW.identifier, NEW.description, 'insert');
+    INSERT INTO type_log (id, identifier, description, action) VALUES (NEW.id, NEW.identifier, NEW.description, 'insert');
   ELSIF (TG_OP = 'UPDATE') THEN
-    INSERT INTO table_log (id, identifier, description, action) VALUES (NEW.id, NEW.col1, NEW.col2, 'update');
+    INSERT INTO type_log (id, identifier, description, action) VALUES (NEW.id, NEW.col1, NEW.col2, 'update');
   ELSIF (TG_OP = 'DELETE') THEN
-    INSERT INTO table_log (id, identifier, description, action) VALUES (OLD.id, OLD.col1, OLD.col2, 'delete');
+    INSERT INTO type_log (id, identifier, description, action) VALUES (OLD.id, OLD.col1, OLD.col2, 'delete');
   END IF;
   RETURN NULL;
 END;
@@ -152,11 +152,11 @@ CREATE OR REPLACE FUNCTION user_log_function()
 RETURNS TRIGGER AS $$
 BEGIN
   IF (TG_OP = 'INSERT') THEN
-    INSERT INTO table_log (id, personal_identifier,"name",lastname, action) VALUES (NEW.id, NEW.personal_identifier,NEW.name,NEW.lastname, 'insert');
+    INSERT INTO user_log (id, personal_identifier,"name",lastname, action) VALUES (NEW.id, NEW.personal_identifier,NEW.name,NEW.lastname, 'insert');
   ELSIF (TG_OP = 'UPDATE') THEN
-    INSERT INTO table_log (id, personal_identifier,"name",lastname, action) VALUES (NEW.id, NEW.personal_identifier,NEW.name,NEW.lastname, 'update');
+    INSERT INTO user_log (id, personal_identifier,"name",lastname, action) VALUES (NEW.id, NEW.personal_identifier,NEW.name,NEW.lastname, 'update');
   ELSIF (TG_OP = 'DELETE') THEN
-    INSERT INTO table_log (id, personal_identifier,"name",lastname, action) VALUES (OLD.id, OLD.personal_identifier,OLD.name,OLD.lastname, 'delete');
+    INSERT INTO user_log (id, personal_identifier,"name",lastname, action) VALUES (OLD.id, OLD.personal_identifier,OLD.name,OLD.lastname, 'delete');
   END IF;
   RETURN NULL;
 END;
@@ -166,13 +166,13 @@ CREATE OR REPLACE FUNCTION product_collection_log_function()
 RETURNS TRIGGER AS $$
 BEGIN
   IF (TG_OP = 'INSERT') THEN
-    INSERT INTO table_log (id, user_id,provider,"cost",description,product_quantity, action) 
+    INSERT INTO product_collection_log (id, user_id,provider,"cost",description,product_quantity, action) 
     VALUES (NEW.id, NEW.user_id,NEW.provider,NEW.cost,NEW.description,NEW.product_quantity, 'insert');
   ELSIF (TG_OP = 'UPDATE') THEN
-    INSERT INTO table_log (id, user_id,provider,"cost",description,product_quantity, action) 
+    INSERT INTO product_collection_log (id, user_id,provider,"cost",description,product_quantity, action) 
     VALUES (NEW.id, NEW.user_id,NEW.provider,NEW.cost,NEW.description,NEW.product_quantity, 'update');
   ELSIF (TG_OP = 'DELETE') THEN
-    INSERT INTO table_log (id, user_id,provider,"cost",description,product_quantity, action) 
+    INSERT INTO product_collection_log (id, user_id,provider,"cost",description,product_quantity, action) 
     VALUES (OLD.id, OLD.user_id,OLD.provider,OLD.cost,OLD.description,OLD.product_quantity, 'delete');
   END IF;
   RETURN NULL;
@@ -183,13 +183,13 @@ CREATE OR REPLACE FUNCTION product_log_function()
 RETURNS TRIGGER AS $$
 BEGIN
   IF (TG_OP = 'INSERT') THEN
-    INSERT INTO table_log (id, collection_id,price,benefit,is_available, action) 
+    INSERT INTO product_log (id, collection_id,price,benefit,is_available, action) 
     VALUES (NEW.id, NEW.collection_id,NEW.price,NEW.benefit,NEW.is_available, 'insert');
   ELSIF (TG_OP = 'UPDATE') THEN
-    INSERT INTO table_log (id, collection_id,price,benefit,is_available, action) 
+    INSERT INTO product_log (id, collection_id,price,benefit,is_available, action) 
     VALUES (NEW.id, NEW.collection_id,NEW.price,NEW.benefit,NEW.is_available, 'update');
   ELSIF (TG_OP = 'DELETE') THEN
-    INSERT INTO table_log (id, collection_id,price,benefit,is_available, action) 
+    INSERT INTO product_log (id, collection_id,price,benefit,is_available, action) 
     VALUES (OLD.id, OLD.collection_id,OLD.price,OLD.benefit,OLD.is_available, 'delete');
   END IF;
   RETURN NULL;
@@ -200,11 +200,11 @@ CREATE OR REPLACE FUNCTION transaction_log_function()
 RETURNS TRIGGER AS $$
 BEGIN
   IF (TG_OP = 'INSERT') THEN
-    INSERT INTO table_log (id, "type","value","date", action) VALUES (NEW.id, NEW.type,NEW.value,NEW.date, 'insert');
+    INSERT INTO transaction_log (id, "type","value","date", action) VALUES (NEW.id, NEW.type,NEW.value,NEW.date, 'insert');
   ELSIF (TG_OP = 'UPDATE') THEN
-    INSERT INTO table_log (id, "type","value","date", action) VALUES (NEW.id, NEW.type,NEW.value,NEW.date, 'update');
+    INSERT INTO transaction_log (id, "type","value","date", action) VALUES (NEW.id, NEW.type,NEW.value,NEW.date, 'update');
   ELSIF (TG_OP = 'DELETE') THEN
-    INSERT INTO table_log (id, "type","value","date", action) VALUES (OLD.id, OLD.type,OLD.value,OLD.date, 'delete');
+    INSERT INTO transaction_log (id, "type","value","date", action) VALUES (OLD.id, OLD.type,OLD.value,OLD.date, 'delete');
   END IF;
   RETURN NULL;
 END;
@@ -214,13 +214,13 @@ CREATE OR REPLACE FUNCTION product_operation_log_function()
 RETURNS TRIGGER AS $$
 BEGIN
   IF (TG_OP = 'INSERT') THEN
-    INSERT INTO table_log (id, "type",collection_id,product_amount,"date",user_id,transaction_id, action) 
+    INSERT INTO product_operation_log (id, "type",collection_id,product_amount,"date",user_id,transaction_id, action) 
     VALUES (NEW.id, NEW.type,NEW.collection_id,NEW.product_amount,NEW.date,NEW.user_id,NEW.transaction_id, 'insert');
   ELSIF (TG_OP = 'UPDATE') THEN
-    INSERT INTO table_log (id, "type",collection_id,product_amount,"date",user_id,transaction_id, action) 
+    INSERT INTO product_operation_log (id, "type",collection_id,product_amount,"date",user_id,transaction_id, action) 
     VALUES (NEW.id, NEW.type,NEW.collection_id,NEW.product_amount,NEW.date,NEW.user_id,NEW.transaction_id, 'update');
   ELSIF (TG_OP = 'DELETE') THEN
-    INSERT INTO table_log (id, "type",collection_id,product_amount,"date",user_id,transaction_id, action) 
+    INSERT INTO product_operation_log (id, "type",collection_id,product_amount,"date",user_id,transaction_id, action) 
     VALUES (OLD.id, OLD.type,OLD.collection_id,OLD.product_amount,OLD.date,OLD.user_id,OLD.transaction_id, 'delete');
   END IF;
   RETURN NULL;
@@ -231,13 +231,13 @@ CREATE OR REPLACE FUNCTION sell_log_function()
 RETURNS TRIGGER AS $$
 BEGIN
   IF (TG_OP = 'INSERT') THEN
-    INSERT INTO table_log (id, "date",collection_id,user_id,product_operation_id, action) 
+    INSERT INTO sell_log (id, "date",collection_id,user_id,product_operation_id, action) 
     VALUES (NEW.id, NEW.collection_id,NEW.user_id,NEW.product_operation_id, 'insert');
   ELSIF (TG_OP = 'UPDATE') THEN
-    INSERT INTO table_log (id, "date",collection_id,user_id,product_operation_id, action) 
+    INSERT INTO sell_log (id, "date",collection_id,user_id,product_operation_id, action) 
     VALUES (NEW.id, NEW.collection_id,NEW.user_id,NEW.product_operation_id, 'update');
   ELSIF (TG_OP = 'DELETE') THEN
-    INSERT INTO table_log (id, "date",collection_id,user_id,product_operation_id, action) 
+    INSERT INTO sell_log (id, "date",collection_id,user_id,product_operation_id, action) 
     VALUES (OLD.id, OLD.collection_id,OLD.user_id,OLD.product_operation_id, 'delete');
   END IF;
   RETURN NULL;
