@@ -27,7 +27,6 @@
 		<module>accounting-management</module>
 		<module>product-management</module>
 		<module>type-management</module>
-		<module>platform</module>
 	</modules>
 	
 	<dependencies>
