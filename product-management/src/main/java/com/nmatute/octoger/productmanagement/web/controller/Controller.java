@@ -360,9 +360,7 @@ public class Controller {
     public ResponseEntity<String> deleteProduct(@PathVariable("productId") int productId){
         log.debug("Got /product/delete/" + productId);
         
-        Optional<ProductDTO> optionalProduct = Optional.of(productService.getById(productId));
-
-        if (optionalProduct.isPresent()) {
+        if (productService.getById(productId) != null) {
             productService.delete(productId);
             return new ResponseEntity<>("Product deleted successfully.", HttpStatus.OK);
         }
@@ -380,9 +378,7 @@ public class Controller {
     public ResponseEntity<String> deleteProductCollection(@PathVariable("collectionId") int collectionId){
         log.debug("Got /product/collection/delete/" + collectionId);
         
-        Optional<ProductCollectionDTO> optionalCollection = Optional.of(collectionService.getById(collectionId));
-
-        if (optionalCollection.isPresent()) {
+        if (collectionService.getById(collectionId) != null) {
             collectionService.delete(collectionId);
             return new ResponseEntity<>("Product Collection deleted successfully.", HttpStatus.OK);
         }
