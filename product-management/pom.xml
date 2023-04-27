@@ -16,10 +16,13 @@
 	<name>product-management</name>
 	<description>Web Service for product management in Octoger</description>
 
-	<properties>
-		<org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
+<properties>
 		<artifactId>product-ws</artifactId>
 		<version>0.1.0</version>
+		<org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
+		<lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
+		<springdoc.openapi.starter.webmvc.ui.version>2.0.2</springdoc.openapi.starter.webmvc.ui.version>
+		<io.jsonwebtoken.version>0.11.5</io.jsonwebtoken.version>
 	</properties>
 
 	<packaging>jar</packaging>
@@ -33,7 +36,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok-mapstruct-binding</artifactId>
-			<version>0.2.0</version>
+			<version>${lombok.mapstruct.binding.version}</version>
 		</dependency>
 
 		<dependency>
@@ -44,20 +47,26 @@
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-impl</artifactId>
-			<version>0.11.5</version>
+			<version>${io.jsonwebtoken.version}</version>
         </dependency>
 
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
-			<version>0.11.5</version>
+			<version>${io.jsonwebtoken.version}</version>
         </dependency>
 
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-jackson</artifactId>
-			<version>0.11.5</version>
+			<version>${io.jsonwebtoken.version}</version>
         </dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${springdoc.openapi.starter.webmvc.ui.version}</version>
+		</dependency>
 
 	</dependencies>
 
