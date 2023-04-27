@@ -11,13 +11,15 @@
 	</parent>
 
 	<groupId>com.nmatute.octoger</groupId>
-	<artifactId>accounting-management</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>${artifactId}</artifactId>
+	<version>${version}</version>
 	<name>accounting-management</name>
 	<description>Web Service for accounting management in Octoger</description>
 
 	<properties>
 		<org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
+		<artifactId>accounting-ws</artifactId>
+		<version>0.1.0</version>
 	</properties>
 
 	<packaging>jar</packaging>
@@ -88,6 +90,7 @@
             </configuration>
         </plugin>
     </plugins>
+	<finalName>${artifactId}-${version}</finalName>
 </build>
 
 </project>
