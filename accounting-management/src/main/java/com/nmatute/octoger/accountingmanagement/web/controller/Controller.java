@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -274,7 +273,7 @@ public class Controller {
         List<ProductOperationDTO> products = productOperationService.getAll();
 
         return new ResponseEntity<>(products, 
-                                   (products != null) ? 
+                                   (products != null && products.size() > 0) ? 
                                    HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
@@ -289,7 +288,7 @@ public class Controller {
         List<SellDTO> sells = sellService.getAll();
 
         return new ResponseEntity<>(sells, 
-                                   (sells != null) ? 
+                                   (sells != null && sells.size() > 0) ? 
                                    HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
@@ -304,7 +303,7 @@ public class Controller {
         List<TransactionDTO> transactions = transactionService.getAll();
 
         return new ResponseEntity<>(transactions, 
-                                   (transactions != null) ? 
+                                   (transactions != null && transactions.size() > 0) ? 
                                    HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
@@ -370,8 +369,12 @@ public class Controller {
             try {
                 Date from = FORMATTER.parse(request.getFromDate());
                 Date to = FORMATTER.parse(request.getToDate());
+                
+                List<ProductOperationDTO> operations = productOperationService.getByDateRange(from, to);
 
-                return new ResponseEntity<>(productOperationService.getByDateRange(from, to), HttpStatus.OK); 
+                return new ResponseEntity<>(operations, 
+                                            (operations != null && operations.size() > 0) ? 
+                                            HttpStatus.OK : HttpStatus.NOT_FOUND);  
 
             } catch (ParseException e) {
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); 
@@ -397,8 +400,12 @@ public class Controller {
             try {
                 Date from = FORMATTER.parse(request.getFromDate());
                 Date to = FORMATTER.parse(request.getToDate());
+                
+                List<SellDTO> sells = sellService.getByDateRange(from, to);
 
-                return new ResponseEntity<>(sellService.getByDateRange(from, to), HttpStatus.OK); 
+                return new ResponseEntity<>(sells, 
+                                            (sells != null && sells.size() > 0) ? 
+                                            HttpStatus.OK : HttpStatus.NOT_FOUND); 
 
             } catch (ParseException e) {
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); 
@@ -425,7 +432,11 @@ public class Controller {
                 Date from = FORMATTER.parse(request.getFromDate());
                 Date to = FORMATTER.parse(request.getToDate());
 
-                return new ResponseEntity<>(transactionService.getByDateRange(from, to), HttpStatus.OK); 
+                List<TransactionDTO> transactions = transactionService.getByDateRange(from, to);
+
+                return new ResponseEntity<>(transactions, 
+                                            (transactions != null && transactions.size() > 0) ? 
+                                            HttpStatus.OK : HttpStatus.NOT_FOUND); 
 
             } catch (ParseException e) {
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); 
@@ -599,9 +610,7 @@ public class Controller {
     public ResponseEntity<String> deleteProductOperation(@PathVariable("operationId") int operationId){
         log.debug("Got /accounting/product-operation/delete/{operationId}");
         
-        Optional<ProductOperationDTO> optionalOperation = Optional.of(productOperationService.getById(operationId));
-
-        if (optionalOperation.isPresent()) {
+        if (productOperationService.getById(operationId) != null) {
             productOperationService.delete(operationId);
             return new ResponseEntity<>("Product operation deleted successfully.", HttpStatus.OK);
         }
@@ -619,9 +628,7 @@ public class Controller {
     public ResponseEntity<String> deleteSell(@PathVariable("sellId") int sellId){
         log.debug("Got /accounting/sell/delete/{sellId}");
 
-        Optional<SellDTO> optionalSell = Optional.of(sellService.getById(sellId));
-
-        if (optionalSell.isPresent()) {
+        if (sellService.getById(sellId) != null) {
             sellService.delete(sellId);
             return new ResponseEntity<>("Sell deleted successfully.", HttpStatus.OK);
         }
@@ -639,9 +646,7 @@ public class Controller {
     public ResponseEntity<String> deleteTransaction(@PathVariable("transactionId") int transactionId){
         log.debug("Got /accounting/transaction/delete/{transactionId}");
 
-        Optional<TransactionDTO> optionalTransaction = Optional.of(transactionService.getById(transactionId));
-
-        if (optionalTransaction.isPresent()) {
+        if (transactionService.getById(transactionId) != null) {
             transactionService.delete(transactionId);
             return new ResponseEntity<>("Transaction deleted successfully.", HttpStatus.OK);
         }
