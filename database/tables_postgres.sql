@@ -232,13 +232,13 @@ RETURNS TRIGGER AS $$
 BEGIN
   IF (TG_OP = 'INSERT') THEN
     INSERT INTO sell_log (id, "date",collection_id,user_id,product_operation_id, action) 
-    VALUES (NEW.id, NEW.collection_id,NEW.user_id,NEW.product_operation_id, 'insert');
+    VALUES (NEW.id,NEW.date, NEW.collection_id,NEW.user_id,NEW.product_operation_id, 'insert');
   ELSIF (TG_OP = 'UPDATE') THEN
     INSERT INTO sell_log (id, "date",collection_id,user_id,product_operation_id, action) 
-    VALUES (NEW.id, NEW.collection_id,NEW.user_id,NEW.product_operation_id, 'update');
+    VALUES (NEW.id,NEW.date, NEW.collection_id,NEW.user_id,NEW.product_operation_id, 'update');
   ELSIF (TG_OP = 'DELETE') THEN
     INSERT INTO sell_log (id, "date",collection_id,user_id,product_operation_id, action) 
-    VALUES (OLD.id, OLD.collection_id,OLD.user_id,OLD.product_operation_id, 'delete');
+    VALUES (OLD.id,OLD.date, OLD.collection_id,OLD.user_id,OLD.product_operation_id, 'delete');
   END IF;
   RETURN NULL;
 END;
