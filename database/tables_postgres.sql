@@ -286,3 +286,20 @@ AFTER INSERT OR UPDATE OR DELETE
 ON public.sell
 FOR EACH ROW
 EXECUTE FUNCTION sell_log_function();
+
+/*Registros base para pruebas*/
+INSERT INTO public.type (identifier, description) VALUES('USR00', 'Admin user');
+INSERT INTO public.type (identifier, description) VALUES('USR01', 'Regular user');
+
+INSERT INTO public.user (personal_identifier, "name", lastname, "type") 
+VALUES('personal-i-1', 'name1', 'lastname1', 'USR00');
+
+INSERT INTO public.user (personal_identifier, "name", lastname, "type") 
+VALUES('personal-i-2', 'name2', 'lastname2', 'USR01');
+
+/*password is 'test' encrypted with AES*/
+INSERT INTO public.credential (user_id, username, "password") 
+VALUES(1, 'username1', 'oCApMGdCcSvNFQLpPqcMyQ==');
+
+INSERT INTO public.credential (user_id, username, "password") 
+VALUES(2, 'username2', 'oCApMGdCcSvNFQLpPqcMyQ==');
