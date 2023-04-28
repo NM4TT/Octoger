@@ -1,15 +1,18 @@
+# README.md
+
+---
+
 # Octoger
 
 Sistema modular web básico para la gestión de mercancia, usuarios y contabilidad en una empresa de retail.
 
-## **Table of Contents**
+## Indice
 
 - Propósito
 - ¿Por qué Octoger?
 - Instalación
 - Uso
-    - API
-    - Video Tutorial
+    - Postman
 - Créditos
 - Licencia
 
@@ -21,7 +24,7 @@ Octoger al ser un sistema web puede estar disponible 24/7 para ayudarte a regist
 
 ¿Quieres reportes?, ¿Quieres un sistema de usuarios?, ¿Quieres análisis de logística?. Si la respuesta es sí, entonces Octoger es una buena muy buena opción.
 
-Este sistema está basado en Springboot 3.0.6 y Java 17.
+Este sistema está basado en Springboot 3 y Java 17.
 
 ## ¿Por qué Octoger?
 
@@ -33,16 +36,40 @@ Existen muy buenos sistemas web gratuitos y accesibles con una gran experiencia 
 
 ## **Instalación**
 
-Para instalar es requerido Docker.
+Para probar los servicios es necesario:
+
+- Tener una base de datos (se usó Postgres).
+- Ejecutar el script sql que tiene las tablas del sistema ubicado en /database
+- Tener Java17.
+- Desplegar los 4 servicios web.
+- Tener una herramienta para probar APIs (se usó Postman).
 
 ## **Uso**
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et eros ac odio bibendum aliquam. Sed eu elit vitae nibh efficitur vehicula. Ut in ipsum euismod, suscipit velit a, faucibus nulla. Aliquam efficitur, velit vel fermentum ultrices, erat magna scelerisque mi, in lacinia ex odio ac ex. Vivamus vel consectetur dolor. Donec sed arcu et ipsum congue aliquet. Praesent auctor, dolor quis convallis sollicitudin, est velit volutpat leo, eu ultrices neque sapien id metus. 
+Actualmente el sistema está basado en 4 servicios web, próximamente se incluirá la plataforma.
+
+### Base de Datos
+
+- Nombre de base de datos de prueba: octoger
+- Usuario usado: nmatute
+- Clave: 12345
+
+### Puertos
+
+- Puerto de user-ws.jar → 9010
+- Puerto de type-ws.jar → 9011
+- Puerto de product-ws.jar → 9012
+- Puerto de accounting-ws.jar → 9013
+
+### API
+
+<aside>
+💡 Los endpoint que incluyen /public no requieren tokens JWT para acceder.
+</aside>
+
+**Postman:**
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/26385543-74f3d062-681a-4d35-ba8c-bf0cf87dc7e8?action=collection%2Ffork&collection-url=entityId%3D26385543-74f3d062-681a-4d35-ba8c-bf0cf87dc7e8%26entityType%3Dcollection%26workspaceId%3D9cb634f8-3cec-4555-bc51-ddc9db87fc14)
 
 ## **Creditos**
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et eros ac odio bibendum aliquam. Sed eu elit vitae nibh efficitur vehicula. Ut in ipsum euismod, suscipit velit a, faucibus nulla. Aliquam efficitur, velit vel fermentum ultrices, erat magna scelerisque mi, in lacinia ex odio ac ex. Vivamus vel consectetur dolor. Donec sed arcu et ipsum congue aliquet. Praesent auctor, dolor quis convallis sollicitudin, est velit volutpat leo, eu ultrices neque sapien id metus. 
-
-## **Licencia**
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et eros ac odio bibendum aliquam. Sed eu elit vitae nibh efficitur vehicula. Ut in ipsum euismod, suscipit velit a, faucibus nulla. Aliquam efficitur, velit vel fermentum ultrices, erat magna scelerisque mi, in lacinia ex odio ac ex. Vivamus vel consectetur dolor. Donec sed arcu et ipsum congue aliquet. Praesent auctor, dolor quis convallis sollicitudin, est velit volutpat leo, eu ultrices neque sapien id metus.
+Este proyecto fue desarrollado únicamente por NM4TT. Tiene muchos detalles que mejorar. Puedes colaborar y hacer sugerencias si lo deseas 🙂.
