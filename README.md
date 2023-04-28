@@ -14,7 +14,6 @@ Sistema modular web básico para la gestión de mercancia, usuarios y contabilid
 - Uso
     - Postman
 - Créditos
-- Licencia
 
 ## Propósito
 
@@ -61,13 +60,19 @@ Actualmente el sistema está basado en 4 servicios web, próximamente se incluir
 - Puerto de product-ws.jar → 9012
 - Puerto de accounting-ws.jar → 9013
 
+### Breve explicación de cada JAR
+- user-ws.jar es el Web Service para manejar todo lo relacionado con usuarios y seguridad en el sistema.
+- type-ws.jar es el Web Service para manejar todo lo relacionado con tipos en el sistema. Los tipos son una forma de clasificar y dar sentido a los datos guardados en la BBDD.
+- product-ws.jar es el Web service para manejar todo lo relacionado con productos y paquetes/colecciones de productos en el sistema.
+- accounting-ws.jar es el Web Service para manejar todo lo relacionado con operaciones contables en el sistema. Entre esto están las ventas, operaciones de producto (incremento o decremento de mercancía) y transacciones (salida o entrada de dinero).
+  
+
 ### API
 
 <aside>
 💡 Los endpoint que incluyen /public no requieren tokens JWT para acceder.
 </aside>
 
-**Postman:**
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/26385543-74f3d062-681a-4d35-ba8c-bf0cf87dc7e8?action=collection%2Ffork&collection-url=entityId%3D26385543-74f3d062-681a-4d35-ba8c-bf0cf87dc7e8%26entityType%3Dcollection%26workspaceId%3D9cb634f8-3cec-4555-bc51-ddc9db87fc14)
 
 ## **Creditos**
