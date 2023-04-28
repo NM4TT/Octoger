@@ -40,7 +40,7 @@ public class Controller {
      * @param request informacion del tipo a crear
      * @return estatus de operacion
      */
-    @PostMapping("/create")
+    @PostMapping("/public/create")
     public ResponseEntity<String> createType(@RequestBody CreateRequest request){
         log.debug("Got /type/create");
         
