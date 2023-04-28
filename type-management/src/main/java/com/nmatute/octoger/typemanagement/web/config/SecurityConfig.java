@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/type/create")
+                .requestMatchers("/type/public/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
