@@ -1,7 +1,3 @@
-# README.md
-
----
-
 # Octoger
 
 Sistema modular web básico para la gestión de mercancia, usuarios y contabilidad en una empresa de retail.
@@ -45,7 +41,7 @@ Para probar los servicios es necesario:
 
 ## **Uso**
 
-Actualmente el sistema está basado en 4 servicios web, próximamente se incluirá la plataforma.
+Actualmente el sistema está basado en 4 servicios web. Próximamente se incluirá la plataforma.
 
 ### Base de Datos
 
@@ -72,6 +68,11 @@ Actualmente el sistema está basado en 4 servicios web, próximamente se incluir
 <aside>
 💡 Los endpoint que incluyen /public no requieren tokens JWT para acceder.
 </aside>
+
+- Instrucciones
+  - El script sql ya cuenta con 2 usuarios y 2 tipos creados por defecto.
+  - Se debe autenticar un usuario con el endpoint /user/authenticate para obtener un JWT token.
+  - Existen endpoints que solo son accesibles para usuarios ADMIN (Tipo USR00), como por ejemplo los endpoint /delete.
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/26385543-74f3d062-681a-4d35-ba8c-bf0cf87dc7e8?action=collection%2Ffork&collection-url=entityId%3D26385543-74f3d062-681a-4d35-ba8c-bf0cf87dc7e8%26entityType%3Dcollection%26workspaceId%3D9cb634f8-3cec-4555-bc51-ddc9db87fc14)
 
